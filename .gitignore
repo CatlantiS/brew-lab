@@ -29,3 +29,6 @@ node_modules
 # Dependency directory
 bower_components
 lib
+
+# Webstorm specific files, I think.
+.idea
