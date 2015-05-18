@@ -56,11 +56,11 @@
 
 .brew-navbar {
 	margin-bottom: 0px !important;
-    border-color: transparent;
+    border-color: transparent !important;
 }
 
 .brew-shadow {
-    box-shadow: 0 6px 16px 0 rgba(0,0,0,0.6);
+    box-shadow: 0 6px 16px 0 rgba(0,0,0,0.5);
     z-index: 1;
 }
 
