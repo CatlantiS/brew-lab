@@ -1,0 +1,8 @@
+<div ng-controller="NavSidebarCtrl">
+	<p class="lead">What do you want to do?</p>
+	<ul class="list-unstyled brew-nav-list">
+		<li ng-repeat="action in actions">
+			<a href="{{ action.url }}" ng-bind="action.title"></a>
+		</li>
+	</ul>
+</div>

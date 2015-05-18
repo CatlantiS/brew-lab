@@ -1,0 +1,27 @@
+{
+  "name": "brew-lab",
+  "version": "0.0.0",
+  "authors": [
+    "Paul Palubinski <paul.palubinski@gmail.com>"
+  ],
+  "description": "Brew Lab Bower",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.13.0",
+    "typeahead.js": "~0.11.1"
+  }
+}
