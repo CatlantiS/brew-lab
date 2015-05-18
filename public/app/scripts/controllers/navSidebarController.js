@@ -5,7 +5,7 @@ angular.module('app.controllers')
 
 function navSidebarController($scope) {
 	$scope.actions = [{
-			title: 'Enter a new recipe',
+			title: 'Make a new recipe',
 			url: '/recipe'
 		}
 	]
