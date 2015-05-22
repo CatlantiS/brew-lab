@@ -32,7 +32,7 @@ gulp.task('less', function() {
 gulp.task('scripts', function() {
     return gulp.src('public/app/scripts/**/*.js')
         .pipe(concat('bundle.js'))
-        .pipe(gulp.dest('public/app/scripts/dist/'))
+        .pipe(gulp.dest('public/app/dist/'))
         .pipe(rename('bundle.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/app/dist/'));
