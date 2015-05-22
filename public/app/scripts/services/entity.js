@@ -4,4 +4,8 @@
 angular.module('app.services')
     .service('Entity', ['$resource', function($resource) {
 
+
+        this.create = function(entity) {
+
+        };
     }]);
