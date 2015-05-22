@@ -35,7 +35,7 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('public/app/scripts/dist/'))
         .pipe(rename('bundle.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('public/app/scripts/dist/'));
+        .pipe(gulp.dest('public/app/dist/'));
 });
 
 gulp.task('watch', function() {

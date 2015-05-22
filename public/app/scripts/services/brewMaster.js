@@ -1,10 +1,8 @@
-/**
- * Created by dustmouse on 5/9/15.
- */
+'use strict';
 
 //Can get this stuff from a web service as well.
 angular.module('app.services')
-    .service('beerInfoService', function() {
+    .service('BrewMaster', function() {
         this.yeastTypes = [
             'Safale US-56 Ale Yeast (rehydrated)'
         ];

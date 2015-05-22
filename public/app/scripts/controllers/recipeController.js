@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('app.controllers')
-	.controller('RecipeCtrl', ['$scope', 'beerInfoService', recipeController]);
+	.controller('RecipeCtrl', ['$scope', 'BrewMaster', recipeController]);
 
-function recipeController($scope, beerInfoService) {
+function recipeController($scope, BrewMaster) {
     $scope.recipe = {};
 
-    $scope.yeastTypes = beerInfoService.yeastTypes;
+    $scope.yeastTypes = BrewMaster.yeastTypes;
 };
