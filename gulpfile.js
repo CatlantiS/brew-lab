@@ -1,8 +1,7 @@
 'use strict'
 
-//Require a pile of crap.  But it's sooo worth it.
 var gulp = require('gulp');
-//var jshint = require('gulp-jshint');
+var jshint = require('gulp-jshint');
 var flatten = require('gulp-flatten');
 var less = require('gulp-less');
 var concat = require('gulp-concat');
@@ -10,11 +9,11 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var path = require('path');
 
-//gulp.task('lint', function() {
-//    return gulp.src('public/app/scripts/**/*.js')
-//        .pipe(jshint())
-//        .pipe(jshint.reporter('default'));
-//});
+gulp.task('lint', function() {
+    return gulp.src('public/app/scripts/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
 
 gulp.task('bower', function() {
     gulp.src('bower_components/**/*.min.js')
