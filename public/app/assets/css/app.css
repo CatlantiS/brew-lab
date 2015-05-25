@@ -1,52 +1,11 @@
-.brew-banner {
-	position: relative;
-	padding: 30px 0;
-	color: #f9e9d1;
-	text-align: center;
-	text-shadow: 0 1px 0 rgba(0,0,0,.1);
-	background-color: #ffc266;
-	background-image: -webkit-gradient(linear,left top,left bottom,from(#db944d),to(#ffc266));
-	background-image: -webkit-linear-gradient(top,#db944d 0,#ffc266 100%);
-	background-image: -o-linear-gradient(top,#db944d 0,#ffc266 100%);
-	background-image: linear-gradient(to bottom,#db944d 0,#ffc266 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#db944d', endColorstr='#ffc266', GradientType=0);
-	background-repeat: repeat-x;
-    z-index: 0;
-}
-
-@media (min-width: 992px) {
-	.brew-banner h1, .brew-banner p {
-		margin-right: 380px;
-	}
-}
-
-@media (min-width: 768px) {
-	.brew-banner {
-		padding-top: 60px;
-		padding-bottom: 60px;
-		font-size: 24px;
-		text-align: left;
-	}
-	
-	.brew-banner h1 {
-		font-size: 60px;
-		line-height: 1;
-	}
-}
-
-.brew-banner h1 {
-	margin-top: 0;
-	color: #fff;
-}
-
-.brew-banner p {
-	margin-bottom: 0;
-	font-weight: 300;
-	line-height: 1.4;
+.brew-app-header {
+	margin-bottom: 60px !important;
 }
 
 .brew-brand {
-	color: #db944d !important;
+	color: #fff !important;
+	text-shadow: 0 1px 0 rgba(0,0,0,.1);
+	font-size: 22px;
 }
 
 .brew-header {
@@ -57,11 +16,17 @@
 .brew-navbar {
 	margin-bottom: 0px !important;
     border-color: transparent !important;
+	background-color: #ffcc80;
 }
 
-.brew-shadow {
-    box-shadow: 0 6px 16px 0 rgba(0,0,0,0.5);
-    z-index: 1;
+.brew-navbar-list {
+	font-size: larger;
+}
+
+.brew-navbar-list a:hover,
+.brew-navbar-list a:focus,
+.brew-navbar-list a:active {
+	color: #fff !important;
 }
 
 .brew-footer {
@@ -89,12 +54,22 @@
 
 .brew-info {
 	padding: 10px 0 15px 0;
-    font-size: larger;
 }
 
 .brew-important {
 	font-size: larger;
 	font-style: italic;
+}
+
+@media (min-width: 768px) {
+	.brew-brand {
+		font-size: 30px;
+	}
+
+	.brew-info {
+		padding: 10px 0 15px 0;
+		font-size: larger;
+	}
 }
 
 .dropdown-menu > .active > a,
