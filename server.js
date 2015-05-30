@@ -7,7 +7,7 @@ var express  = require('express'),
 	methodOverride = require('method-override'),
 	path = require('path'); 
 
-mongoClient.connect('mongodb://127.0.0.1:27017/brewlab', function(error, db) {
+mongoClient.connect('mongodb://tlabdata01.cloudapp.net:27017/brewlab', function(error, db) {
 	if (error)
 		throw error;
 	
