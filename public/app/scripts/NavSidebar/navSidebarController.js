@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('app.controllers')
-	.controller('NavSidebarCtrl', ['$scope', navSidebarController]);
+	.controller('NavSidebarCtrl', ['$scope', 'Modal', navSidebarController]);
 
-function navSidebarController($scope) {
+function navSidebarController($scope, Modal) {
 	$scope.actions = [{
 			title: 'Enter a new recipe',
-			url: '/recipe'
+			click: function() {
+				Modal.open({ controller: 'RecipeCtrl', template: 'views/recipe', size: 'lg' });
+			}
 		}
 	]
 };

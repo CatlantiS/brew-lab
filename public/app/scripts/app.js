@@ -1,4 +1,4 @@
-var app = angular.module('brewLabApp', ['ui.router', 'ngResource', 'ui.bootstrap', 'ui.bootstrap.typeahead', 'app.filters', 'app.services', 'app.directives', 'app.controllers'])
+var app = angular.module('brewLabApp', ['ui.router', 'ngResource', 'ui.bootstrap', 'ui.bootstrap.modal', 'ui.bootstrap.typeahead', 'app.filters', 'app.services', 'app.directives', 'app.controllers'])
 	.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
 		$stateProvider
 			.state('home', {
