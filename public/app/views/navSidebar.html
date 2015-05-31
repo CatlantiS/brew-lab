@@ -3,7 +3,7 @@
 	<ul class="list-unstyled brew-nav-list">
 		<li ng-repeat="action in actions">
 			<a ng-if="action.url != null" href="{{ action.url }}" ng-bind="action.title"></a>
-			<a ng-if="action.click != null" ng-click="action.click()" ng-bind="action.title"></a>
+			<a ng-if="action.click != null" href="#" ng-click="action.click()" ng-bind="action.title"></a>
 		</li>
 	</ul>
 </div>

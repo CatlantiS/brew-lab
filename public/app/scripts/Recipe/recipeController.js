@@ -1,16 +1,20 @@
 'use strict';
 
 angular.module('app.controllers')
-	.controller('RecipeCtrl', ['$modalInstance', '$scope', 'BrewMaster', recipeController]);
+	.controller('RecipeCtrl', ['$scope', 'BrewMaster', '$modalInstance', recipeController]);
 
 //Not liking this guy having to know about $modalInstance.
-function recipeController($modalInstance, $scope, BrewMaster) {
+function recipeController($scope, BrewMaster, $modalInstance) {
     $scope.recipe = {};
 
     $scope.yeastTypes = BrewMaster.yeastTypes;
 
     $scope.submit = function(recipe) {
-        $modalInstance.dismiss('cancel');
+        $modalInstance.close();
     };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
 }
 ;

@@ -10,7 +10,7 @@ function navSidebarController($scope, Modal) {
 				Modal.open({
 					lockBackdrop: true,
 					controller: 'RecipeCtrl',
-					template: 'views/recipe',
+					template: 'views/recipeModal',
 					size: 'lg'
 				});
 			}
