@@ -3,7 +3,7 @@
 </div>
 
 <div class="modal-body recipe brew-form" recipe>
-    <p class="brew-info">Got a recipe that you want to track?</p>
+    <p class="brew-info">Create a legendary recipe.</p>
 
     <form name="recipeForm">
         <div class="form-group">
@@ -37,9 +37,10 @@
         </div>
 
         <div class="form-group">
-            <label for="recipeYeastType">Yeast</label>
+            <label>Yeast</label>
 
-            <input type="text" class="form-control brew-input" ng-model="recipe.yeastType" placeholder="Enter yeast type (optional)"
+            <input type="text" class="form-control brew-input" ng-model="recipe.yeastType"
+                   title="Provide a yeast type (optional)." placeholder="Enter yeast type (optional)"
                    typeahead="yeastType for yeastType in yeastTypes">
         </div>
 
@@ -49,3 +50,4 @@
 </div>
 
 <div class="modal-footer"></div>
+
