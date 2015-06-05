@@ -6,14 +6,7 @@ angular.module('app.controllers')
 function navSidebarController($scope, Modal) {
 	$scope.actions = [{
 			title: 'Enter a new recipe',
-			click: function() {
-				Modal.open({
-					lockBackdrop: true,
-					controller: 'RecipeCtrl',
-					template: 'views/recipeModal',
-					size: 'lg'
-				});
-			}
+			url: '/recipe'
 		}
 	]
 };

@@ -1,7 +1,7 @@
 <h1 class="page-header brew-header">Recipe</h1>
 
 <div class="recipe brew-form" recipe>
-	<p class="brew-info">Got a recipe that you want to track?</p>
+	<p class="brew-info">Create a legendary recipe.</p>
 
     <div ng-controller="RecipeCtrl">
         <form name="recipeForm">
@@ -36,14 +36,14 @@
             </div>
 
             <div class="form-group">
-                <label for="recipeYeastType">Yeast</label>
+                <label>Yeast</label>
 
                 <input type="text" class="form-control brew-input" ng-model="recipe.yeastType" placeholder="Enter yeast type (optional)"
                        typeahead="yeastType for yeastType in yeastTypes">
             </div>
 
             <button type="submit" class="btn btn-default" role="button" ng-click="submit(recipe)">Submit</button>
-            <button type="submit" class="btn btn-default" role="button" formnovalidate ng-click="cancel()">Cancel</button>
+            <a href="#" class="brew-clear-button-right" role="button" ng-click="clear()">Clear</a>
         </form>
     </div>
 </div>

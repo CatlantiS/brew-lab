@@ -56,6 +56,10 @@
 	margin-bottom: 20px;
 }
 
+.brew-clear-button-right {
+	margin-left: 15px;
+}
+
 .brew-info {
 	padding: 10px 0 15px 0;
 }
