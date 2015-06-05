@@ -26,12 +26,11 @@ var app = angular.module('brewLabApp', ['ui.router', 'ngResource', 'ui.bootstrap
 				templateUrl: '/views/error',
 				controller: 'ErrorCtrl'
 			});
-			
+
 		$locationProvider.html5Mode(true);
 	}])
 	.run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
 		//Can cache templates in here as well.
-		
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 		
