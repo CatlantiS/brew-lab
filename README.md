@@ -34,7 +34,9 @@ Execute gulp in the app root directory by typing `gulp` in the command line.
 
 It will watch the app for changes and compile the necessary files.
 
-Then you should be good to go.
+And you should be good to go. 
+
+O___o
 
 
 
