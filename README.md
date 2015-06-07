@@ -10,19 +10,31 @@ Check out the <a href="http://docs.mongodb.org/manual/installation/" target="_bl
 
 You can get npm with Node.js <a href="https://nodejs.org/download/" target="_blank">here</a>.
 
-Then once you clone the source, run `npm install` in the app root directory.
+Then once you clone the source, run 
 
-If you don't have bower, you can install it with `npm install -g bower` to install it globally.
+`npm install` 
 
-Then run `bower install`.
+in the app root directory.
 
-You will need gulp for the task runner, `npm install -g gulp`.
+If you don't have bower, you can install it with 
 
-Execute gulp in the app root directory by typing *gulp* in the command line.
+`npm install -g bower` 
+
+to install it globally.
+
+Then run 
+
+`bower install`
+
+You will need gulp for the task runner 
+
+`npm install -g gulp`
+
+Execute gulp in the app root directory by typing `gulp` in the command line.
 
 It will watch the app for changes and compile the necessary files.
 
-You should be good to go.
+Then you should be good to go.
 
 
 
