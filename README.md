@@ -6,19 +6,17 @@ This is going to be a web app for creating, sharing and improving beer recipes.
 
 If you want to get the app running, you will need **MongoDB** for the backend, and **npm** and **bower** for managing packages.
 
-Check out the [documentation](http://docs.mongodb.org/manual/installation/) for installing mongo in your environment. 
+Check out the <a href="http://docs.mongodb.org/manual/installation/" target="_blank">documentation</a> for installing mongo in your environment. 
 
-You can get nmp with node.js [here](https://nodejs.org/download/).
+You can get nmp with node.js <a href="https://nodejs.org/download/" target="_blank">here</a>.
 
 Then once you clone the source, run `npm install` in the app root directory.
 
-If you don't have bower, you can install it with npm, `npm install -g bower`.
+If you don't have bower, you can install it with npm, `npm install -g bower` to install it globally.
 
 Then run bower, `bower install`.
 
-You will need gulp for the task runner.  
-
-`npm install -g gulp` to install it globally.
+You will need gulp for the task runner, `npm install -g gulp`.
 
 Execute gulp in the app root directory by typing *gulp* in the command line.
 
