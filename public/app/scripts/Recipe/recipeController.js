@@ -12,6 +12,7 @@ function recipeController($scope, AppState, BrewMaster) {
 
     $scope.submit = function(recipe) {
         //Actually make this do something.
+        toastr.success('You just added a recipe, good job brah');
         $scope.recipeForm.$setPristine();
         $scope.recipe = {};
         AppState.area('Recipe').destroy('recipe');
