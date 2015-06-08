@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('app.controllers')
-	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', recipeController]);
+	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', recipeController]);
 
 //Not liking this guy having to know about $modalInstance.
-function recipeController($scope, AppState, BrewMaster) {
+function recipeController($scope, AppState, BrewMaster, notifications) {
     //Might not need to worry about stupid AppState, just depends on how the UI will look.
     $scope.recipe = AppState.area('Recipe').recipe || {};
 
@@ -12,7 +12,7 @@ function recipeController($scope, AppState, BrewMaster) {
 
     $scope.submit = function(recipe) {
         //Actually make this do something.
-        toastr.success('You just added a recipe, good job brah');
+        notifications.success('You just added a recipe, good job brah');
         $scope.recipeForm.$setPristine();
         $scope.recipe = {};
         AppState.area('Recipe').destroy('recipe');
