@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.controllers')
+angular.module('brewApp.controllers')
     .controller('ContactCtrl', ['$scope', 'AppState', contactController]);
 
 function contactController($scope, AppState) {

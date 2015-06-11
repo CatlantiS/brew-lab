@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.directives')
+angular.module('brewApp.directives')
     .directive('recipe', function() {
         return {
             link: function() {

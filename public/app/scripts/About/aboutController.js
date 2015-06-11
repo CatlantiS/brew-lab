@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.controllers')
+angular.module('brewApp.controllers')
 	.controller('AboutCtrl', [aboutController]);
 
 function aboutController() {

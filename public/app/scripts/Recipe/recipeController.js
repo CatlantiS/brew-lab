@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.controllers')
+angular.module('brewApp.controllers')
 	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', recipeController]);
 
 //Not liking this guy having to know about $modalInstance.

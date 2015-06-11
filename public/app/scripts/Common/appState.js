@@ -2,7 +2,7 @@
 
 //There's probably a much better solution than this.
 //Do we want to add the option to use local storage here?
-angular.module('app.services')
+angular.module('brewApp.services')
     .service('AppState', function() {
         var _state = {};
 
