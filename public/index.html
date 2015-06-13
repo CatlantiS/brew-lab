@@ -66,8 +66,8 @@
 		</div>
 
 		<footer class="brew-footer">
-			<div ng-controller="InfoCtrl">
-				You are using version <span class="brew-important" ng-bind="app.version|interpolate"></span> of the brew lab app.
+			<div ng-controller="InfoCtrl as info">
+				You are using version <span class="brew-important" ng-bind="info.app.version|interpolate"></span> of the brew lab app.
 			</div>
 		</footer>
 

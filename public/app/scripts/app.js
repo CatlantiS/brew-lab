@@ -1,4 +1,4 @@
-var app = angular.module('brewApp', [
+angular.module('brewApp', [
 		'ui.router',
 		'ngResource',
 		'ui.bootstrap',

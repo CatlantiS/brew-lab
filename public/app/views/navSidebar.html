@@ -1,7 +1,7 @@
-<div ng-controller="NavSidebarCtrl">
+<div ng-controller="NavSidebarCtrl as navSidebar">
 	<p class="lead">What do you want to do?</p>
 	<ul class="list-unstyled brew-nav-list">
-		<li ng-repeat="action in actions">
+		<li ng-repeat="action in navSidebar.actions">
 			<a ng-if="action.url != null" href="{{ action.url }}" ng-bind="action.title"></a>
 			<a ng-if="action.click != null" href="#" ng-click="action.click()" ng-bind="action.title"></a>
 		</li>

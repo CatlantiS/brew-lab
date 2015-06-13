@@ -4,7 +4,10 @@ angular.module('brewApp.controllers')
 	.controller('NavSidebarCtrl', ['$scope', 'Modal', navSidebarController]);
 
 function navSidebarController($scope, Modal) {
-	$scope.actions = [{
+	/* jshint validthis: true */
+	var self = this;
+
+	self.actions = [{
 			title: 'Enter a new recipe',
 			url: '/recipe'
 		}

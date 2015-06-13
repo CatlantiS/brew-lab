@@ -3,12 +3,12 @@
 <div class="brew-form">
     <p class="brew-info">Hit us up!  We'd love to hear from you.</p>
 
-    <div ng-controller="ContactCtrl">
-        <form name="contactForm">
+    <div ng-controller="ContactCtrl as contactController">
+        <form name="contactController.contactForm">
             <div class="form-group">
                 <label for="contactName">Name</label>
 
-                <input type="text" class="form-control brew-input" id="contactName" ng-model="contact.name"
+                <input type="text" class="form-control brew-input" id="contactName" ng-model="contactController.contact.name"
                        required aria-required="true" title="Provide your name."
                        placeholder="Enter your name" />
             </div>
@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="contactEmail">E-mail address</label>
 
-                <input type="text" class="form-control brew-input" id="contactEmail" ng-model="contact.email"
+                <input type="text" class="form-control brew-input" id="contactEmail" ng-model="contactController.contact.email"
                        required aria-required="true" title="Provide a valid e-mail address."
                        placeholder="Enter your e-mail address" />
             </div>
@@ -24,13 +24,13 @@
             <div class="form-group">
                 <label for="contactMessage">Message</label>
 
-                <textarea class="form-control brew-input" row="3" id="contactMessage" ng-model="contact.message"
+                <textarea class="form-control brew-input" row="3" id="contactMessage" ng-model="contactController.contact.message"
                           required aria-required="true" title="Provide a message."
                           placeholder="Enter a message"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-default" role="button" ng-click="submit(contact)">Submit</button>
-            <a href="#" class="brew-clear-button-right" role="button" ng-click="clear()">Clear</a>
+            <button type="submit" class="btn btn-default" role="button" ng-click="contactController.submit(contact)">Submit</button>
+            <a href="#" class="brew-clear-button-right" role="button" ng-click="contactController.clear()">Clear</a>
         </form>
     </div>
 </div>

@@ -5,29 +5,31 @@ angular.module('brewApp.controllers')
 
 //Not liking this guy having to know about $modalInstance.
 function recipeController($scope, AppState, BrewMaster) {
+    /* jshint validthis: true */
+    var self = this;
+
     //Might not need to worry about stupid AppState, just depends on how the UI will look.
-    $scope.recipe = AppState.area('Recipe').recipe || {};
+    self.recipe = AppState.area('Recipe').recipe || {};
 
-    $scope.yeastTypes = BrewMaster.yeastTypes;
+    self.yeastTypes = BrewMaster.yeastTypes;
 
-    $scope.submit = function(recipe) {
+    self.submit = function(recipe) {
         //Actually make this do something.
         toastr.success('You just added a recipe, good job brah');
-        $scope.recipeForm.$setPristine();
-        $scope.recipe = {};
+        self.recipeForm.$setPristine();
+        self.recipe = {};
         AppState.area('Recipe').destroy('recipe');
     };
 
-    $scope.clear = function() {
-        $scope.recipeForm.$setPristine();
-        $scope.recipe = {};
+    self.clear = function() {
+        self.recipeForm.$setPristine();
+        self.recipe = {};
         AppState.area('Recipe').destroy('recipe');
     };
 
     //Why is this getting called twice?
     $scope.$on('$destroy', function() {
-        if ($scope.recipeForm && $scope.recipeForm.$dirty)
-            AppState.area('Recipe').recipe = $scope.recipe;
+        if (self.recipeForm && self.recipeForm.$dirty)
+            AppState.area('Recipe').recipe = self.recipe;
     });
-}
-;
+};
