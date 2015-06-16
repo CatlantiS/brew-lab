@@ -3,7 +3,6 @@
 angular.module('brewApp.controllers')
 	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', recipeController]);
 
-//Not liking this guy having to know about $modalInstance.
 function recipeController($scope, AppState, BrewMaster) {
     /* jshint validthis: true */
     var self = this;
