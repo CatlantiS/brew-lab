@@ -1,6 +1,6 @@
 <h1 class="page-header brew-header">Recipe</h1>
 
-<div class="recipe brew-form" recipe>
+<div class="recipe brew-form">
 	<p class="brew-info">Create a legendary recipe.</p>
 
     <div ng-controller="RecipeCtrl as recipeController">
@@ -39,7 +39,7 @@
                 <label>Yeast</label>
 
                 <input type="text" class="form-control brew-input" ng-model="recipeController.recipe.yeastType" placeholder="Enter yeast type (optional)"
-                       typeahead="yeastType for yeastType in yeastTypes">
+                       typeahead="yeastType for yeastType in recipeController.yeastTypes">
             </div>
 
             <button type="submit" class="btn btn-default" role="button" ng-click="recipeController.submit(recipe)">Submit</button>

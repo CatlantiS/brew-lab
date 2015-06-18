@@ -48,7 +48,7 @@ angular.module('brewApp', [
 			$rootScope.layout = toState.layout;
 		});
 	}]);
-	
+
 angular.module('brewApp.filters', []);
 
 angular.module('brewApp.services', []);
