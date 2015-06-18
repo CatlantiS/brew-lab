@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('InfoCtrl', [infoController]);
+    .controller('InfoCtrl', infoController);
 
 function infoController() {
     /* jshint validthis: true */
@@ -10,4 +10,4 @@ function infoController() {
     self.app = {
         version: '%APPVERSION%'
     };
-};
+}

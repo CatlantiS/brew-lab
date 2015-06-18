@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-	.controller('NavSidebarCtrl', ['$scope', 'Modal', navSidebarController]);
+	.controller('NavSidebarCtrl', navSidebarController);
 
-function navSidebarController($scope, Modal) {
+function navSidebarController() {
 	/* jshint validthis: true */
 	var self = this;
 
@@ -12,4 +12,4 @@ function navSidebarController($scope, Modal) {
 			url: '/recipe'
 		}
 	]
-};
+}
