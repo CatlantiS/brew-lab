@@ -1,10 +1,13 @@
 'use strict';
 
-angular.module('app.controllers')
-    .controller('InfoCtrl', ['$scope', infoController]);
+angular.module('brewApp.controllers')
+    .controller('InfoCtrl', infoController);
 
-function infoController($scope) {
-    $scope.app = {
+function infoController() {
+    /* jshint validthis: true */
+    var self = this;
+
+    self.app = {
         version: '%APPVERSION%'
     };
-};
+}

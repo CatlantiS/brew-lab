@@ -17,12 +17,12 @@
         <!-- This is getting loaded twice right now. -->
         <script src="app/assets/js/vendor/modernizr-1.7.min.js"></script>
     </head>
-    <body ng-app="brewLabApp">
+    <body ng-app="brewApp">
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 		<header class="brew-app-header" role="banner">
-			<nav class="navbar navbar-default brew-navbar" style="border-radius: 0px;">
+			<nav class="navbar navbar-default brew-navbar" style="border-radius: 0;">
 				<div class="container-fluid">
 					<div class="navbar-header">
 						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".spa-navbar-collapse">
@@ -66,8 +66,8 @@
 		</div>
 
 		<footer class="brew-footer">
-			<div ng-controller="InfoCtrl">
-				You are using version <span class="brew-important" ng-bind="app.version|interpolate"></span> of the brew lab app.
+			<div ng-controller="InfoCtrl as info">
+				You are using version <span class="brew-important" ng-bind="info.app.version|version"></span> of the brew lab app.
 			</div>
 		</footer>
 

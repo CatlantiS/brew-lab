@@ -1,30 +1,33 @@
 'use strict';
 
-angular.module('app.controllers')
+angular.module('brewApp.controllers')
     .controller('ContactCtrl', ['$scope', 'AppState', contactController]);
 
 function contactController($scope, AppState) {
-    $scope.contact = AppState.area('Contact').contact || {};
+    /* jshint validthis: true */
+    var self = this;
 
-    $scope.submit = function(contact) {
-        $scope.contactForm.$setPristine();
-        $scope.contact = {};
+    self.contact = AppState.area('Contact').contact || {};
+
+    self.submit = function(contact) {
+        self.contactForm.$setPristine();
+        self.contact = {};
         AppState.area('Contact').destroy('contact');
 
-        $scope.result = 'Your message went into a blackhole.';
+        self.result = 'Your message went into a blackhole.';
     };
 
-    $scope.clear = function() {
-        $scope.contactForm.$setPristine();
-        $scope.contact = {};
+    self.clear = function() {
+        self.contactForm.$setPristine();
+        self.contact = {};
         AppState.area('Contact').destroy('contact');
 
-        $scope.result = '';
+        self.result = '';
     };
 
     //Why is this getting called twice?
     $scope.$on('$destroy', function() {
-        if ($scope.contactForm && $scope.contactForm.$dirty)
-            AppState.area('Contact').contact = $scope.contact;
+        if (self.contactForm && self.contactForm.$dirty)
+            AppState.area('Contact').contact = self.contact;
     });
 };

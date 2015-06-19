@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.services')
+angular.module('brewApp.services')
     .service('Modal', ['$modal', function($modal) {
         var _instance;
 

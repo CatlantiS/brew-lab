@@ -1,12 +1,15 @@
 'use strict';
 
-angular.module('app.controllers')
-	.controller('NavSidebarCtrl', ['$scope', 'Modal', navSidebarController]);
+angular.module('brewApp.controllers')
+	.controller('NavSidebarCtrl', navSidebarController);
 
-function navSidebarController($scope, Modal) {
-	$scope.actions = [{
+function navSidebarController() {
+	/* jshint validthis: true */
+	var self = this;
+
+	self.actions = [{
 			title: 'Enter a new recipe',
 			url: '/recipe'
 		}
 	]
-};
+}

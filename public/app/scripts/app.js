@@ -1,4 +1,14 @@
-var app = angular.module('brewLabApp', ['ui.router', 'ngResource', 'ui.bootstrap', 'ui.bootstrap.modal', 'ui.bootstrap.typeahead', 'app.filters', 'app.services', 'app.directives', 'app.controllers'])
+angular.module('brewApp', [
+		'ui.router',
+		'ngResource',
+		'ui.bootstrap',
+		'ui.bootstrap.modal',
+		'ui.bootstrap.typeahead',
+		'brewApp.filters',
+		'brewApp.services',
+		'brewApp.directives',
+		'brewApp.controllers'
+	])
 	.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
 		$stateProvider
 			.state('home', {
@@ -38,11 +48,11 @@ var app = angular.module('brewLabApp', ['ui.router', 'ngResource', 'ui.bootstrap
 			$rootScope.layout = toState.layout;
 		});
 	}]);
-	
-angular.module('app.filters', []);
 
-angular.module('app.services', []);
+angular.module('brewApp.filters', []);
 
-angular.module('app.directives', []);
+angular.module('brewApp.services', []);
 
-angular.module('app.controllers', []);
+angular.module('brewApp.directives', []);
+
+angular.module('brewApp.controllers', []);

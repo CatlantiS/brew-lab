@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('app.controllers')
-	.controller('HomeCtrl', [homeController]);
+angular.module('brewApp.controllers')
+	.controller('HomeCtrl', homeController);
 
 function homeController() {
 	
-};
+}

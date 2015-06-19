@@ -1,14 +1,14 @@
 <h1 class="page-header brew-header">Recipe</h1>
 
-<div class="recipe brew-form" recipe>
+<div class="recipe brew-form">
 	<p class="brew-info">Create a legendary recipe.</p>
 
-    <div ng-controller="RecipeCtrl">
-        <form name="recipeForm">
+    <div ng-controller="RecipeCtrl as recipeController">
+        <form name="recipeController.recipeForm">
             <div class="form-group">
                 <label for="recipeName">Recipe name</label>
 
-                <input type="text" class="form-control brew-input" id="recipeName" ng-model="recipe.name"
+                <input type="text" class="form-control brew-input" id="recipeName" ng-model="recipeController.recipe.name"
                        required aria-required="true" title="Provide a name for your recipe."
                        placeholder="Enter recipe name">
             </div>
@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="recipeVolume">Volume</label>
 
-                <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="recipe.volume"
+                <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="recipeController.recipe.volume"
                        aria-required="false" title="Provide a numeric recipe volume."
                        placeholder="Enter numeric recipe volume (optional)">
 
@@ -38,12 +38,12 @@
             <div class="form-group">
                 <label>Yeast</label>
 
-                <input type="text" class="form-control brew-input" ng-model="recipe.yeastType" placeholder="Enter yeast type (optional)"
-                       typeahead="yeastType for yeastType in yeastTypes">
+                <input type="text" class="form-control brew-input" ng-model="recipeController.recipe.yeastType" placeholder="Enter yeast type (optional)"
+                       typeahead="yeastType for yeastType in recipeController.yeastTypes">
             </div>
 
-            <button type="submit" class="btn btn-default" role="button" ng-click="submit(recipe)">Submit</button>
-            <a href="#" class="brew-clear-button-right" role="button" ng-click="clear()">Clear</a>
+            <button type="submit" class="btn btn-default" role="button" ng-click="recipeController.submit(recipe)">Submit</button>
+            <a href="#" class="brew-clear-button-right" role="button" ng-click="recipeController.clear()">Clear</a>
         </form>
     </div>
 </div>
