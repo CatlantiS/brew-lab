@@ -1,19 +1,19 @@
 var express  = require('express'),
-	app = express(),                 
-	mongoClient = require('mongodb').MongoClient,  
-	taskCollection,           
+	app = express(),
+	mongoose = require('mongoose'),
 	morgan = require('morgan'),          
 	bodyParser = require('body-parser'), 
 	methodOverride = require('method-override'),
-	path = require('path'); 
+	path = require('path');
 
-mongoClient.connect('mongodb://tlabdata01.cloudapp.net:27017/brewlab', function(error, db) {
-	if (error)
-		throw error;
-	
-	recipeCollection = db.collection('recipes');
-});
+app.use(express.static(__dirname + '/public'));
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({'extended':'true'}));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(methodOverride());
 
+//Need to revisit this hackjob at some point.
 app.get('/:static', function(request, response) {
 	var route = 'index.html';
 		
@@ -34,42 +34,33 @@ app.get('/views/:static', function(request, response) {
 	response.sendFile(route, { root: './public/app/views/' });
 });
 
-app.get('/api/schemas/:schemaName', function(request, response) {
-	//Obviously clean this up at some point...
-	var recipeSchema = {
-		name: {
-			default: "",
-			type: "string"
-		}
-	}
-	
-	response.send(recipeSchema);	
-});
+//Todo: move REST API into separate service.
+mongoose.connect('mongodb://localhost:27017/brewlab');
 
-app.get('/api/recipes', function(request, response) {
-	recipeCollection.find().toArray(function(error, results) {
-		if (error)
-			response.send(error);
-		
-		response.json(results);
+var storeSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
+var Store = mongoose.model('store', storeSchema);
+
+app.get('/api/v1/store/:id', function(request, response) {
+	var id = request.params.id;
+
+	Store.findById(id, function(err, obj) {
+		if (err)
+			response.send(err);
+
+		response.json(obj);
 	});
 });
 
-app.post('/api/recipes', function(request, response) {
-	var recipe = req.body;
-		
-	//Does this append an _id property?
-	recipeCollection.insert(recipe);
+app.post('/api/v1/store/', function(request, response) {
+	console.log(request.body);
 
-	response.send(recipe._id);
+	Store.create(request.body, function(err, obj) {
+		if (err)
+			response.send(err);
+
+		response.send({ id: obj._id });
+	});
 });
-
-app.use(express.static(__dirname + '/public')); 
-app.use(morgan('dev'));                                         
-app.use(bodyParser.urlencoded({'extended':'true'}));          
-app.use(bodyParser.json());                                     
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
-app.use(methodOverride());
 
 app.listen(8008);
 

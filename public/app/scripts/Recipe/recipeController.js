@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', recipeController]);
+	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'Store', recipeController]);
 
-//Not liking this guy having to know about $modalInstance.
-function recipeController($scope, AppState, BrewMaster, notifications) {
-
+function recipeController($scope, AppState, BrewMaster, notifications, Store) {
     /* jshint validthis: true */
     var self = this;
 
@@ -15,11 +13,13 @@ function recipeController($scope, AppState, BrewMaster, notifications) {
     self.yeastTypes = BrewMaster.yeastTypes;
 
     self.submit = function(recipe) {
-        //Actually make this do something.
-        notifications.success('You just added a recipe, good job brah');
-        self.recipeForm.$setPristine();
-        self.recipe = {};
-        AppState.area('Recipe').destroy('recipe');
+        //Need a spinner on this?
+        Store.store(recipe).then(function(data) {
+            notifications.success('You just added recipe ' + data.id  + ', good job brah');
+            self.recipeForm.$setPristine();
+            self.recipe = {};
+            AppState.area('Recipe').destroy('recipe');
+        });
     };
 
     self.clear = function() {
@@ -33,4 +33,4 @@ function recipeController($scope, AppState, BrewMaster, notifications) {
         if (self.recipeForm && self.recipeForm.$dirty)
             AppState.area('Recipe').recipe = self.recipe;
     });
-};
+}
