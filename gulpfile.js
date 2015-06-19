@@ -31,7 +31,8 @@ gulp.task('vendor', function() {
             'public/app/assets/js/vendor/ui-bootstrap.min.js',
             'public/app/assets/js/vendor/ui-bootstrap-tpls.min.js',
             'public/app/assets/js/vendor/typeahead.bundle.min.js',
-            'public/app/assets/js/vendor/typeahead.jquery.min.js'
+            'public/app/assets/js/vendor/typeahead.jquery.min.js',
+            'public/app/assets/js/vendor/toastr.min.js'
         ])
         .pipe(concat('vendor.min.js'))
         .pipe(gulp.dest('public/app/dist/'));
