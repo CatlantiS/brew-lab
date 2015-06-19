@@ -2,7 +2,7 @@
  * Created by Sam on 6/7/2015.
  */
 (function() {
-    var app = angular.module('app.services');
+    var app = angular.module('brewApp.services');
 
     var notifications = function() {
         var success = function(msg) {
