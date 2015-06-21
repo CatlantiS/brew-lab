@@ -7,10 +7,14 @@
     var logger = function () {
 
         var log4jslogger = log4javascript.getLogger();
-        console.log(log4jslogger);
+        var popUpAppender = new log4javascript.PopUpAppender();
+        var popUpLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %-5p - %m%n");
+        popUpAppender.setLayout(popUpLayout);
+        log4jslogger.addAppender(popUpAppender);
 
         var error = function(msg) {
             // add logger here
+            log4jslogger.error(msg);
         }
 
         return {
