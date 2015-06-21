@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'Store', recipeController]);
+	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'Store', 'logger', recipeController]);
 
-function recipeController($scope, AppState, BrewMaster, notifications, Store) {
+function recipeController($scope, AppState, BrewMaster, notifications, Store, logger) {
     /* jshint validthis: true */
     var self = this;
 
@@ -16,6 +16,8 @@ function recipeController($scope, AppState, BrewMaster, notifications, Store) {
         //Need a spinner on this?
         Store.store(recipe).then(function(data) {
             notifications.success('You just added recipe ' + data.id  + ', good job brah');
+            logger.info('saved recipe with id = ' + data.id)
+            
             self.recipeForm.$setPristine();
             self.recipe = {};
             AppState.area('Recipe').destroy('recipe');
