@@ -7,18 +7,32 @@
     var logger = function () {
 
         var log4jslogger = log4javascript.getLogger();
-        var popUpAppender = new log4javascript.PopUpAppender();
-        var popUpLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %-5p - %m%n");
-        popUpAppender.setLayout(popUpLayout);
-        log4jslogger.addAppender(popUpAppender);
+        var ajaxAppender = new log4javascript.AjaxAppender('/api/v1/logs/')
+        var brewLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %-5p - %m %c");
+        ajaxAppender.setLayout(brewLayout);
+        log4jslogger.addAppender(ajaxAppender);
 
         var error = function(msg) {
-            // add logger here
             log4jslogger.error(msg);
         }
 
+        var info = function(msg) {
+            log4jslogger.info(msg);
+        }
+
+        var warn = function(msg) {
+            log4jslogger.warn(msg);
+        }
+
+        var debug = function(msg) {
+            log4jslogger.debug(msg);
+        }
+
         return {
-            error: error
+            error: error,
+            info: info,
+            warn: warn,
+            debug: debug
         }
     }
 

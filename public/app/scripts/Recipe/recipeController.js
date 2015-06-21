@@ -16,8 +16,8 @@ function recipeController($scope, AppState, BrewMaster, notifications, Store, lo
         //Need a spinner on this?
         Store.store(recipe).then(function(data) {
             notifications.success('You just added recipe ' + data.id  + ', good job brah');
-            console.log(logger);
-            logger.error('test error message');
+
+            logger.info('test info message');
             self.recipeForm.$setPristine();
             self.recipe = {};
             AppState.area('Recipe').destroy('recipe');
