@@ -3,47 +3,49 @@
 <div class="recipe brew-form">
 	<p class="brew-info">Create a legendary recipe.</p>
 
-    <div ng-controller="RecipeCtrl as recipeController">
-        <form name="recipeController.recipeForm">
+    <div ng-controller="RecipeCtrl as ctrl">
+        <form name="ctrl.recipeForm" novalidate>
             <div class="form-group">
                 <label for="recipeName">Recipe name</label>
 
-                <input type="text" class="form-control brew-input" id="recipeName" ng-model="recipeController.recipe.name"
-                       aria-required="false" title="Provide a name for your recipe."
-                       placeholder="Enter recipe name">
+                <input type="text" name="name" class="form-control brew-input brew-input-required" id="recipeName" ng-model="ctrl.recipe.name"
+                       required aria-required="true" title="Provide a name for your recipe."
+                       placeholder="Enter recipe name (required)">
             </div>
 
             <div class="form-group">
                 <label for="recipeVolume">Volume</label>
 
-                <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="recipeController.recipe.volume"
+                <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="ctrl.recipe.volume"
                        aria-required="false" title="Provide a numeric recipe volume."
                        placeholder="Enter numeric recipe volume (optional)">
 
                 <label class="sr-only" for="recipeUnits"></label>
 
-                <div class="btn-group" id="recipeUnits" dropdown>
+                <brew:dropdown class="btn-group" id="recipeUnits" dropdown>
                     <button type="button" class="btn btn-default">Units</button>
                     <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
                         <span class="caret"></span>
                         <span class="sr-only"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">gallons</a></li>
-                        <li><a href="#">liters</a></li>
+                        <li><a href="#">Gallons</a></li>
+                        <li><a href="#">Liters</a></li>
                     </ul>
-                </div>
+                </brew:dropdown>
             </div>
 
             <div class="form-group">
                 <label>Yeast</label>
 
-                <input type="text" class="form-control brew-input" ng-model="recipeController.recipe.yeastType" placeholder="Enter yeast type (optional)"
-                       typeahead="yeastType for yeastType in recipeController.yeastTypes">
+                <input type="text" class="form-control brew-input" ng-model="ctrl.recipe.yeastType" placeholder="Enter yeast type (optional)"
+                       typeahead="yeastType for yeastType in ctrl.yeastTypes">
             </div>
 
-            <button type="submit" class="btn btn-default" role="button" ng-click="recipeController.submit(recipeController.recipe)">Submit</button>
-            <a href="#" class="brew-clear-button-right" role="button" ng-click="recipeController.clear()">Clear</a>
+            <button type="submit" class="btn btn-default" role="button"
+                    ng-click="ctrl.submit(ctrl.recipeForm.$valid)"
+                    ng-disabled="ctrl.recipeForm.$invalid">Submit</button>
+            <a href="#" class="brew-clear-button-right" role="button" ng-click="ctrl.clear()">Clear</a>
         </form>
     </div>
 </div>

@@ -13,28 +13,23 @@ angular.module('brewApp', [
 		$stateProvider
 			.state('home', {
 				url: '/',
-				templateUrl: '/views/home',
-				controller: 'HomeCtrl'
+				templateUrl: '/views/home'
 			})
 			.state('about', {
 				url: '/about',
-				templateUrl: '/views/about',
-				controller: 'AboutCtrl'
+				templateUrl: '/views/about'
 			})
 			.state('contact', {
 				url: '/contact',
-				templateUrl: '/views/contact',
-				controller: 'ContactCtrl'
+				templateUrl: '/views/contact'
 			})
 			.state('recipe', {
 				url: '/recipe',
-				templateUrl: '/views/recipe',
-				controller: 'RecipeCtrl'
+				templateUrl: '/views/recipe'
 			})
 			.state('otherwise', {
 				url: '*path',
-				templateUrl: '/views/error',
-				controller: 'ErrorCtrl'
+				templateUrl: '/views/error'
 			});
 
 		$locationProvider.html5Mode(true);

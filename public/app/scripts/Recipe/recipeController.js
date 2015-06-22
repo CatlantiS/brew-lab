@@ -12,14 +12,15 @@ function recipeController($scope, AppState, BrewMaster, notifications, Store) {
 
     self.yeastTypes = BrewMaster.yeastTypes;
 
-    self.submit = function(recipe) {
-        //Need a spinner on this?
-        Store.store(recipe).then(function(data) {
-            notifications.success('You just added recipe ' + data.id  + ', good job brah');
-            self.recipeForm.$setPristine();
-            self.recipe = {};
-            AppState.area('Recipe').destroy('recipe');
-        });
+    self.submit = function(isValid) {
+        if (isValid)
+            //Need a spinner on this?
+            Store.store(self.recipe).then(function(data) {
+                notifications.success('You just added recipe ' + data.id  + ', good job brah');
+                self.recipeForm.$setPristine();
+                self.recipe = {};
+                AppState.area('Recipe').destroy('recipe');
+            });
     };
 
     self.clear = function() {
@@ -28,9 +29,13 @@ function recipeController($scope, AppState, BrewMaster, notifications, Store) {
         AppState.area('Recipe').destroy('recipe');
     };
 
-    //Why is this getting called twice?
     $scope.$on('$destroy', function() {
         if (self.recipeForm && self.recipeForm.$dirty)
             AppState.area('Recipe').recipe = self.recipe;
+    });
+
+    $scope.$on('dropdownClicked', function(event, ui) {
+        if ($(ui.element).is('#recipeUnits'))
+            self.recipe.units = ui.selectedValue;
     });
 }

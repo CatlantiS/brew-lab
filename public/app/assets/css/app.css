@@ -18,7 +18,7 @@
 }
 
 .brew-navbar {
-	margin-bottom: 0px !important;
+	margin-bottom: 0 !important;
     border-color: transparent !important;
 	background-color: #ffcc80;
 }
@@ -54,6 +54,10 @@
 
 .brew-input {
 	margin-bottom: 20px;
+}
+
+.brew-input.brew-input-required {
+	background-color: #ffffc5;
 }
 
 .brew-clear-button-right {
