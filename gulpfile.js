@@ -19,6 +19,9 @@ gulp.task('bower', function() {
     gulp.src('bower_components/**/*.min.js')
         .pipe(flatten())
         .pipe(gulp.dest('public/app/assets/js/vendor/'));
+    gulp.src('bower_components/log4javascript/log4javascript_uncompressed.js')
+        .pipe(flatten())
+        .pipe(gulp.dest('public/app/assets/js/vendor/'));
 });
 
 //Add bower dependencies in here.  Order matters.
@@ -32,7 +35,8 @@ gulp.task('vendor', function() {
             'public/app/assets/js/vendor/ui-bootstrap-tpls.min.js',
             'public/app/assets/js/vendor/typeahead.bundle.min.js',
             'public/app/assets/js/vendor/typeahead.jquery.min.js',
-            'public/app/assets/js/vendor/toastr.min.js'
+            'public/app/assets/js/vendor/toastr.min.js',
+            'public/app/assets/js/vendor/log4javascript_uncompressed.js'
         ])
         .pipe(concat('vendor.min.js'))
         .pipe(gulp.dest('public/app/dist/'));

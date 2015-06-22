@@ -39,6 +39,8 @@ mongoose.connect('mongodb://localhost:27017/brewlab');
 
 var storeSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
 var Store = mongoose.model('store', storeSchema);
+var logsSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
+var Logs = mongoose.model('logs', logsSchema);
 
 app.get('/api/v1/store/:id', function(request, response) {
 	var id = request.params.id;
@@ -60,6 +62,26 @@ app.post('/api/v1/store/', function(request, response) {
 
 		response.send({ id: obj._id });
 	});
+});
+
+app.get('/api/v1/logs/', function(request, response) {
+	Logs.find({}, function(err, obj) {
+		if (err) {
+			response.send(err);
+		}
+
+		response.json(obj);
+	});
+});
+
+app.post('/api/v1/logs/', function(request, response) {
+	Logs.create(request.body, function(err, obj) {
+		if (err) {
+			response.send(err);
+		}
+
+		response.send({ id: obj._id });
+	})
 });
 
 app.listen(8008);
