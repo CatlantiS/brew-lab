@@ -4,6 +4,9 @@
 (function() {
     var app = angular.module('brewApp.services');
 
+    // prevent duplicate notifications
+    toastr.options.preventDuplicates = true;
+
     var notifications = function() {
         var success = function(msg) {
             toastr.success(msg);
