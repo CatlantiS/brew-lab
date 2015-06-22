@@ -7,8 +7,10 @@
 
     function store($resource, $location) {
         //Can get base URL from config.
-        var host = $location.protocol() + '://' + $location.host() + ':' + $location.port();
-        var Store = $resource(host + '/api/v1/store/:id', { id: '@id' });
+        var host = $location.protocol() + '://' + $location.host() + ':' + $location.port(),
+            //Is there a better way than having different resources for these?
+            Store = $resource(host + '/api/v1/store/:id', { id: '@id' }),
+            User = $resource(host + '/api/v1/store/user/:userId', { userId: '@userId' });
 
         function store(obj) {
             return Store.save(obj).$promise;
@@ -16,6 +18,10 @@
 
         function getById(id) {
             return Store.$get({ id: id }).$promise;
+        }
+
+        function getByUser(userId) {
+            return User.$get({ userId: userId }).$promise;
         }
 
         return {
