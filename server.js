@@ -64,6 +64,16 @@ app.post('/api/v1/store/', function(request, response) {
 	});
 });
 
+app.get('/api/v1/logs/', function(request, response) {
+	Logs.find({}, function(err, obj) {
+		if (err) {
+			response.send(err);
+		}
+
+		response.json(obj);
+	});
+});
+
 app.post('/api/v1/logs/', function(request, response) {
 	Logs.create(request.body, function(err, obj) {
 		if (err) {

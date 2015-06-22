@@ -1,0 +1,26 @@
+<h1 class="page-header brew-header">Logs</h1>
+<style type="text/css">
+    .brewOddRow {
+        background-color: #99CCFF;
+    }
+</style>
+<div class="brew-form">
+    <p class="brew-info">Logging page</p>
+
+    <div ng-controller="LogsCtrl">
+    <table class="brewTable" style="width: 2000px; font-size: 1.3em;">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="logs in logsList" ng-class-odd="'brewOddRow'">
+            <td>{{logs._id}}</td>
+            <td>{{logs.data}}</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
