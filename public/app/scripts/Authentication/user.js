@@ -14,6 +14,7 @@
             context.reloadRecipes = getRecipes;
         }
 
+        //Could just use promise handed back from $resource in Store, but this might be a cleaner.
         function getRecipes() {
             var deferred = $q.defer();
 

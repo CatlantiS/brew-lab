@@ -14,7 +14,7 @@ function recipeController($scope, AppState, BrewMaster, notifications, Store, lo
 
     self.submit = function(isValid) {
         if (isValid) {
-            recipe.user = User.id;
+            self.recipe.user = User.id;
 
             //Need a spinner on this?
             Store.store(self.recipe).then(function (data) {
