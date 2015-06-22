@@ -33,8 +33,7 @@ angular.module('brewApp', [
 			})
 			.state('logs', {
 				url: '/logs',
-				templateUrl: '/views/logs',
-				controller: 'LogsCtrl'
+				templateUrl: '/views/logs'
 			})
 			.state('otherwise', {
 				url: '*path',
