@@ -27,7 +27,7 @@
 
         //Can call fetch in route resolve function to have context data before page loads.
         return {
-            fetch: init,
+            load: init,
             id: id,
             context: context
         }
