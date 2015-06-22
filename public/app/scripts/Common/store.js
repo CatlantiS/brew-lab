@@ -3,11 +3,12 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('Store', ['$resource', store]);
+        .factory('Store', ['$resource', '$location', store]);
 
-    function store($resource) {
+    function store($resource, $location) {
         //Can get base URL from config.
-        var Store = $resource('http://localhost:8008/api/v1/store/:id', { id: '@id' });
+        var host = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+        var Store = $resource(host + '/api/v1/store/:id', { id: '@id' });
 
         function store(obj) {
             return Store.save(obj).$promise;

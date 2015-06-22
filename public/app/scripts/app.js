@@ -27,6 +27,10 @@ angular.module('brewApp', [
 				url: '/recipe',
 				templateUrl: '/views/recipe'
 			})
+			.state('logs', {
+				url: '/logs',
+				templateUrl: '/views/logs'
+			})
 			.state('otherwise', {
 				url: '*path',
 				templateUrl: '/views/error'

@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'Store', recipeController]);
+	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'Store', 'logger', recipeController]);
 
-function recipeController($scope, AppState, BrewMaster, notifications, Store) {
+function recipeController($scope, AppState, BrewMaster, notifications, Store, logger) {
     /* jshint validthis: true */
     var self = this;
 
