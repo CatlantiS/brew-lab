@@ -17,16 +17,17 @@
         }
 
         function getById(id) {
-            return Store.$get({ id: id }).$promise;
+            return Store.get({ id: id }).$promise;
         }
 
         function getByUser(userId) {
-            return User.$get({ userId: userId }).$promise;
+            return User.query({ userId: userId }).$promise;
         }
 
         return {
             store: store,
-            getById: getById
+            getById: getById,
+            getByUser: getByUser
         };
     }
 })();

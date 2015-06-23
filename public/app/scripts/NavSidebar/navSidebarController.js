@@ -12,9 +12,7 @@ function navSidebarController(notifications) {
 			url: '/recipe'
 		}, {
 			title: 'My recipes',
-			click: function() {
-				notifications.error('Eat a johnson.')
-			}
+			url: '/myRecipes'
 		}, {
 			title: 'Saved recipes',
 			click: function() {

@@ -27,6 +27,10 @@ angular.module('brewApp', [
 				url: '/recipe',
 				templateUrl: '/views/recipe'
 			})
+			.state('myRecipes', {
+				url: '/myRecipes',
+				templateUrl: '/views/myRecipes'
+			})
 			.state('logs', {
 				url: '/logs',
 				templateUrl: '/views/logs'
