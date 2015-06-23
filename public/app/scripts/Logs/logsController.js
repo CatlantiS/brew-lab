@@ -6,15 +6,17 @@ angular.module('brewApp.controllers')
 function logsController($scope, logger, notifications) {
     console.log('calling logs controller');
 
+    var logs = {};
+
     var refreshLogsModel = function() {
         logger.getLogs().then(function(data) {
-            $scope.logsList = data;
+            logs.logsList = data;
         });
     }
 
     refreshLogsModel();
 
-    $scope.deleteLog = function(id) {
+    logs.deleteLog = function(id) {
         if (confirm('Are you sure you wish to delete id = ' + id + '?')) {
             logger.deleteLog(id).then(function(data) {
                 notifications.info('Log entry deleted');
@@ -25,4 +27,6 @@ function logsController($scope, logger, notifications) {
             });
         }
     }
+
+    $scope.logs = logs;
 }

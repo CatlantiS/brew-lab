@@ -17,10 +17,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="logs in logsList">
-            <td>{{logs._id}}</td>
-            <td>{{logs.data}}</td>
-            <td><button ng-click="deleteLog(logs._id)" style="padding: 12px; color: Red;">x</button></td>
+        <tr ng-repeat="item in logs.logsList">
+            <td>{{item._id}}</td>
+            <td>{{item.data}}</td>
+            <td><button ng-click="logs.deleteLog(item._id)" style="padding: 12px; color: Red;">x</button></td>
         </tr>
         </tbody>
     </table>
