@@ -13,7 +13,7 @@
         };
 
         var info = function(msg) {
-          toastr.info(msg);
+            toastr.info(msg);
         };
 
         var warning = function(msg) {
