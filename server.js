@@ -95,6 +95,17 @@ app.post('/api/v1/logs/', function(request, response) {
 	})
 });
 
+app.delete('/api/v1/logs/:id', function(request, response) {
+	console.log('calling delete on id = ' + id);
+	var id = request.params.id;
+	Logs.remove({ _id: id}, function(err) {
+		if (err) {
+			console.log('error deleting log id = ' + id);
+		}
+	});
+	response.send('success');
+});
+
 app.listen(8008);
 
 console.log("App listening on port 8008");

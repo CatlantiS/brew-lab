@@ -32,12 +32,17 @@
             return $resource('/api/v1/logs').query().$promise;
         }
 
+        var deleteLog = function(id) {
+            return $resource('/api/v1/logs/:id', { id: id}).remove().$promise;
+        }
+
         return {
             error: error,
             info: info,
             warn: warn,
             debug: debug,
-            getLogs: getLogs
+            getLogs: getLogs,
+            deleteLog: deleteLog
         }
     }
 

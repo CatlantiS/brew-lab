@@ -8,17 +8,19 @@
     <p class="brew-info">Logging page</p>
 
     <div ng-controller="LogsCtrl">
-    <table class="brewTable" style="width: 2000px; font-size: 1.3em;">
+    <table class="table-striped table-bordered table-hover">
         <thead>
         <tr>
             <th>id</th>
             <th>Message</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="logs in logsList" ng-class-odd="'brewOddRow'">
+        <tr ng-repeat="logs in logsList">
             <td>{{logs._id}}</td>
             <td>{{logs.data}}</td>
+            <td><button ng-click="deleteLog(logs._id)" style="padding: 12px; color: Red;">x</button></td>
         </tr>
         </tbody>
     </table>
