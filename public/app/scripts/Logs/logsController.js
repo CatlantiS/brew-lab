@@ -28,5 +28,10 @@ function logsController($scope, logger, notifications) {
         }
     }
 
+    logs.convertUTC = function(d) {
+        var date = new Date(d);
+        return date.toString() // "Wed Jun 29 2011 09:52:48 GMT-0700 (PDT)"
+    }
+
     $scope.logs = logs;
 }
