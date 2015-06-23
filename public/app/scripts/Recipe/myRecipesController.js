@@ -1,29 +1,24 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('MyRecipesCtrl', ['$q', '$scope', 'Auth', 'Store', myRecipesController]);
+    .controller('MyRecipesCtrl', ['$q', '$scope', 'User', 'Store', myRecipesController]);
 
 function myRecipesController($q, $scope, User, Store) {
     /* jshint validthis: true */
     var self = this;
 
-    self.recipes = [];
-
     self.isLoading = false;
 
-    (function init() {
-        self.getMyRecipes();
-    })();
-
     //Can load this when app loads or can load it only when it's requested.  And can cache or have it load fresh each time.
-    self.getMyRecipes = function() {
+    (function init() {
         self.isLoading = true;
 
-        //Wrapping in promise to be safe.  This is kinda lazy though.  Should know by now if it's a promise or not.
-        $q.when(User.context.recipes).then(function(recipes) {
+        //Todo: have this resolved when app loads or at least before this view is loaded.
+        //Note sure this will always be a promise if we set it up right, so wrap just to be safe...
+        $q.when(User.recipes).then(function(recipes) {
             self.recipes = recipes;
 
             self.isLoading = false;
         });
-    }
+    })();
 }
