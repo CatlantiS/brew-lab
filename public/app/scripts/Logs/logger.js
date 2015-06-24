@@ -7,8 +7,8 @@
     var logger = function ($resource) {
 
         var log4jslogger = log4javascript.getLogger();
-        var ajaxAppender = new log4javascript.AjaxAppender('/api/v1/logs/')
-        var brewLayout = new log4javascript.PatternLayout("%d{dd MMM yyyy HH:mm:ss}|| %-5p - %m %c");
+        var ajaxAppender = new log4javascript.AjaxAppender('/api/v1/logs/');
+        var brewLayout = new log4javascript.JsonLayout();
         ajaxAppender.setLayout(brewLayout);
         log4jslogger.addAppender(ajaxAppender);
 

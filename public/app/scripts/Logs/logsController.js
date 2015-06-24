@@ -12,7 +12,7 @@ function logsController($scope, logger, notifications) {
         logger.getLogs().then(function(data) {
             logs.logsList = data;
         });
-    }
+    };
 
     refreshLogsModel();
 
@@ -26,12 +26,12 @@ function logsController($scope, logger, notifications) {
                 notifications.error('Error deleting');
             });
         }
-    }
+    };
 
     logs.convertUTC = function(d) {
-        var date = new Date(d);
-        return date.toString() // "Wed Jun 29 2011 09:52:48 GMT-0700 (PDT)"
-    }
+        var dateString = (new Date(d)).toString();
+        return dateString;
+    };
 
     $scope.logs = logs;
 }
