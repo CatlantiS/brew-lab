@@ -33,5 +33,6 @@ function logsController($scope, logger, notifications) {
         return dateString;
     };
 
+    $scope.sortReverse = false;
     $scope.logs = logs;
 }

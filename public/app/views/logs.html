@@ -5,7 +5,7 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>Date/Time</th>
+            <th><a href="#" ng-click="sortReverse = !sortReverse;">Date/Time</a></th>
             <th>Level</th>
             <th>Url</th>
             <th>Message</th>
@@ -13,7 +13,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in logs.logsList">
+        <tr ng-repeat="item in logs.logsList| orderBy:'logdate':sortReverse">
             <td>{{item._id}}</td>
             <td>{{logs.convertUTC(item.logdate)}}</td>
             <td>{{item.level}}</td>
