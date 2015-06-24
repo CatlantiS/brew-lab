@@ -8,6 +8,11 @@ function navSidebarController(notifications) {
 	var self = this;
 
 	self.actions = [{
+			title: 'Discover',
+			click: function() {
+				notifications.error('Smell my cheese dust.')
+			}
+		}, {
 			title: 'Enter a new recipe',
 			url: '/recipe'
 		}, {
@@ -17,6 +22,11 @@ function navSidebarController(notifications) {
 			title: 'Saved recipes',
 			click: function() {
 				notifications.error('Farkled it up, Farkleton.')
+			}
+		}, {
+			title: 'Search',
+			click: function() {
+				notifications.error('Some of my best friends are obstetricians.')
 			}
 		}
 	]
