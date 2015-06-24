@@ -22,12 +22,15 @@ gulp.task('bower', function() {
     gulp.src('bower_components/log4javascript/log4javascript_uncompressed.js')
         .pipe(flatten())
         .pipe(gulp.dest('public/app/assets/js/vendor/'));
+    gulp.src('bower_components/jquery/dist/jquery.min.js')
+        .pipe(rename('jquery.__.min.js'))
+        .pipe(gulp.dest('public/app/assets/js/vendor/'));
 });
 
 //Add bower dependencies in here.  Order matters.
 gulp.task('vendor', function() {
     gulp.src([
-            'public/app/assets/js/vendor/jquery.min.js',
+            'public/app/assets/js/vendor/jquery.__.min.js',
             'public/app/assets/js/vendor/angular.min.js',
             'public/app/assets/js/vendor/angular-resource.min.js',
             'public/app/assets/js/vendor/angular-ui-router.min.js',
@@ -36,7 +39,8 @@ gulp.task('vendor', function() {
             'public/app/assets/js/vendor/typeahead.bundle.min.js',
             'public/app/assets/js/vendor/typeahead.jquery.min.js',
             'public/app/assets/js/vendor/toastr.min.js',
-            'public/app/assets/js/vendor/log4javascript_uncompressed.js'
+            'public/app/assets/js/vendor/log4javascript_uncompressed.js',
+            'public/app/assets/js/vendor/jquery.dataTables.min.js'
         ])
         .pipe(concat('vendor.min.js'))
         .pipe(gulp.dest('public/app/dist/'));

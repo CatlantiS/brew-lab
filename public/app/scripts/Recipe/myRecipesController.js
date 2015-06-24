@@ -7,6 +7,16 @@ function myRecipesController($q, $scope, User, Store) {
     /* jshint validthis: true */
     var self = this;
 
+    $scope.dataTableOptions = {
+        data: null,
+        columns: [
+            { title: 'Name' },
+            { title: 'Volume' },
+            { title: 'Units' },
+            { title: 'Yeast' }
+        ]
+    };
+
     self.isLoading = false;
 
     //Can load this when app loads or can load it only when it's requested.  And can cache or have it load fresh each time.
