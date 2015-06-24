@@ -5,7 +5,7 @@ angular.module('brewApp.directives')
         return {
             restrict: 'AE',
             link: function(scope, element) {
-                $(element + '.dropdown-menu li a').click(function() {
+                $(element).find('.dropdown-menu li a').click(function() {
                     var selectedText = $(this).text(),
                         dropdown = $(this).parents('.btn-group'),
                         //If for whatever reason, the dropdown toggle has more than two buttons, this will be ambiguous.
