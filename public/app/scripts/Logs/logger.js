@@ -4,11 +4,12 @@
 (function() {
     var app = angular.module('brewApp.services');
 
-    var logger = function ($resource) {
+    var logger = function ($resource, User) {
 
         var log4jslogger = log4javascript.getLogger();
         var ajaxAppender = new log4javascript.AjaxAppender('/api/v1/logs/');
         var brewLayout = new log4javascript.JsonLayout();
+        brewLayout.setCustomField('userid', User.id);
         ajaxAppender.setLayout(brewLayout);
         log4jslogger.addAppender(ajaxAppender);
 
@@ -46,5 +47,5 @@
         }
     }
 
-    app.factory('logger', ['$resource', logger]);
+    app.factory('logger', ['$resource', 'User', logger]);
 })();

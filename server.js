@@ -88,7 +88,7 @@ app.get('/api/v1/logs/', function(request, response) {
 app.post('/api/v1/logs/', function(request, response) {
 	var logdata = JSON.parse(request.body.data)[0];
 	console.log('timestamp = ' + logdata.timestamp);
-	Logs.create({logdate: logdata.timestamp, level: logdata.level, url: logdata.url, message: logdata.message}, function(err, obj) {
+	Logs.create({logdate: logdata.timestamp, level: logdata.level, url: logdata.url, userid: logdata.userid, message: logdata.message}, function(err, obj) {
 		if (err) {
 			response.send(err);
 		}
