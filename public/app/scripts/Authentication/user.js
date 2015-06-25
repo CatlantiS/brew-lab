@@ -16,13 +16,13 @@
             });
         }
 
-        function getRecipes() {
+        var recipes = function () {
             return Store.getByUser(id);
         }
 
         return {
             init: init,
-            recipes: getRecipes(),
+            recipes: recipes,
             id: id,
             context: context
         }

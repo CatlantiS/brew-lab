@@ -25,8 +25,8 @@ function myRecipesController($q, $scope, User, Store) {
 
         //Todo: have this resolved when app loads or at least before this view is loaded.
         //Note sure this will always be a promise if we set it up right, so wrap just to be safe...
-        $q.when(User.recipes).then(function(recipes) {
-            self.recipes = recipes;
+        $q.when(User.recipes()).then(function(data) {
+            self.recipes = data;
 
             self.isLoading = false;
         });
