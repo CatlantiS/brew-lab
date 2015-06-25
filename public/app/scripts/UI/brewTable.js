@@ -6,8 +6,6 @@ var flatterData = function(arr) {
 	for (i=0; i < arr.length; i++) {
 		res.push([arr[i].name, '', '', '']);
 	}
-	console.log('res = ');
-	console.log(res);
 	return res;
 }
 
