@@ -9,12 +9,7 @@ angular.module('brewApp.directives')
                     $(element).DataTable(options);
                 });
 
-            	//scope.$watch('ctrl.isLoading', function() {
-            	//	if (!scope.ctrl.isLoading) {
-            			//scope.ctrl.dataTableOptions.data = scope.ctrl.getDataForDataTable();
-                		//$(element).DataTable(scope.ctrl.dataTableOptions);
-                	//}
-            	//});
+            
             }
         };
     });
