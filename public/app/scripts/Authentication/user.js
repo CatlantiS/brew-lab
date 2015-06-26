@@ -7,35 +7,27 @@
     //Obviously need to actually implement this.
     function user(Store) {
         var id = 'dudeBruhson',
-            context = {};
+            context = {
+                getRecipes: getRecipes
+            };
 
         function init() {
-            return getRecipes().then(function(recipes) {
-                context.recipes = recipes;
-                context.reloadRecipes = true;
-            });
+            getRecipes();
         }
 
         function getRecipes() {
-            return Store.getByUser(id);
-        }
+            return Store.getByUser(id).then(function(recipes) {
+                context.recipes = recipes;
 
-        var getRecipes = function() {
-            if (context.recipes && !context.reloadRecipes) {
-                return context.recipes.$promise;
-            }
-            else
-            {
-                context.reloadRecipes = false;
-                return Store.getByUser(id).$promise;
-            }
+                return recipes;
+            });
         }
 
         return {
             init: init,
-            recipes: getRecipes,
             id: id,
-            context: context
-        }
+            context: context,
+            recipes: getRecipes
+        };
     }
 })();

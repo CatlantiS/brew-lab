@@ -56,7 +56,7 @@ app.get('/api/v1/store/:id', function(request, response) {
 app.get('/api/v1/store/user/:userId', function(request, response) {
 	var userId = request.params.userId;
 
-	Store.find({ user: userId }, function(err, obj) {
+	Store.find({ userId: userId }, function(err, obj) {
 		if (err)
 			response.send(err);
 
