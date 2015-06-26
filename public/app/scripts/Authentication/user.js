@@ -12,7 +12,7 @@
         function init() {
             return getRecipes().then(function(recipes) {
                 context.recipes = recipes;
-                context.reloadRecipes = getRecipes;
+                context.reloadRecipes = true;
             });
         }
 
@@ -20,9 +20,20 @@
             return Store.getByUser(id);
         }
 
+        var getRecipes = function() {
+            if (context.recipes && !context.reloadRecipes) {
+                return context.recipes.$promise;
+            }
+            else
+            {
+                context.reloadRecipes = false;
+                return Store.getByUser(id).$promise;
+            }
+        }
+
         return {
             init: init,
-            recipes: getRecipes(),
+            recipes: getRecipes,
             id: id,
             context: context
         }

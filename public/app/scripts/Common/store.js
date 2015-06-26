@@ -21,7 +21,7 @@
         }
 
         function getByUser(userId) {
-            return User.query({ userId: userId }).$promise;
+            return User.query({ userId: userId });
         }
 
         return {
