@@ -20,6 +20,8 @@ function recipeController($scope, AppState, BrewMaster, notifications, Store, lo
             Store.store(self.recipe).then(function (data) {
                 notifications.success('You just added recipe ' + data.id + ', good job brah');
                 logger.info('saved recipe with id = ' + data.id);
+                User.init();
+
 
                 self.recipeForm.$setPristine();
                 self.recipe = {};

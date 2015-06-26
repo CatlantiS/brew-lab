@@ -16,13 +16,17 @@
             });
         }
 
-        var recipes = function () {
+        function getRecipes() {
+            if (context.recipes) {
+                console.log('returning context.recipes');
+                return context.recipes;
+            }
             return Store.getByUser(id);
         }
 
         return {
             init: init,
-            recipes: recipes,
+            recipes: getRecipes(),
             id: id,
             context: context
         }
