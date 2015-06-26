@@ -6,7 +6,39 @@ angular.module('brewApp.controllers')
 function logsController($scope, logger, notifications) {
     console.log('calling logs controller');
 
+    var self = this;
     var logs = {};
+
+    self.dataTableOptions = {
+        data: null,
+        columns: [
+            { title: 'Id' },
+            { title: 'Date/Time' },
+            { title: 'Level' },
+            { title: 'URL' },
+            { title: 'User' },
+            { title: 'Message' },
+            {
+                data: null,
+                defaultContent: '<a href="#" class="editor_remove" ng-click="logs.testFunc()">Delete</a>'
+            }
+        ]
+    };
+
+    logs.testFunc = function() {
+        alert('got delete');
+    }
+
+    self.getDataForDataTable = function() {
+        var arr = self.logs;
+        var res = [];
+        var i;
+        for (i=0; i < arr.length; i++) {
+            res.push([arr[i]._id, logs.convertUTC(arr[i].logdate),arr[i].level,arr[i].url,arr[i].userid,arr[i].message]);
+        }
+
+        return res;
+    };
 
     var refreshLogsModel = function() {
         logger.getLogs().then(function(data) {
@@ -35,4 +67,11 @@ function logsController($scope, logger, notifications) {
 
     $scope.sortReverse = false;
     $scope.logs = logs;
+
+    self.isLoading = true;
+
+    logger.getLogs().then(function(data) {
+        self.logs = data;
+        self.isLoading = false;
+    });
 }

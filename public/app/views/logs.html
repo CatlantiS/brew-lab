@@ -1,7 +1,8 @@
 <h1 class="page-header brew-header">Logs</h1>
 
-<div ng-controller="LogsCtrl">
-    <table class="table table-striped table-hover table-responsive">
+<div ng-controller="LogsCtrl as ctrl">
+    <table class="table table-striped table-hover table-responsive" brew-table>
+   <!-- <table class="table table-striped table-hover table-responsive">
         <thead>
         <tr>
             <th>id</th>
@@ -23,7 +24,7 @@
             <td>{{item.message}}</td>
             <td><button ng-click="logs.deleteLog(item._id)" style="padding: 12px; color: Red;">x</button></td>
         </tr>
-        </tbody>
+        </tbody>-->
     </table>
     </div>
 </div>
