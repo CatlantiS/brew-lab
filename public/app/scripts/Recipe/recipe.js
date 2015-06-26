@@ -1,14 +1,14 @@
 (function() {
-    'user strict';
+    'use strict';
 
     angular.module('brewApp.services')
         .factory('Recipe', ['$q', 'User', 'Store', recipe]);
 
     function recipe($q, User, Store) {
-        var _recipes;
+        var _recipes = null;
 
         function save(recipe) {
-            recipe.userId = recipe.UserId || User.id;
+            recipe.userId = recipe.userId || User.id;
 
             return Store.store(recipe).then(function(id) {
                 getRecipes(true);
@@ -40,5 +40,5 @@
             save: save,
             getRecipes: getRecipes
         };
-    };
+    }
 })();
