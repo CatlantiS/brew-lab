@@ -9,35 +9,32 @@ function logsController($scope, logger, notifications) {
     var self = this;
     var logs = {};
 
-    self.dataTableOptions = {
-        data: null,
-        columns: [
-            { title: 'Id' },
-            { title: 'Date/Time' },
-            { title: 'Level' },
-            { title: 'URL' },
-            { title: 'User' },
-            { title: 'Message' },
-            {
-                data: null,
-                defaultContent: '<a href="#" class="editor_remove" ng-click="logs.testFunc()">Delete</a>'
-            }
-        ]
-    };
-
     logs.testFunc = function() {
         alert('got delete');
     }
 
-    self.getDataForDataTable = function() {
-        var arr = self.logs;
-        var res = [];
-        var i;
-        for (i=0; i < arr.length; i++) {
-            res.push([arr[i]._id, logs.convertUTC(arr[i].logdate),arr[i].level,arr[i].url,arr[i].userid,arr[i].message]);
-        }
+    $scope.loadData = function() {
+        return logger.getLogs().then(function(data) {
+            self.isLoading = false;
 
-        return res;
+            return options = {
+                data: data.map(function(i) {
+                   return [i._id, i.logdate, i.level, i.url, i.userid, i.message];
+                }),
+                columns: [
+                    { title: 'Id' },
+                    { title: 'Date/Time' },
+                    { title: 'Level' },
+                    { title: 'URL' },
+                    { title: 'User' },
+                    { title: 'Message' },
+                    {
+                        data: null,
+                        defaultContent: '<a href="#" class="editor_remove" ng-click="logs.testFunc()">Delete</a>'
+                    }
+                    ]
+            }
+        });
     };
 
     var refreshLogsModel = function() {
