@@ -7,8 +7,6 @@ function myRecipesController($scope, Recipe) {
     /* jshint validthis: true */
     var self = this;
 
-    self.recipes = [];
-
     $scope.loadData = function() {
         self.isLoading = true;
 
