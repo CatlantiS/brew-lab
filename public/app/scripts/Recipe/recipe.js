@@ -5,7 +5,7 @@
         .factory('Recipe', ['$q', 'User', 'Store', recipe]);
 
     function recipe($q, User, Store) {
-        var _recipes = null;
+        var _recipes = null; //I suck so much ass at git.
 
         function save(recipe) {
             recipe.userId = recipe.userId || User.id;
