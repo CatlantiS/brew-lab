@@ -1,14 +1,5 @@
 'use strict';
 
-var flatterData = function(arr) {
-	var res = [];
-	var i;
-	for (i=0; i < arr.length; i++) {
-		res.push([arr[i].name, '', '', '']);
-	}
-	return res;
-}
-
 angular.module('brewApp.directives')
     .directive('brewTable', function() {
         return {
@@ -16,8 +7,8 @@ angular.module('brewApp.directives')
             link: function(scope, element) {
             	scope.$watch('ctrl.isLoading', function() {
             		if (!scope.ctrl.isLoading) {
-            			scope.dataTableOptions.data = flatterData(scope.ctrl.recipes);
-                		$(element).DataTable(scope.dataTableOptions);
+            			scope.ctrl.dataTableOptions.data = scope.ctrl.getDataForDataTable();
+                		$(element).DataTable(scope.ctrl.dataTableOptions);
                 	}
             	});
             }
