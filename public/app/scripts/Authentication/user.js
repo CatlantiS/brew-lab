@@ -17,10 +17,6 @@
         }
 
         function getRecipes() {
-            if (context.recipes) {
-                console.log('returning context.recipes');
-                return context.recipes;
-            }
             return Store.getByUser(id);
         }
 
