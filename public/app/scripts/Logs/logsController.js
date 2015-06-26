@@ -4,8 +4,6 @@ angular.module('brewApp.controllers')
     .controller('LogsCtrl', ['$scope',  'logger', 'notifications', logsController]);
 
 function logsController($scope, logger, notifications) {
-    console.log('calling logs controller');
-
     var self = this;
     var logs = {};
 
@@ -15,11 +13,10 @@ function logsController($scope, logger, notifications) {
 
     $scope.loadData = function() {
         return logger.getLogs().then(function(data) {
-            self.isLoading = false;
 
             return options = {
                 data: data.map(function(i) {
-                   return [i._id, i.logdate, i.level, i.url, i.userid, i.message];
+                   return [i._id, convertUTC(i.logdate), i.level, i.url, i.userid, i.message];
                 }),
                 columns: [
                     { title: 'Id' },
@@ -37,13 +34,6 @@ function logsController($scope, logger, notifications) {
         });
     };
 
-    var refreshLogsModel = function() {
-        logger.getLogs().then(function(data) {
-            logs.logsList = data;
-        });
-    };
-
-    refreshLogsModel();
 
     logs.deleteLog = function(id) {
         if (confirm('Are you sure you wish to delete id = ' + id + '?')) {
@@ -57,18 +47,10 @@ function logsController($scope, logger, notifications) {
         }
     };
 
-    logs.convertUTC = function(d) {
+    var convertUTC = function(d) {
         var dateString = (new Date(d)).toString();
         return dateString;
     };
 
-    $scope.sortReverse = false;
-    $scope.logs = logs;
-
-    self.isLoading = true;
-
-    logger.getLogs().then(function(data) {
-        self.logs = data;
-        self.isLoading = false;
-    });
+    self.logs = logs;
 }
