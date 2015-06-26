@@ -8,10 +8,8 @@ function myRecipesController($scope, Recipe) {
     var self = this;
 
     $scope.loadData = function() {
-        self.isLoading = true;
 
         return Recipe.getRecipes().then(function(recipes) {
-            self.isLoading = false;
 
             return options = {
                 data: recipes.map(function(recipe) {
