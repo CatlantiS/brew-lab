@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'Store', 'logger', 'User', recipeController]);
+	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'logger', 'Recipe', recipeController]);
 
-function recipeController($scope, AppState, BrewMaster, notifications, Store, logger, User) {
+function recipeController($scope, AppState, BrewMaster, notifications, logger, Recipe) {
     /* jshint validthis: true */
     var self = this;
 
@@ -14,17 +14,15 @@ function recipeController($scope, AppState, BrewMaster, notifications, Store, lo
 
     self.submit = function(isValid) {
         if (isValid) {
-            self.recipe.user = User.id;
-
             //Need a spinner on this?
-            Store.store(self.recipe).then(function (data) {
+            Recipe.save(self.recipe).then(function(data) {
                 notifications.success('You just added recipe ' + data.id + ', good job brah');
                 logger.info('saved recipe with id = ' + data.id);
-                User.init();
-
 
                 self.recipeForm.$setPristine();
+                //Units isn't resetting.  Need to fix this.
                 self.recipe = {};
+
                 AppState.area('Recipe').destroy('recipe');
             });
         }
@@ -32,6 +30,7 @@ function recipeController($scope, AppState, BrewMaster, notifications, Store, lo
 
     self.clear = function() {
         self.recipeForm.$setPristine();
+        //Units isn't resetting. Need to fix this.
         self.recipe = {};
         AppState.area('Recipe').destroy('recipe');
     };
