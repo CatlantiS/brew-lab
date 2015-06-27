@@ -7,7 +7,7 @@
     // prevent duplicate notifications
     toastr.options.preventDuplicates = true;
 
-    var notifications = function() {
+    var notifications = function(logger) {
         var success = function(msg) {
             toastr.success(msg);
         };
@@ -32,5 +32,5 @@
         };
     };
 
-    app.factory('notifications', notifications);
+    app.factory('notifications', ['logger', notifications]);
 })();

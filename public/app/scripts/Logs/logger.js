@@ -13,28 +13,34 @@
         ajaxAppender.setLayout(brewLayout);
         log4jslogger.addAppender(ajaxAppender);
 
+        log4jslogger.setLevel(log4javascript.Level.ALL);
+
         var error = function(msg) {
             log4jslogger.error(msg);
-        }
+        };
 
         var info = function(msg) {
             log4jslogger.info(msg);
-        }
+        };
 
         var warn = function(msg) {
             log4jslogger.warn(msg);
-        }
+        };
 
         var debug = function(msg) {
             log4jslogger.debug(msg);
-        }
+        };
 
         var getLogs = function() {
             return $resource('/api/v1/logs').query().$promise;
-        }
+        };
 
         var deleteLog = function(id) {
             return $resource('/api/v1/logs/:id', { id: id}).remove().$promise;
+        };
+
+        var getLogLevel = function() {
+            return log4jslogger.getLevel();
         }
 
         return {
@@ -43,7 +49,8 @@
             warn: warn,
             debug: debug,
             getLogs: getLogs,
-            deleteLog: deleteLog
+            deleteLog: deleteLog,
+            getLogLevel: getLogLevel
         }
     }
 
