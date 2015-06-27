@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('Recipe', ['$q', 'User', 'Store', recipe]);
+        .factory('Recipe', ['$q', 'Store','User', recipe]);
 
-    function recipe($q, User, Store) {
+    function recipe($q, Store, User) {
         var _recipes = null; //I suck so much ass at git.
 
         function save(recipe) {
@@ -20,23 +20,20 @@
         function getRecipes(reload) {
             var deferred = $q.defer();
 
-            if (User.context.recipes && reload === false) {
-                _recipes = User.context.recipes;
-
-                deferred.resolve(User.context.recipes);
+            if (_recipes && reload === false) {
+                deferred.resolve(_recipes);
             }
             else
-                User.context.getRecipes().then(function(recipes) {
+               Store.getByUser(User.id).then(function(recipes) {
                     _recipes = recipes;
 
-                    deferred.resolve(recipes);
+                    deferred.resolve(_recipes);
                 });
 
             return deferred.promise;
         }
 
         return {
-            recipes: _recipes,
             save: save,
             getRecipes: getRecipes
         };
