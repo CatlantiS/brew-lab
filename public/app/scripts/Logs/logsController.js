@@ -26,7 +26,7 @@ function logsController($scope, logger, notifications) {
                     { title: 'Message' },
                     {
                         data: null,
-                        defaultContent: '<a href="#" class="editor_remove" ng-click="logs.testFunc()">Delete</a>'
+                        defaultContent: '<a href="#" class="editor_remove" onclick=\"angular.element(this).scope().logs.testFunc();\">Delete</a>'
                     }
                     ]
             }
