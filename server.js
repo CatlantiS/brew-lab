@@ -4,7 +4,10 @@ var express  = require('express'),
 	morgan = require('morgan'),          
 	bodyParser = require('body-parser'), 
 	methodOverride = require('method-override'),
-	path = require('path');
+	path = require('path'),
+	oauth2lib = require('oauth20-provider/lib/');
+
+var oauth2 = new oauth2lib({log: {levl: 2}});
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
@@ -12,6 +15,11 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
+app.use(oauth2.inject());
+
+// oauth2 token endpoint
+console.log(oauth2);
+app.post('/token', oauth2.controller.token);
 
 //Need to revisit this hackjob at some point.
 app.get('/:static', function(request, response) {
