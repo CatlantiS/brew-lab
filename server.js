@@ -5,9 +5,12 @@ var express  = require('express'),
 	bodyParser = require('body-parser'), 
 	methodOverride = require('method-override'),
 	path = require('path'),
-	oauth2lib = require('oauth20-provider/lib/');
+	oauth2lib = require('oauth20-provider/lib/'),
+	session = require('express-session'),
+	query = require('querystring');
 
-var oauth2 = new oauth2lib({log: {levl: 2}});
+var oauth2 = new oauth2lib({log: {level: 2}});
+app.set('oauth2', oauth2);
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
@@ -15,11 +18,30 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
+app.use(session({ secret: 'oauth20-provider-test-server', resave: false, saveUninitialized: false }));
 app.use(oauth2.inject());
 
 // oauth2 token endpoint
-console.log(oauth2);
+//console.log(oauth2);
 app.post('/token', oauth2.controller.token);
+
+// authorization endpoint
+app.get('/authorization', isAuthorized, oauth2.controller.authorization, function(req, res) {
+	// Render our decision page
+	// Look into ./test/server for further information
+	res.render('authorization', {layout: false});
+});
+app.post('/authorization', isAuthorized, oauth2.controller.authorization);
+
+function isAuthorized(req, res, next) {
+	if (req.session.authorized) next();
+	else {
+		console.log('sorry not authorized brah');
+		var params = req.query;
+		params.backUrl = req.path;
+		res.redirect('/login?' + query.stringify(params));
+	}
+};
 
 //Need to revisit this hackjob at some point.
 app.get('/:static', function(request, response) {
