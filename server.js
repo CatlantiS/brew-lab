@@ -9,7 +9,7 @@ var express  = require('express'),
 	session = require('express-session'),
 	query = require('querystring');
 
-var oauth2 = new oauth2lib({log: {level: 2}});
+var oauth2 = new oauth2lib({log: {level: 0}});
 app.set('oauth2', oauth2);
 
 app.use(express.static(__dirname + '/public'));
@@ -32,6 +32,13 @@ app.get('/authorization', isAuthorized, oauth2.controller.authorization, functio
 	res.render('authorization', {layout: false});
 });
 app.post('/authorization', isAuthorized, oauth2.controller.authorization);
+
+// Some secure method
+app.get('/secure', oauth2.middleware.bearer, function(req, res) {
+	if (!req.oauth2.accessToken) return res.status(403).send('Forbidden');
+	if (!req.oauth2.accessToken.userId) return res.status(403).send('Forbidden');
+	res.send('Hi! Dear user ' + req.oauth2.accessToken.userId + '!');
+});
 
 function isAuthorized(req, res, next) {
 	if (req.session.authorized) next();
