@@ -1,7 +1,5 @@
 ///NOTES///
 
-//What if a property is deleted?  Can't just track version at property level...
-
 //Look into RequireJS for AMD.  So far ['version', 'version.polyfill']
 
 //Freeze version objects?
