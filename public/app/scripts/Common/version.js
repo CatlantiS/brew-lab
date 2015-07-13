@@ -35,21 +35,6 @@
             };
         };
 
-        Version.prototype.compareWith = function(versionId) {
-            var diff;
-
-            if (Array.isArray($obj.$versions) && $obj.$versions.length > 0) {
-                if (versionId) {
-                    return getDiff(versionId);
-                }
-                else {
-                    diff = $diffs.sort(sortPredicate)[0];
-
-                    return diff;
-                }
-            }
-        };
-
         Version.prototype.deleteProp = function(prop) {
             if (typeof $obj[prop] !== 'undefined')
                 delete $obj[prop];
@@ -141,11 +126,18 @@
         }
 
         function getDiff(versionId) {
-            var diff = $diffs.find(function (d, i, f) {
-                //This doesn't work.  Just a placeholder for actual logic.
-                if (d.versionId === versionId)
-                    return d;
-            });
+            var diff;
+
+            if ($diffs.length > 0) {
+                if (versionId)
+                    diff = $diffs.find(function (d, i, f) {
+                        //This doesn't work.  Just a placeholder for actual logic.
+                        if (d.versionId === versionId)
+                            return d;
+                    });
+                else
+                    diff = $diffs.sort(sortPredicate)[0];
+            }
 
             return diff;
         }
