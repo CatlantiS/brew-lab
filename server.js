@@ -23,6 +23,15 @@ console.log(model);
 //client methods
 oauth2.model.client.fetchById = model.client.fetchById;
 oauth2.model.client.getRedirectUri = model.client.getRedirectUri;
+oauth2.model.client.getId = model.client.getId;
+oauth2.model.client.checkSecret = model.client.checkSecret;
+
+// user methods
+oauth2.model.user.getId = model.user.getId;
+oauth2.model.user.fetchById = model.user.fetchById;
+oauth2.model.user.fetchByUsername = model.user.fetchByUsername;
+oauth2.model.user.fetchFromRequest = model.user.fetchFromRequest;
+oauth2.model.user.checkPassword = model.user.checkPassword;
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
