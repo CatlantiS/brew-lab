@@ -33,8 +33,38 @@ app.get('/authorization', isAuthorized, oauth2.controller.authorization, functio
 });
 app.post('/authorization', isAuthorized, oauth2.controller.authorization);
 
+// login
+app.post('/login', function(req, res, next) {
+
+	// this needs to be fixed, angular is not sending querystring for redirect
+	var backUrl = req.query.backUrl ? req.query.backUrl : '/';
+	delete(req.query.backUrl);
+	backUrl += backUrl.indexOf('?') > -1 ? '&' : '?';
+	backUrl += query.stringify(req.query);
+
+	// Already logged in
+	if (req.session.authorized) res.redirect("/");
+
+	else if (req.body.username && req.body.password) {
+		if (req.body.username == "brewuser" && req.body.password == "meow") {
+			req.session.user = "brewuser"
+			req.session.authorized = true;
+			res.redirect('/secure');
+		}
+		else
+		{
+			res.status(403).send("Invalid login info");
+		}
+	}
+	else
+	{
+		return res.status(403).send("Username or password invalid");
+	}
+});
+
 // Some secure method
 app.get('/secure', oauth2.middleware.bearer, function(req, res) {
+	console.log('Entering /secure');
 	if (!req.oauth2.accessToken) return res.status(403).send('Forbidden');
 	if (!req.oauth2.accessToken.userId) return res.status(403).send('Forbidden');
 	res.send('Hi! Dear user ' + req.oauth2.accessToken.userId + '!');
