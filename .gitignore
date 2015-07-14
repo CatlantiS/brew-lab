@@ -31,3 +31,7 @@ lib
 
 # Webstorm specific files, I think.
 .idea
+
+# gulp files
+public/app/assets/js/vendor
+public/app/dist
