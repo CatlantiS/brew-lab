@@ -7,10 +7,22 @@ var express  = require('express'),
 	path = require('path'),
 	oauth2lib = require('oauth20-provider/lib/'),
 	session = require('express-session'),
-	query = require('querystring');
+	query = require('querystring'),
+	model = require('./oauth/');
+
 
 var oauth2 = new oauth2lib({log: {level: 0}});
+
 app.set('oauth2', oauth2);
+console.log('oauth2.model = ');
+console.log(oauth2.model);
+console.log('model = ');
+console.log(model);
+
+//oauth2 methods
+//client methods
+oauth2.model.client.fetchById = model.client.fetchById;
+oauth2.model.client.getRedirectUri = model.client.getRedirectUri;
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
