@@ -35,3 +35,6 @@ lib
 # gulp files
 public/app/assets/js/vendor
 public/app/dist
+
+# bower rc
+.bowerrc

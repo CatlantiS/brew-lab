@@ -49,7 +49,8 @@ app.post('/login', function(req, res, next) {
 		if (req.body.username == "brewuser" && req.body.password == "meow") {
 			req.session.user = "brewuser"
 			req.session.authorized = true;
-			res.redirect('/secure');
+			//res.redirect('/secure');
+			res.status(200).send('Login successful.');
 		}
 		else
 		{

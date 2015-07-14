@@ -7,24 +7,25 @@
     function LoginController($scope, $http, notifications) {
         $scope.isLogin = true;
         var login = {}
+        login.isAuthorized = false;
 
         login.ProcessLogin = function() {
-            console.log(login);
-            /*if (login.username == 'brewuser' && login.password == 'meow') {
-                notifications.success('login successful!');
-            }
-            else
-            {
-                notifications.error('Bad username and/or password.');
-            }*/
-
+            
             $http.post('/login', {username: login.username, password: login.password})
                 .success(function(data) {
                     notifications.info('Login successful');
+                    login.isAuthorized = true;
                 })
                 .error(function(data,status) {
                     notifications.error('Login failed, ' + status);
                 });
+        }
+
+        login.Authorize = function() {
+            $http.get('/authorization?redirect_uri=%2Fsecure&client_id=1&response_type=token')
+            .then(function(data) {
+                console.log(data);
+            });
         }
 
         $scope.login = login;
