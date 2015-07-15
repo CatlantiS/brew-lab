@@ -19,14 +19,29 @@
                 .error(function(data,status) {
                     notifications.error('Login failed, ' + status);
                 });
-        }
+        };
 
         login.Authorize = function() {
-            $http.get('/authorization?redirect_uri=%2Fsecure&client_id=1&response_type=token')
+            $http.get('/secure')
             .then(function(data) {
                 console.log(data);
             });
-        }
+        };
+
+        login.GetToken = function() {
+            var clientId = 1;
+            var secret = 'secret';
+            var body = JSON.stringify({grant_type: 'password', username: 'brewuser', password: 'meow'});
+            var authHeader = 'Basic ' + btoa(clientId + ':' + secret);
+            notifications.info(authHeader);
+            $http.post('/token', body, { headers: {'Authorization': authHeader } })
+                .then(function(data) {
+                    console.log(data.data);
+                    var accessToken = data.data.access_token;
+                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+                    notifications.success('Got token = ' + accessToken);
+                });
+        };
 
         $scope.login = login;
     }
