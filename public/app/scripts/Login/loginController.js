@@ -23,6 +23,18 @@
                 });
         };
 
+        login.secureTest = function() {
+            $http.get('/secure')
+                .success(function(data) {
+                    console.log(data);
+                    login.testOutput = data;
+                })
+                .error(function(error) {
+                    console.log(error);
+                    login.testOutput = error.error + ', ' + error.error_description;
+                });
+        };
+
         $scope.login = login;
     }
 })();

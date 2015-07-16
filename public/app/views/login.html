@@ -9,4 +9,8 @@
     <div ng-show="login.isAuthorized">
         <h1>Welcome {{login.currentUser}}!</h1>
     </div>
+    <div>
+        <button ng-click="login.secureTest()">Test secure api endpoint</button><br />
+        <span>{{login.testOutput}}</span>
+    </div>
 </div>
