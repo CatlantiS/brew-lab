@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('Auth', ['User', auth]);
+        .factory('Auth', ['$http','User', auth]);
 
     //Obviously need to actually implement this.
-    function auth() {
+    function auth($http, User) {
         function getCurrentUser() {
             return User.id;
         }
@@ -18,10 +18,15 @@
             return true;
         }
 
+        var login = function(username, password) {
+            return $http.post('/login', {username: username, password: password});
+        };
+
         return {
             getCurrentUser: getCurrentUser,
             isAuthenticated: isAuthenticated,
-            isInRole: isInRole
+            isInRole: isInRole,
+            login: login
         };
     }
 })();
