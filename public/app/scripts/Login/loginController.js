@@ -13,6 +13,7 @@
             //console.log(Auth);
            Auth.login(login.username, login.password)
                .then(function(data) {
+                   console.log(data);
                   notifications.success('Login successful');
                    login.isAuthorized = true;
                },

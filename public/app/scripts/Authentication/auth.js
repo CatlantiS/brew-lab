@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('Auth', ['$http','User', auth]);
+        .factory('Auth', ['$http','$q', 'User', auth]);
 
     //Obviously need to actually implement this.
-    function auth($http, User) {
+    function auth($http, $q, User) {
         function getCurrentUser() {
             return User.id;
         }
@@ -19,7 +19,17 @@
         }
 
         var login = function(username, password) {
-            return $http.post('/login', {username: username, password: password});
+            var deferred = $q.defer();
+
+            return $http.post('/login', {username: username, password: password})
+                .success(function(data) {
+                    deferred.resolve(data);
+                })
+                .error(function(err) {
+                    deferred.reject(err);
+                })
+
+            return deferred.promise;
         };
 
         return {
