@@ -5,44 +5,12 @@ var express  = require('express'),
 	bodyParser = require('body-parser'), 
 	methodOverride = require('method-override'),
 	path = require('path'),
-	oauth2lib = require('oauth20-provider/lib/'),
 	session = require('express-session'),
 	query = require('querystring'),
-	model = require('./oauth/');
+	oauth2 = require('./oauth/config.js')();
 
-
-var oauth2 = new oauth2lib({log: {level: 0}});
-
+console.log(oauth2);
 app.set('oauth2', oauth2);
-//console.log('oauth2.model = ');
-//console.log(oauth2.model);
-console.log('model = ');
-console.log(model);
-
-//oauth2 methods
-//client methods
-oauth2.model.client.fetchById = model.client.fetchById;
-oauth2.model.client.getRedirectUri = model.client.getRedirectUri;
-oauth2.model.client.getId = model.client.getId;
-oauth2.model.client.checkSecret = model.client.checkSecret;
-
-// user methods
-oauth2.model.user.getId = model.user.getId;
-oauth2.model.user.fetchById = model.user.fetchById;
-oauth2.model.user.fetchByUsername = model.user.fetchByUsername;
-oauth2.model.user.fetchFromRequest = model.user.fetchFromRequest;
-oauth2.model.user.checkPassword = model.user.checkPassword;
-
-// refresh token
-oauth2.model.refreshToken.removeByUserIdClientId = model.refreshToken.removeByUserIdClientId;
-oauth2.model.refreshToken.create = model.refreshToken.create;
-
-// accessToken
-oauth2.model.accessToken.create = model.accessToken.create;
-oauth2.model.accessToken.getToken = model.accessToken.getToken;
-oauth2.model.accessToken.fetchByToken = model.accessToken.fetchByToken;
-oauth2.model.accessToken.checkTTL = model.accessToken.checkTTL;
-oauth2.model.accessToken.getTTL = model.accessToken.getTTL;
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
