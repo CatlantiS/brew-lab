@@ -21,13 +21,22 @@
         var login = function(username, password) {
             var deferred = $q.defer();
 
-            return $http.post('/login', {username: username, password: password})
+            $http.post('/login', {username: username, password: password})
                 .success(function(data) {
-                    deferred.resolve(data);
+                    var clientId = 1;
+                    var secret = 'secret';
+                    var body = JSON.stringify({grant_type: 'password', username: 'brewuser', password: 'meow'});
+                    var authHeader = 'Basic ' + btoa(clientId + ':' + secret);
+
+                    $http.post('/token', body, { headers: {'Authorization': authHeader } })
+                        .then(function(data) {
+                            var accessToken = data.data.access_token;
+                            deferred.resolve(accessToken);
+                        });
                 })
                 .error(function(err) {
                     deferred.reject(err);
-                })
+                });
 
             return deferred.promise;
         };
