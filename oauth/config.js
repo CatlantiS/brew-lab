@@ -1,7 +1,5 @@
 (function() {
-    console.log('calling config.js');
     module.exports = function () {
-        console.log('calling exports');
         var oauth2lib = require('oauth20-provider/lib/');
         var obj = new oauth2lib({log: {level: 0}});
         var model = require('./model/');

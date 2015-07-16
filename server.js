@@ -9,7 +9,6 @@ var express  = require('express'),
 	query = require('querystring'),
 	oauth2 = require('./oauth/config.js')();
 
-console.log(oauth2);
 app.set('oauth2', oauth2);
 
 app.use(express.static(__dirname + '/public'));
@@ -22,7 +21,6 @@ app.use(session({ secret: 'oauth20-provider-test-server', resave: false, saveUni
 app.use(oauth2.inject());
 
 // oauth2 token endpoint
-//console.log(oauth2);
 app.post('/token', oauth2.controller.token);
 
 // authorization endpoint
@@ -49,7 +47,6 @@ app.post('/login', function(req, res, next) {
 		if (req.body.username == "brewuser" && req.body.password == "meow") {
 			req.session.user = "brewuser"
 			req.session.authorized = true;
-			//res.redirect('/secure');
 			res.status(200).send('Login successful.');
 		}
 		else
