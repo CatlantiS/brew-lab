@@ -6,8 +6,19 @@ var express  = require('express'),
 	methodOverride = require('method-override'),
 	path = require('path'),
 	session = require('express-session'),
-	query = require('querystring'),
-	oauth2 = require('./oauth/config.js')();
+	query = require('querystring');
+
+//Todo: move REST API into separate service.
+mongoose.connect('mongodb://localhost:27017/brewlab');
+
+var storeSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
+var Store = mongoose.model('store', storeSchema);
+var logsSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
+var Logs = mongoose.model('logs', logsSchema);
+var userSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
+var User = mongoose.model('users', userSchema);
+
+var oauth2 = require('./oauth/config.js')(User);
 
 app.set('oauth2', oauth2);
 
@@ -98,14 +109,6 @@ app.get('/views/:static', function(request, response) {
 
 	response.sendFile(route, { root: './public/app/views/' });
 });
-
-//Todo: move REST API into separate service.
-mongoose.connect('mongodb://localhost:27017/brewlab');
-
-var storeSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
-var Store = mongoose.model('store', storeSchema);
-var logsSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
-var Logs = mongoose.model('logs', logsSchema);
 
 app.get('/api/v1/store/:id', function(request, response) {
 	var id = request.params.id;

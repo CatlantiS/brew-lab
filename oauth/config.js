@@ -1,8 +1,31 @@
 (function() {
-    module.exports = function () {
+    module.exports = function (User) {
+        console.log('calling oath config');
         var oauth2lib = require('oauth20-provider/lib/');
         var obj = new oauth2lib({log: {level: 0}});
         var model = require('./model/');
+
+        User.find({ userId: 1 }, function(err, obj) {
+           if (err)
+           {
+               console.log(err);
+           }
+           else if (obj.length === 0){
+               User.create({userId:1, userName: 'brewuser', password: 'meow', secret: 'secret'}, function(err, obj) {
+                  if (err)
+                  {
+                      console.log(err);
+                  }
+                   else {
+                      console.log('created user with id = ' + obj._id);
+                  }
+               });
+           }
+            else
+           {
+               console.log('User table already seeded.');
+           }
+        });
 
         //client methods
         obj.model.client.fetchById = model.client.fetchById;
