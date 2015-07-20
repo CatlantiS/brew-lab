@@ -6,6 +6,8 @@ var users = [
 	}
 ];
 
+var db = require('./db.js');
+
 module.exports.getId = function(user) {
 	return user.id;
 };
@@ -17,9 +19,15 @@ module.exports.fetchById = function(id,cb) {
 };
 
 module.exports.fetchByUsername = function(username, cb) {
-	for (var i in users) {
-		if (username == users[i].username) return cb(null, users[i]);
-	}
+	db.User.findOne({ 'userName': username}, function(err, obj) {
+		
+		var user = {
+			id: obj._doc.userId,
+			username: obj._doc.userName,
+			password: obj._doc.password
+		};
+		return cb(null, user);
+	});
 };
 
 module.exports.checkPassword = function(user, password, cb) {

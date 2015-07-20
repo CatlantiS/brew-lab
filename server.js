@@ -15,10 +15,8 @@ var storeSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { s
 var Store = mongoose.model('store', storeSchema);
 var logsSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
 var Logs = mongoose.model('logs', logsSchema);
-var userSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
-var User = mongoose.model('users', userSchema);
 
-var oauth2 = require('./oauth/config.js')(User);
+var oauth2 = require('./oauth/config.js')();
 
 app.set('oauth2', oauth2);
 

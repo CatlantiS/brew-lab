@@ -1,9 +1,11 @@
 (function() {
-    module.exports = function (User) {
+    module.exports = function () {
         console.log('calling oath config');
         var oauth2lib = require('oauth20-provider/lib/');
         var obj = new oauth2lib({log: {level: 0}});
         var model = require('./model/');
+        var db = require('./model/db.js');
+        var User = db.User;
 
         User.find({ userId: 1 }, function(err, obj) {
            if (err)
@@ -11,7 +13,7 @@
                console.log(err);
            }
            else if (obj.length === 0){
-               User.create({userId:1, userName: 'brewuser', password: 'meow', secret: 'secret'}, function(err, obj) {
+               User.create({ userId : 1, userName: 'brewuser', password: 'meow', secret: 'secret'}, function(err, obj) {
                   if (err)
                   {
                       console.log(err);
