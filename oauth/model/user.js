@@ -1,11 +1,3 @@
-var users = [
-	{
-		id: 1,
-		username: 'brewuser',
-		password: 'meow'
-	}
-];
-
 var db = require('./db.js');
 
 module.exports.getId = function(user) {
@@ -13,16 +5,21 @@ module.exports.getId = function(user) {
 };
 
 module.exports.fetchById = function(id,cb) {
-	for (var i in users) {
-		if (id == users[i].id) return cb(null, users[i]);
-	}
+	db.user.findOne({ userId: id }, function(err, obj) {
+		var user = {
+			id: obj.userId,
+			userName: obj.userName,
+			password: obj.password
+		}
+		return cb(null, user);
+	});
 };
 
 module.exports.fetchByUsername = function(username, cb) {
-	db.User.findOne({ 'userName': username}, function(err, obj) {
+	db.User.findOne({ userName: username}, function(err, obj) {
 		var user = {
 			id: obj.userId,
-			username: obj.userName,
+			userName: obj.userName,
 			password: obj.password
 		};
 		return cb(null, user);
