@@ -20,11 +20,10 @@ module.exports.fetchById = function(id,cb) {
 
 module.exports.fetchByUsername = function(username, cb) {
 	db.User.findOne({ 'userName': username}, function(err, obj) {
-		
 		var user = {
-			id: obj._doc.userId,
-			username: obj._doc.userName,
-			password: obj._doc.password
+			id: obj.userId,
+			username: obj.userName,
+			password: obj.password
 		};
 		return cb(null, user);
 	});
