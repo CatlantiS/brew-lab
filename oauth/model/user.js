@@ -17,17 +17,31 @@ module.exports.fetchById = function(id,cb) {
 
 module.exports.fetchByUsername = function(username, cb) {
 	db.User.findOne({ userName: username}, function(err, obj) {
-		var user = {
-			id: obj.userId,
-			userName: obj.userName,
-			password: obj.password
-		};
-		return cb(null, user);
+		if (err) {
+			console.log('we have an error in fetchbyusername');
+		}
+		if (obj) {
+			var user = {
+				id: obj.userId,
+				userName: obj.userName,
+				password: obj.password
+			};
+			return cb(null, user);
+		}
+		else {
+			console.log('no user');
+			cb();
+		}
 	});
 };
 
 module.exports.checkPassword = function(user, password, cb) {
-	(user.password == password) ? cb(null, true) : cb(null, false);
+	if (user) {
+		(user.password == password) ? cb(null, true) : cb(null, false);
+	}
+	else {
+		cb(null, false);
+	}
 };
 
 module.exports.fetchFromRequest = function(req) {
