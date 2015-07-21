@@ -35,7 +35,7 @@
                console.log(err);
            }
             else if (obj.length === 0) {
-               Client.create({ clientId: 1, name: 'Default Client', redirectUri: '/secure' }, function(err, obj) {
+               Client.create({ clientId: 1, name: 'Default Client', secret: 'secret', redirectUri: '/secure' }, function(err, obj) {
                    if (err) {
                        console.log(err);
                    }

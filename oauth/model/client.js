@@ -1,22 +1,15 @@
-// complete mockup, will be replaced with data access code later
-
-var clients = [{
-    id: 1,
-    name: 'test client',
-    secret: 'secret',
-    //redirectUri: 'http://example.org/oauth2'
-    redirectUri: "/secure"
-	}, {
-    id: 2,
-    name: 'test client 2',
-    redirectUri: 'http://example.org/oauth2'
-	}];
+var db = require('./db.js');
 
 module.exports.fetchById = function(clientId, cb) {
-	for (var i in clients) {
-		if (clientId == clients[i].id) return cb(null, clients[i]);
-	}
-	cb();
+	db.Client.findOne( { clientId: clientId }, function(err, obj) {
+		var client = {
+			clientId: obj.clientId,
+			name: obj.name,
+			secret: obj.secret,
+			redirectUri: obj.redirectUri
+		}
+		return cb(null, client);
+	});
 };
 
 module.exports.getRedirectUri = function(client) {
