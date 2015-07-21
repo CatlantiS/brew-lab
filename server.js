@@ -6,7 +6,8 @@ var express  = require('express'),
 	methodOverride = require('method-override'),
 	path = require('path'),
 	session = require('express-session'),
-	query = require('querystring');
+	query = require('querystring'),
+	oauth_model = require('./oauth/model/');
 
 //Todo: move REST API into separate service.
 mongoose.connect('mongodb://localhost:27017/brewlab');
@@ -53,15 +54,24 @@ app.post('/login', function(req, res, next) {
 	if (req.session.authorized) res.redirect("/");
 
 	else if (req.body.username && req.body.password) {
-		if (req.body.username == "brewuser" && req.body.password == "meow") {
-			req.session.user = "brewuser"
-			req.session.authorized = true;
-			res.status(200).send('Login successful.');
-		}
-		else
-		{
-			res.status(403).send("Invalid login info");
-		}
+		console.log(oauth_model.user);
+		oauth_model.user.fetchByUsername(req.body.username, function(err, user) {
+			if (err) next(err);
+			else {
+				oauth_model.user.checkPassword(user, req.body.password, function(err, valid) {
+					if (err) next(err);
+					else if (!valid) {
+						res.status(403).send("Invalid login info");
+					}
+					else {
+						req.session.user = user;
+						req.session.authorized = true;
+						console.log(req);
+						res.status(200).send('Login Successful.');
+					}
+				});
+			}
+		});
 	}
 	else
 	{
