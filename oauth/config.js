@@ -6,6 +6,7 @@
         var model = require('./model/');
         var db = require('./model/db.js');
         var User = db.User;
+        var Client = db.Client;
 
         User.find({ userId: 1 }, function(err, obj) {
            if (err)
@@ -26,6 +27,25 @@
             else
            {
                console.log('User table already seeded.');
+           }
+        });
+
+        Client.find({ clientId: 1 }, function(err, obj) {
+           if (err) {
+               console.log(err);
+           }
+            else if (obj.length === 0) {
+               Client.create({ clientId: 1, name: 'Default Client', redirectUri: '/secure' }, function(err, obj) {
+                   if (err) {
+                       console.log(err);
+                   }
+                   else {
+                       console.log('created client with id = ' + obj._id);
+                   }
+               });
+           }
+            else {
+               console.log('Client table already seeded.');
            }
         });
 
