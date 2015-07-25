@@ -6,14 +6,12 @@
 
     //Obviously need to actually implement this.
     function auth($http, $q, User) {
+        var isAuthenticated = false;
+
         function getCurrentUser() {
             return User.id;
         }
-
-        function isAuthenticated() {
-            return true;
-        }
-
+        
         function isInRole(role) {
             return true;
         }
@@ -31,6 +29,7 @@
                     $http.post('/token', body, { headers: {'Authorization': authHeader } })
                         .then(function(data) {
                             var accessToken = data.data.access_token;
+                            User.isAuthenticated = true;
                             deferred.resolve(accessToken);
                         });
                 })

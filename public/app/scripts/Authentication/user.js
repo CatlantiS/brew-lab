@@ -17,9 +17,12 @@
             });
         }
 
+        var isAuthenticated = false;
+
         return {
             id: id,
-            recipes: getRecipes
+            recipes: getRecipes,
+            isAuthenticated: isAuthenticated
         };
     }
 })();

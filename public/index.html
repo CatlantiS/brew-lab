@@ -35,7 +35,7 @@
 						<a href="/" class="navbar-brand brew-brand">|brew lab|</a>
 					</div>
 				
-					<div class="collapse navbar-collapse brew-navbar-collapse brew-navbar-list" role="navigation">
+					<div class="collapse navbar-collapse brew-navbar-collapse brew-navbar-list" role="navigation" ng-controller="topNavController">
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="/about">About</a>
@@ -46,8 +46,11 @@
 							<li>
 								<a href="/logs">Logs</a>
 							</li>
-							<li>
+							<li ng-hide="isAuthenticated">
 								<a href="/login">Login</a>
+							</li>
+							<li ng-show="isAuthenticated">
+								<a href="/logout">Logout</a>
 							</li>
 						</ul>
 					

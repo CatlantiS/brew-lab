@@ -17,6 +17,8 @@
                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + data;
                    login.isAuthorized = true;
                    login.currentUser = login.username;
+                   $scope.isAuthenticated = true;
+                   Auth.isAuthenticated = true;
                },
                function(err) {
                    notifications.error(err);
