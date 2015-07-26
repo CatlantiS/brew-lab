@@ -19,6 +19,16 @@ module.exports.fetchByToken = function(token, cb) {
     cb();
 };
 
+module.exports.deleteToken = function(token, cb) {
+    for (var i in accessTokens) {
+        if (accessTokens[i].token == token) {
+            accessTokens.splice(i, 1);
+            return cb(null, 'Success');
+        }
+    }
+    cb('Token not found', null);
+}
+
 module.exports.checkTTL = function(accessToken) {
     return (accessToken.ttl > new Date().getTime());
 };

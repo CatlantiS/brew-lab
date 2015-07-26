@@ -41,6 +41,18 @@ app.get('/authorization', isAuthorized, oauth2.controller.authorization, functio
 });
 app.post('/authorization', isAuthorized, oauth2.controller.authorization);
 
+app.get('/logoff', function(req, res, next) {
+	oauth2.model.accessToken.deleteToken(req.headers.authorization.split(' ')[1], function(err,data) {
+		if (err) {
+			res.status(500).send(err);
+		}
+		else
+		{
+			res.status(200).send(data);
+		}
+	});
+});
+
 // login
 app.post('/login', function(req, res, next) {
 

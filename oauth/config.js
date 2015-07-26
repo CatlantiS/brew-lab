@@ -69,6 +69,7 @@
         // accessToken
         obj.model.accessToken.create = model.accessToken.create;
         obj.model.accessToken.getToken = model.accessToken.getToken;
+        obj.model.accessToken.deleteToken = model.accessToken.deleteToken;
         obj.model.accessToken.fetchByToken = model.accessToken.fetchByToken;
         obj.model.accessToken.checkTTL = model.accessToken.checkTTL;
         obj.model.accessToken.getTTL = model.accessToken.getTTL;
