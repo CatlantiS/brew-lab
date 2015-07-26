@@ -28,11 +28,11 @@
         login.secureTest = function() {
             $http.get('/secure')
                 .success(function(data) {
-                    console.log(data);
+                    notifications.success(data);
                     login.testOutput = data;
                 })
                 .error(function(error) {
-                    console.log(error);
+                    notifications.error(error.error);
                     login.testOutput = error.error + ', ' + error.error_description;
                 });
         };

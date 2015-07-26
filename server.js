@@ -42,12 +42,15 @@ app.get('/authorization', isAuthorized, oauth2.controller.authorization, functio
 app.post('/authorization', isAuthorized, oauth2.controller.authorization);
 
 app.get('/logoff', function(req, res, next) {
+	console.dir(req.session);
 	oauth2.model.accessToken.deleteToken(req.headers.authorization.split(' ')[1], function(err,data) {
 		if (err) {
 			res.status(500).send(err);
 		}
 		else
 		{
+			req.session.user = {};
+			req.session.isAuthorized = false;
 			res.status(200).send(data);
 		}
 	});
@@ -66,7 +69,6 @@ app.post('/login', function(req, res, next) {
 	if (req.session.authorized) res.redirect("/");
 
 	else if (req.body.username && req.body.password) {
-		console.log(oauth_model.user);
 		oauth_model.user.fetchByUsername(req.body.username, function(err, user) {
 			if (err) next(err);
 			else {
@@ -78,7 +80,6 @@ app.post('/login', function(req, res, next) {
 					else {
 						req.session.user = user;
 						req.session.authorized = true;
-						console.log(req);
 						res.status(200).send('Login Successful.');
 					}
 				});
@@ -93,7 +94,6 @@ app.post('/login', function(req, res, next) {
 
 // Some secure method
 app.get('/secure', oauth2.middleware.bearer, function(req, res) {
-	console.log('Entering /secure');
 	if (!req.oauth2.accessToken) return res.status(403).send('Forbidden');
 	if (!req.oauth2.accessToken.userId) return res.status(403).send('Forbidden');
 	res.send('Hi! Dear user ' + req.oauth2.accessToken.userId + '!');
