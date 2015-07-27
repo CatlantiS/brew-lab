@@ -7,7 +7,8 @@ var express  = require('express'),
 	path = require('path'),
 	session = require('express-session'),
 	query = require('querystring'),
-	oauth_model = require('./oauth/model/');
+	oauth_model = require('./oauth/model/'),
+	User = require('./db_mongo/User.js');
 
 //Todo: move REST API into separate service.
 mongoose.connect('mongodb://localhost:27017/brewlab');
@@ -128,6 +129,17 @@ app.get('/views/:static', function(request, response) {
 		route = 'home.html';
 
 	response.sendFile(route, { root: './public/app/views/' });
+});
+
+app.get('/api/v1/user/list', oauth2.middleware.bearer, function(req, res) {
+	User.All(function(err, obj) {
+		if (err) {
+			res.status(500).send(err);
+		}
+		else {
+			res.status(200).json(obj);
+		}
+	});
 });
 
 app.get('/api/v1/store/:id', function(request, response) {

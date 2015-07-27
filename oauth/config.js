@@ -14,7 +14,7 @@
                console.log(err);
            }
            else if (obj.length === 0){
-               User.create({ userId : 1, userName: 'brewuser', password: 'meow', secret: 'secret'}, function(err, obj) {
+               User.create({ userId : 1, userName: 'brewuser', firstName: 'Chad', lastName: 'McBrahson', password: 'meow', secret: 'secret'}, function(err, obj) {
                   if (err)
                   {
                       console.log(err);

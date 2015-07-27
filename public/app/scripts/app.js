@@ -39,10 +39,15 @@ angular.module('brewApp', [
 				url: '/login',
 				templateUrl: '/views/login'
 			})
+			.state('user', {
+				url: '/user',
+				templateUrl: '/views/user'
+			})
 			.state('otherwise', {
 				url: '*path',
 				templateUrl: '/views/error'
 			});
+
 
 		$locationProvider.html5Mode(true);
 	}])
