@@ -20,7 +20,11 @@
                 notifications.error('Passwords do not match');
             }
             else {
-                UserService.Create(UserCreate); // TODO:  implement this in service
+                UserService.Create(UserCreate).then(function(data) {
+                    notifications.success('Use creation successful');
+                }, function(err) {
+                   notifications.error(err.status + ' - ' + err.statusText);
+                });
             }
         };
 

@@ -23,13 +23,19 @@
             return userList.$promise;
         }
 
+        function Create(User) {
+            var save = $resource('/api/v1/user/create').save(User);
+            return save.$promise;
+        }
+
         var isAuthenticated = false;
 
         return {
             id: id,
             recipes: getRecipes,
             isAuthenticated: isAuthenticated,
-            All: All
+            All: All,
+            Create: Create
         };
     }
 })();
