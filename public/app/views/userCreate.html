@@ -1,0 +1,28 @@
+<h1 class="page-header brew-header">Create User</h1>
+
+<div class="brew-form" ng-controller="UserCtrl as ctrl">
+    <form>
+
+    <div class="form-group">
+        <label>User Id</label><br />
+        <input ng-model="User.UserId" type="text" class="brew-input form-control">
+    </div>
+    <div class="form-group">
+        <label>User name</label><br />
+        <input ng-model="User.UserName" type="text" class="brew-input form-control">
+    </div>
+    <div class="form-group">
+        <label>First Name</label><br />
+        <input ng-model="User.FirstName" type="text" class="brew-input form-control"></div>
+    <div class="form-group">
+        <label>Last Name</label><br />
+        <input ng-model="User.LastName" type="text" class="brew-input form-control"></div>
+    <div class="form-group">
+        <label>Password</label><br />
+        <input ng-model="UserCreate.Password" type="password" class="brew-input form-control"><br />
+        <label>Confirm Password</label><br />
+        <input ng-model="UserCreate.ConfirmPassword" type="password" class="brew-input form-control">
+    </div>
+        <input type="submit" ng-click="User.Create();" />
+    </form>
+</div>

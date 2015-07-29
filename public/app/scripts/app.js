@@ -43,6 +43,10 @@ angular.module('brewApp', [
 				url: '/user',
 				templateUrl: '/views/user'
 			})
+			.state('userCreate', {
+				url: '/user/create',
+				templateUrl: '/views/userCreate'
+			})
 			.state('otherwise', {
 				url: '*path',
 				templateUrl: '/views/error'
