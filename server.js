@@ -142,6 +142,18 @@ app.get('/api/v1/user/list', oauth2.middleware.bearer, function(req, res) {
 	});
 });
 
+app.post('/api/v1/user/create', oauth2.middleware.bearer, function(req, res) {
+	var userObj = req.body;
+	User.Create(userObj, function(err, obj) {
+		if (err) {
+			res.status(500).send(err);
+		}
+		else {
+			res.status(200).send('User creation successful');
+		}
+	});
+});
+
 app.get('/api/v1/store/:id', function(request, response) {
 	var id = request.params.id;
 
