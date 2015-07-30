@@ -6,13 +6,13 @@
 
     //Obviously need to actually implement this.
     function user($resource, Store) {
-        var id = 'dudeBruhson',
+        var id = '1',
             context = {
                 getRecipes: getRecipes
             };
 
         function getRecipes() {
-            return Store.getByUser(id).then(function(recipes) {
+            return Store.getRecipesByUserId(id).then(function(recipes) {
                 return recipes;
             });
         }

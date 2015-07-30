@@ -10,7 +10,7 @@
         function save(recipe) {
             recipe.userId = recipe.userId || User.id;
 
-            return Store.store(recipe).then(function(id) {
+            return Store.saveRecipe(recipe).then(function(id) {
                 getRecipes(true);
 
                 return id;
@@ -24,7 +24,7 @@
                 deferred.resolve(_recipes);
             }
             else
-               Store.getByUser(User.id).then(function(recipes) {
+               Store.getRecipesByUserId(User.id).then(function(recipes) {
                     _recipes = recipes;
 
                     deferred.resolve(_recipes);
