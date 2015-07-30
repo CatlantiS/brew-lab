@@ -8,13 +8,13 @@
         var User = db.User;
         var Client = db.Client;
 
-        User.find({ userId: 1 }, function(err, obj) {
+        User.find({ userName: 'brewuser' }, function(err, obj) {
            if (err)
            {
                console.log(err);
            }
            else if (obj.length === 0){
-               User.create({ userId : 1, userName: 'brewuser', firstName: 'Chad', lastName: 'McBrahson', password: 'meow', secret: 'secret'}, function(err, obj) {
+               User.create({ userName: 'brewuser', firstName: 'Chad', lastName: 'McBrahson', password: 'meow', secret: 'secret'}, function(err, obj) {
                   if (err)
                   {
                       console.log(err);

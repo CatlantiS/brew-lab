@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var userSchema = new mongoose.Schema({ userId: Number, userName: String, password: String, lastName: String, firstName: String, secret: String });
+var userSchema = new mongoose.Schema({ userName: String, password: String, lastName: String, firstName: String, secret: String });
 var User = mongoose.model('users', userSchema);
 
 var All = function(cb) {

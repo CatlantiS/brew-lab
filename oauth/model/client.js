@@ -22,9 +22,5 @@ module.exports.getId = function(client) {
 };
 
 module.exports.checkSecret = function(client, secret, cb) {
-	console.log('calling checksecret');
-	console.log(client.secret);
-	console.log(secret);
-	console.log(client.secret == secret);
 	return cb(null, client.secret == secret);
 };

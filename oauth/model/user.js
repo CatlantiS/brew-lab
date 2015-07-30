@@ -5,12 +5,15 @@ module.exports.getId = function(user) {
 };
 
 module.exports.fetchById = function(id,cb) {
-	db.user.findOne({ userId: id }, function(err, obj) {
+	console.log('calling fetchById');
+	db.user.findOne({ _id : id }, function(err, obj) {
 		var user = {
-			id: obj.userId,
+			id: obj._id,
 			userName: obj.userName,
+			firstName: obj.firstName,
+			lastName: obj.lastName,
 			password: obj.password
-		}
+		};
 		return cb(null, user);
 	});
 };
@@ -22,8 +25,10 @@ module.exports.fetchByUsername = function(username, cb) {
 		}
 		if (obj) {
 			var user = {
-				id: obj.userId,
+				id: obj._id,
 				userName: obj.userName,
+				firstName: obj.firstName,
+				lastName: obj.lastName,
 				password: obj.password
 			};
 			return cb(null, user);
