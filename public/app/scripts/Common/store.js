@@ -3,31 +3,35 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('Store', ['$resource', '$location', store]);
+        .factory('Store', ['$resource', 'Configuration', store]);
 
-    function store($resource, $location) {
-        //Can get base URL from config.
-        var host = $location.protocol() + '://' + $location.host() + ':' + $location.port(),
-            //Is there a better way than having different resources for these?
-            Store = $resource(host + '/api/v1/store/:id', { id: '@id' }),
-            User = $resource(host + '/api/v1/store/user/:userId', { userId: '@userId' });
+    function store($resource, Configuration) {
+        var User = $resource(Configuration.storeUrl.api + 'users/:userId'),
+            //Do we really need a separate resource for this?
+            UserRecipes = $resource(Configuration.storeUrl.api + 'users/:userId/recipes/'),
+            Recipe = $resource(Configuration.storeUrl.api + 'recipes/:recipeId');
 
-        function store(obj) {
-            return Store.save(obj).$promise;
+        function getUser(userId) {
+            return User.get({ userId: userId }).$promise;
         }
 
-        function getById(id) {
-            return Store.get({ id: id }).$promise;
+        function saveRecipe(recipe) {
+            return Recipe.save(recipe).$promise;
         }
 
-        function getByUser(userId) {
-            return User.query({ userId: userId }).$promise;
+        function getRecipesByUserId(userId) {
+            return UserRecipes.query({ userId: userId }).$promise;
+        }
+
+        function getRecipeById(recipeId) {
+            return Recipe.get({ recipeId: recipeId }).$promise;
         }
 
         return {
-            store: store,
-            getById: getById,
-            getByUser: getByUser
+            getUser: getUser,
+            saveRecipe: saveRecipe,
+            getRecipesByUserId: getRecipesByUserId,
+            getRecipeById: getRecipeById
         };
     }
 })();
