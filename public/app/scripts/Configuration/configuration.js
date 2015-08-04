@@ -11,7 +11,7 @@
             this.base = base;
         }
 
-        var storeUrl = new Url('http://blabdatadev01.cloudapp.net:3000');
+        var storeUrl = new Url('http://localhost:3000');
         storeUrl.api = storeUrl.base + '/api/v1/';
 
         return {

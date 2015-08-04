@@ -2,12 +2,12 @@
 
 (function() {
     angular.module('brewApp.controllers')
-        .controller('UserCtrl', ['$scope', 'User', 'notifications', UserController]);
+        .controller('UserCtrl', ['$scope', 'User', 'Store', 'notifications', UserController]);
 
-    function UserController($scope, UserService, notifications) {
+    function UserController($scope, UserService, Store, notifications) {
         var User = {};
 
-        UserService.All().then(function(data) {
+        Store.getAllUsers().then(function(data) {
             User.userList = data;
         }, function(err) {
             notifications.error(err.status + ', ' + err.statusText);
