@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('Auth', ['$http','$q', 'User', auth]);
+        .factory('Auth', ['$http','$q', 'User', 'Configuration', auth]);
 
     //Obviously need to actually implement this.
-    function auth($http, $q, User) {
+    function auth($http, $q, User, Configuration) {
         var isAuthenticated = false;
 
         function getCurrentUser() {
@@ -19,19 +19,21 @@
         var login = function(username, password) {
             var deferred = $q.defer();
 
-            $http.post('/login', {username: username, password: password})
-                .success(function(data) {
-                    var clientId = 1;
-                    var secret = 'secret';
-                    var body = JSON.stringify({grant_type: 'password', username: username, password: password});
-                    var authHeader = 'Basic ' + btoa(clientId + ':' + secret);
+            var url = Configuration.authUrl;   
 
-                    $http.post('/token', body, { headers: {'Authorization': authHeader } })
-                        .then(function(data) {
-                            var accessToken = data.data.access_token;
-                            User.isAuthenticated = true;
-                            deferred.resolve(accessToken);
-                        });
+            console.log('hitting url = ');
+            console.dir(url);
+
+            var clientId = 1;
+            var secret = 'secret';
+            var body = JSON.stringify({grant_type: 'password', username: username, password: password});
+            var authHeader = 'Basic ' + btoa(clientId + ':' + secret);
+
+            $http.post(url.base, body, { headers: {'Authorization': authHeader }})
+                .success(function(data) {
+                    var accessToken = data.data.access_token;
+                    User.isAuthenticated = true;
+                    deferred.resolve(accessToken);
                 })
                 .error(function(err) {
                     deferred.reject(err);
