@@ -31,7 +31,7 @@
 
             $http.post(url.base, body, { headers: {'Authorization': authHeader }})
                 .success(function(data) {
-                    var accessToken = data.data.access_token;
+                    var accessToken = data.access_token;
                     User.isAuthenticated = true;
                     deferred.resolve(accessToken);
                 })
