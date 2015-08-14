@@ -4,10 +4,6 @@
     <form>
 
     <div class="form-group">
-        <label>User Id</label><br />
-        <input ng-model="UserCreate.userId" type="text" class="brew-input form-control">
-    </div>
-    <div class="form-group">
         <label>User name</label><br />
         <input ng-model="UserCreate.userName" type="text" class="brew-input form-control">
     </div>
@@ -16,7 +12,11 @@
         <input ng-model="UserCreate.firstName" type="text" class="brew-input form-control"></div>
     <div class="form-group">
         <label>Last Name</label><br />
-        <input ng-model="UserCreate.lastName" type="text" class="brew-input form-control"></div>
+        <input ng-model="UserCreate.lastName" type="text" class="brew-input form-control" /></div>
+        <div class="form-group">
+            <label>Email</label><br />
+            <input ng-model="UserCreate.email" type="text" class="brew-input form-control">
+        </div>
     <div class="form-group">
         <label>Password</label><br />
         <input ng-model="UserCreate.password" type="password" class="brew-input form-control"><br />

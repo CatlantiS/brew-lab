@@ -15,13 +15,12 @@
 
         User.Create = function() {
             var UserCreate = $scope.UserCreate;
-            console.dir(UserCreate);
             if (UserCreate.password != UserCreate.confirmPassword) {
                 notifications.error('Passwords do not match');
             }
             else {
                 Store.createUser(UserCreate).then(function(data) {
-                    notifications.success('Use creation successful');
+                    notifications.success('Use creation successful ');
                 }, function(err) {
                     console.log(err);
                    notifications.error(err.status + ' - ' + err.statusText);
