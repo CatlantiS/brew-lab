@@ -23,6 +23,10 @@
             return $resource(Configuration.storeUrl.api + 'users/all').query().$promise;
         }
 
+        function createUser(user) {
+            return $resource(Configuration.storeUrl.api + 'users/create').save(user).$promise;
+        }
+
         function saveRecipe(recipe) {
             return Recipe.save(recipe).$promise;
         }
@@ -41,7 +45,8 @@
             getAllUsers: getAllUsers,
             saveRecipe: saveRecipe,
             getRecipesByUserId: getRecipesByUserId,
-            getRecipeById: getRecipeById
+            getRecipeById: getRecipeById,
+            createUser: createUser
         };
     }
 })();

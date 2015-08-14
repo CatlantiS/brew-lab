@@ -20,7 +20,7 @@
                 notifications.error('Passwords do not match');
             }
             else {
-                UserService.Create(UserCreate).then(function(data) {
+                Store.createUser(UserCreate).then(function(data) {
                     notifications.success('Use creation successful');
                 }, function(err) {
                     console.log(err);
