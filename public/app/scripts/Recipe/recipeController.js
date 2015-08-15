@@ -10,14 +10,16 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, R
     //Might not need to worry about stupid AppState, just depends on how the UI will look.
     self.recipe = AppState.area('Recipe').recipe || {};
 
+    self.units = BrewMaster.units;
+
     self.yeastTypes = BrewMaster.yeastTypes;
 
     self.submit = function(isValid) {
         if (isValid) {
             //Need a spinner on this?
             Recipe.save(self.recipe).then(function(data) {
-                notifications.success('You just added recipe ' + data.id + ', good job brah');
-                logger.info('saved recipe with id = ' + data.id);
+                notifications.success('Recipe ' + self.recipe.name + ' saved.');
+                logger.info('Recipe ' + data.id + ' saved.');
 
                 self.recipeForm.$setPristine();
                 //Units isn't resetting.  Need to fix this.
@@ -30,8 +32,8 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, R
 
     self.clear = function() {
         self.recipeForm.$setPristine();
-        //Units isn't resetting. Need to fix this.
         self.recipe = {};
+
         AppState.area('Recipe').destroy('recipe');
     };
 
