@@ -11,14 +11,19 @@
             this.base = base;
         }
 
-        var storeUrl = new Url('http://localhost:3000');
+        var storeUrl = new Url('http://shaycraft.cloudapp.net:3000');
         storeUrl.api = storeUrl.base + '/api/v1/';
 
-        var authUrl = new Url('http://localhost:3000/authorize');
+        var authUrl = new Url('http://shaycraft.cloudapp.net:3000/authorize');
 
         return {
-            storeUrl: storeUrl,
-            authUrl: authUrl
+            store: {
+                url: storeUrl
+            },
+            authUrl: authUrl,
+            currentUser: {
+                cacheRecipes: true
+            }
         };
     }
 })();

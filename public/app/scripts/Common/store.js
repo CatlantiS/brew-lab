@@ -6,47 +6,43 @@
         .factory('Store', ['$resource', 'Configuration', store]);
 
     function store($resource, Configuration) {
-        var User = $resource(Configuration.storeUrl.api + 'users/id/:userId'),
+        var resource = {
+            user: $resource(Configuration.store.url.api + 'users/id/:userId'),
             //Do we really need a separate resource for this?
-            UserRecipes = $resource(Configuration.storeUrl.api + 'users/:userId/recipes/'),
-            Recipe = $resource(Configuration.storeUrl.api + 'recipes/:recipeId');
-
-        function getUser(userId) {
-            return User.get({ userId: userId }).$promise;
-        }
-
-        function getUserByUserName(userName) {
-            return $resource(Configuration.storeUrl.api + 'users/name/:userName').query({ userName: userName }).$promise;
-        }
-
-        function getAllUsers() {
-            return $resource(Configuration.storeUrl.api + 'users/all').query().$promise;
-        }
-
-        function createUser(user) {
-            return $resource(Configuration.storeUrl.api + 'users/create').save(user).$promise;
-        }
-
-        function saveRecipe(recipe) {
-            return Recipe.save(recipe).$promise;
-        }
-
-        function getRecipesByUserId(userId) {
-            return UserRecipes.query({ userId: userId }).$promise;
-        }
-
-        function getRecipeById(recipeId) {
-            return Recipe.get({ recipeId: recipeId }).$promise;
-        }
-
-        return {
-            getUser: getUser,
-            getUserByUserName: getUserByUserName,
-            getAllUsers: getAllUsers,
-            saveRecipe: saveRecipe,
-            getRecipesByUserId: getRecipesByUserId,
-            getRecipeById: getRecipeById,
-            createUser: createUser
+            userRecipes: $resource(Configuration.store.url.api + 'users/:userId/recipes/'),
+            recipe: $resource(Configuration.store.url.api + 'recipes/:recipeId')
         };
+
+        var Store = function() {};
+
+        Store.prototype.getUser = function(userId) {
+            return resource.user.get({ userId: userId }).$promise;
+        }
+
+        Store.prototype.getUserByUserName = function(userName) {
+            return $resource(Configuration.store.url.api + 'users/name/:userName').query({ userName: userName }).$promise;
+        }
+
+        Store.prototype.getAllUsers = function() {
+            return $resource(Configuration.store.url.api + 'users/all').query().$promise;
+        }
+
+        Store.prototype.createUser = function(user) {
+            return $resource(Configuration.store.url.api + 'users/create').save(user).$promise;
+        }
+
+        Store.prototype.saveRecipe = function(recipe) {
+            return resource.recipe.save(recipe).$promise;
+        }
+
+        Store.prototype.getRecipesByUserId = function(userId) {
+            return resource.userRecipes.query({ userId: userId }).$promise;
+        }
+
+        Store.prototype.getRecipeById = function(recipeId) {
+            return resource.recipe.get({ recipeId: recipeId }).$promise;
+        }
+
+        return new Store();
     }
 })();
