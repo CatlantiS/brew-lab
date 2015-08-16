@@ -1,4 +1,3 @@
-//Should move this out of Common at some point.
 (function() {
     'use strict';
 
@@ -9,12 +8,12 @@
     function currentUserStore($q, $resource, Configuration, Store, User) {
         var currentUser = Configuration.currentUser.cacheRecipes ? initCurrentUser(User) : null;
 
-        var UserStore = function() {};
+        var CurrentUserStore = function() {};
 
         //Not true prototype inheritance.
-        UserStore.prototype = Object.create(Store);
+        CurrentUserStore.prototype = Object.create(Store);
 
-        UserStore.prototype.saveRecipe = function(recipe) {
+        CurrentUserStore.prototype.saveRecipe = function(recipe) {
             var deferred = $q.defer();
 
             Store.saveRecipe(recipe).then(function(data) {
@@ -27,7 +26,7 @@
             return deferred.promise;
         }
 
-        UserStore.prototype.getRecipesByUserId = function(userId) {
+        CurrentUserStore.prototype.getRecipesByUserId = function(userId) {
             var deferred = $q.defer();
 
             if (isCurrentUser(userId) && currentUser.recipes.isFetched)
@@ -68,6 +67,6 @@
             return currentUser && currentUser.id === userId;
         }
 
-        return new UserStore();
+        return new CurrentUserStore();
     }
 })();

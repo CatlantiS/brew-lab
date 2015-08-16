@@ -1,4 +1,3 @@
-//Should move this out of Common at some point.
 (function() {
     'use strict';
 

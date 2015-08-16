@@ -38,7 +38,8 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, R
     };
 
     $scope.$on('$destroy', function() {
-        if (self.recipeForm && self.recipeForm.$dirty)
+        //Only persist recipe if it exists and isn't empty.
+        if (self.recipe && !angular.equals({}, self.recipe))
             AppState.area('Recipe').recipe = self.recipe;
     });
 
