@@ -7,7 +7,6 @@ var express  = require('express'),
 	path = require('path'),
 	session = require('express-session'),
 	query = require('querystring'),
-	oauth_model = require('./oauth/model/'),
 	User = require('./db_mongo/User.js');
 
 //Todo: move REST API into separate service.
@@ -18,10 +17,6 @@ var Store = mongoose.model('store', storeSchema);
 var logsSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
 var Logs = mongoose.model('logs', logsSchema);
 
-var oauth2 = require('./oauth/config.js')();
-
-app.set('oauth2', oauth2);
-
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
@@ -29,86 +24,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 app.use(session({ secret: 'oauth20-provider-test-server', resave: false, saveUninitialized: false }));
-app.use(oauth2.inject());
-
-// oauth2 token endpoint
-app.post('/token', oauth2.controller.token);
-
-// authorization endpoint
-app.get('/authorization', isAuthorized, oauth2.controller.authorization, function(req, res) {
-	// Render our decision page
-	// Look into ./test/server for further information
-	res.render('authorization', {layout: false});
-});
-app.post('/authorization', isAuthorized, oauth2.controller.authorization);
-
-app.get('/logoff', function(req, res, next) {
-	console.dir(req.session);
-	oauth2.model.accessToken.deleteToken(req.headers.authorization.split(' ')[1], function(err,data) {
-		if (err) {
-			res.status(500).send(err);
-		}
-		else
-		{
-			req.session.user = {};
-			req.session.isAuthorized = false;
-			res.status(200).send(data);
-		}
-	});
-});
-
-// login
-app.post('/login', function(req, res, next) {
-
-	// this needs to be fixed, angular is not sending querystring for redirect
-	var backUrl = req.query.backUrl ? req.query.backUrl : '/';
-	delete(req.query.backUrl);
-	backUrl += backUrl.indexOf('?') > -1 ? '&' : '?';
-	backUrl += query.stringify(req.query);
-
-	// Already logged in
-	if (req.session.authorized) res.redirect("/");
-
-	else if (req.body.username && req.body.password) {
-		oauth_model.user.fetchByUsername(req.body.username, function(err, user) {
-			if (err) next(err);
-			else {
-				oauth_model.user.checkPassword(user, req.body.password, function(err, valid) {
-					if (err) next(err);
-					else if (!valid) {
-						res.status(403).send("Invalid login info");
-					}
-					else {
-						req.session.user = user;
-						req.session.authorized = true;
-						res.status(200).send('Login Successful.');
-					}
-				});
-			}
-		});
-	}
-	else
-	{
-		return res.status(403).send("Username or password invalid");
-	}
-});
-
-// Some secure method
-app.get('/secure', oauth2.middleware.bearer, function(req, res) {
-	if (!req.oauth2.accessToken) return res.status(403).send('Forbidden');
-	if (!req.oauth2.accessToken.userId) return res.status(403).send('Forbidden');
-	res.send('Hi! Dear user ' + req.oauth2.accessToken.userId + '!');
-});
-
-function isAuthorized(req, res, next) {
-	if (req.session.authorized) next();
-	else {
-		console.log('sorry not authorized brah');
-		var params = req.query;
-		params.backUrl = req.path;
-		res.redirect('/login?' + query.stringify(params));
-	}
-};
 
 //Need to revisit this hackjob at some point.
 app.get('/:static', function(request, response) {
@@ -129,29 +44,6 @@ app.get('/views/:static', function(request, response) {
 		route = 'home.html';
 
 	response.sendFile(route, { root: './public/app/views/' });
-});
-
-app.get('/api/v1/user/list', oauth2.middleware.bearer, function(req, res) {
-	User.All(function(err, obj) {
-		if (err) {
-			res.status(500).send(err);
-		}
-		else {
-			res.status(200).json(obj);
-		}
-	});
-});
-
-app.post('/api/v1/user/create', oauth2.middleware.bearer, function(req, res) {
-	var userObj = req.body;
-	User.Create(userObj, function(err, obj) {
-		if (err) {
-			res.status(500).send(err);
-		}
-		else {
-			res.status(200).send('User creation successful');
-		}
-	});
 });
 
 app.get('/api/v1/store/:id', function(request, response) {
