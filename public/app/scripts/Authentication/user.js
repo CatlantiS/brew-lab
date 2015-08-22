@@ -2,27 +2,29 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('User', ['$resource', 'Store', user]);
+        .factory('User', ['$resource', 'ThriftStore', user]);
 
     //Obviously need to actually implement this.
-    function user($resource, Store) {
+    function user($resource, ThriftStore) {
         var id = '1',
-            context = {
-                getRecipes: getRecipes
-            };
+            isAuthenticated = false,
+            thriftStore = new ThriftStore(id);
 
         function getRecipes() {
-            return Store.getRecipesByUserId(id).then(function(recipes) {
-                return recipes;
-            });
+            return thriftStore.getRecipesByUserId(id);
         }
 
-        var isAuthenticated = false;
+        function saveRecipe(recipe) {
+            recipe.userId = recipe.userId || id;
+
+            return thriftStore.saveRecipe(recipe);
+        }
 
         return {
             id: id,
-            recipes: getRecipes,
-            isAuthenticated: isAuthenticated
+            isAuthenticated: isAuthenticated,
+            getRecipes: getRecipes,
+            saveRecipe: saveRecipe
         };
     }
 })();

@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('MyRecipesCtrl', ['$scope', 'Recipe', myRecipesController]);
+    .controller('MyRecipesCtrl', ['$scope', 'User', myRecipesController]);
 
-function myRecipesController($scope, Recipe) {
+function myRecipesController($scope, User) {
     /* jshint validthis: true */
     var self = this;
 
     $scope.loadData = function() {
-        return Recipe.getRecipes().then(function(recipes) {
+        return User.getRecipes().then(function(recipes) {
             return options = {
                 data: recipes.map(function(recipe) {
                     return [recipe.name, '', '', ''];
