@@ -11,7 +11,7 @@ function myRecipesController($scope, User) {
         return User.getRecipes().then(function(recipes) {
             return options = {
                 data: recipes.map(function(recipe) {
-                    return [recipe.name, '', '', ''];
+                    return [recipe.name, recipe.volume, recipe.units, recipe.yeastType];
                 }),
                 columns: [
                     { title: 'Name' },
