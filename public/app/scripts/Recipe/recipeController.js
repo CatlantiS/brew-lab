@@ -7,7 +7,7 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, U
     /* jshint validthis: true */
     var self = this;
 
-    //Might not need to worry about stupid AppState, just depends on how the UI will look.
+    //Might not need to worry about AppState, just depends on how the UI will look.
     self.recipe = AppState.area('Recipe').recipe || {};
 
     self.units = BrewMaster.units;
@@ -22,7 +22,6 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, U
                 logger.info('Recipe ' + data.id + ' saved.');
 
                 self.recipeForm.$setPristine();
-                //Units isn't resetting.  Need to fix this.
                 self.recipe = {};
 
                 AppState.area('Recipe').destroy('recipe');
@@ -41,10 +40,5 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, U
         //Only persist recipe if it exists and isn't empty.
         if (self.recipe && !angular.equals({}, self.recipe))
             AppState.area('Recipe').recipe = self.recipe;
-    });
-
-    $scope.$on('dropdownClicked', function(event, ui) {
-        if ($(ui.element).is('#recipeUnits'))
-            self.recipe.units = ui.selectedValue;
     });
 }
