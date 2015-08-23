@@ -9,18 +9,18 @@
 }
 
 .brew-header {
-	color: #dbb84d !important;
+	color: #414141 !important;
 	margin-bottom: 30px;
 }
 
 .brew-modal-header {
-	color: #dbb84d !important;
+	color: #414141 !important;
 }
 
 .brew-navbar {
 	margin-bottom: 0 !important;
     border-color: transparent !important;
-	background-color: #ffcc80;
+	background-color: #474747;
 }
 
 .brew-navbar-list {
