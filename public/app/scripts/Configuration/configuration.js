@@ -1,5 +1,4 @@
 //Todo: make this suck a much smaller carton of rotten eggs.
-
 (function() {
     'use strict';
 
@@ -11,7 +10,7 @@
             this.base = base;
         }
 
-        var storeUrl = new Url('http://shaycraft.cloudapp.net:3000');
+        var storeUrl = new Url('http://blabdatadev01.cloudapp.net:3000');
         storeUrl.api = storeUrl.base + '/api/v1/';
 
         var authUrl = new Url('http://shaycraft.cloudapp.net:3000/authorize');

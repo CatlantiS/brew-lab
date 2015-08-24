@@ -4,12 +4,12 @@
 
 .brew-brand {
 	color: #fff !important;
-	text-shadow: 0 1px 0 rgba(0,0,0,.1);
-	font-size: 22px;
+	/*text-shadow: 0 1px 0 rgba(0,0,0,.1);*/
+	font: 400 27px/0.5 'Lobster', Helvetica, sans-serif;
 }
 
 .brew-header {
-	color: #414141 !important;
+	color: #ffcc00 !important;
 	margin-bottom: 30px;
 }
 
@@ -21,6 +21,12 @@
 	margin-bottom: 0 !important;
     border-color: transparent !important;
 	background-color: #474747;
+}
+
+.brew-drop-shadow {
+	box-shadow: 0 4px 4px -2px #232323;
+	-moz-box-shadow: 0 4px 4px -2px #232323;
+	-webkit-box-shadow: 0 4px 4px -2px #232323;
 }
 
 .brew-navbar-list {
@@ -74,8 +80,15 @@
 }
 
 @media (min-width: 768px) {
+	.brew-navbar-nav, .brew-navbar-right {
+		min-height: 50px;
+		margin-top: 5px;
+	}
+
 	.brew-brand {
-		font-size: 30px;
+		font-size: 40px;
+		height: 60px;
+		margin: 0;
 	}
 
 	.brew-info {
