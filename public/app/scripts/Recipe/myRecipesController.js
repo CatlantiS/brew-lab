@@ -1,23 +1,54 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('MyRecipesCtrl', ['$scope', 'User', myRecipesController]);
+    .controller('MyRecipesCtrl', ['$compile', '$scope', 'User', myRecipesController]);
 
-function myRecipesController($scope, User) {
+function myRecipesController($compile, $scope, User) {
     /* jshint validthis: true */
     var self = this;
+
+    self.editRecipe = function(id) {
+        alert('Edit ' + id);
+    };
+
+    self.deleteRecipe = function(id) {
+        alert('Delete ' + id);
+    };
 
     $scope.loadData = function() {
         return User.getRecipes().then(function(recipes) {
             return options = {
-                data: recipes.map(function(recipe) {
-                    return [recipe.name, recipe.volume, recipe.units, recipe.yeastType];
-                }),
+                data: recipes,
                 columns: [
-                    { title: 'Name' },
-                    { title: 'Volume' },
-                    { title: 'Units' },
-                    { title: 'Yeast' }
+                    { title: 'Name', data: 'name' },
+                    { title: 'Volume', data: 'volume' },
+                    { title: 'Units', data: 'units' },
+                    { title: 'Yeast', data: 'yeastType' },
+                    { title: '' },
+                    { title: '' }
+                ],
+                'columnDefs': [{
+                        'targets': 4,
+                        'data': 'name',
+                        'render': function (d, a, m, n) {
+                            return '<a href="javascript:void(0);" ng-click="ctrl.editRecipe(' + m.id + ')"><i class="fa fa-pencil-square-o"></i></a>';
+                        },
+                        'createdCell': function (g, r, a, p, e) {
+                            $compile(g)($scope);
+                        },
+                        orderable: false
+                    },
+                    {
+                        'targets': 5,
+                        'data': 'name',
+                        'render': function (d, a, m, n) {
+                            return '<a href="javascript:void(0);" ng-click="ctrl.deleteRecipe(' + m.id + ')"><i class="fa fa-trash"></i></a>';
+                        },
+                        'createdCell': function (g, r, a, p, e) {
+                            $compile(g)($scope);
+                        },
+                        orderable: false
+                    }
                 ]
             };
         });

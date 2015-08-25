@@ -22,6 +22,8 @@
                 if (isSessionUser.call(self, recipe.userId))
                     self.session.recipes.added.push(recipe);
 
+                recipe.id = data.id;
+
                 deferred.resolve(data);
             });
 
