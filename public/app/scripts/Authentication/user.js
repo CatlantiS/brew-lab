@@ -8,16 +8,16 @@
     function user($resource, ThriftStore) {
         var id = '1',
             isAuthenticated = false,
-            thriftStore = new ThriftStore(id);
+            store = new ThriftStore(id);
 
         function getRecipes() {
-            return thriftStore.getRecipesByUserId(id);
+            return store.getRecipesByUserId(id);
         }
 
         function saveRecipe(recipe) {
             recipe.userId = recipe.userId || id;
 
-            return thriftStore.saveRecipe(recipe);
+            return store.saveRecipe(recipe);
         }
 
         return {
