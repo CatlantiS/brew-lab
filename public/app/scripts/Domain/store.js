@@ -30,6 +30,10 @@
             return $resource(Configuration.store.url.api + 'users/create').save(user).$promise;
         }
 
+        Store.prototype.getCurrentUserId = function() {
+            return $resource(Configuration.store.url.api + 'users/current').get({}).$promise;
+        }
+
         Store.prototype.saveRecipe = function(recipe) {
             return resource.recipe.save(recipe).$promise;
         }
