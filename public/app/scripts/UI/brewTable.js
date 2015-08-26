@@ -4,7 +4,7 @@ angular.module('brewApp.directives')
         return {
             restrict: 'AE',
             link: function(scope, element) {
-                $q.when(scope.loadData()).then(function(options) {
+                $q.when(scope.prepareData()).then(function(options) {
                     $(element).DataTable(options);
                 });
             }
