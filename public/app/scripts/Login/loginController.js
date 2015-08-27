@@ -19,11 +19,6 @@
                    login.currentUser = login.username;
                    $scope.isAuthenticated = true;
                    Auth.isAuthenticated = true;
-
-                   Store.getCurrentUserId().then(function(data) {
-                       User.id = data.userId;
-                       User.currentId = data.userId;
-                   });
                },
                function(err) {
                    notifications.error(err);
