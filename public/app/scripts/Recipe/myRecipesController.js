@@ -25,6 +25,8 @@
                 self.loading = false;
 
                 return {
+                    responsive: true,
+                    bLengthChange: false,
                     data: recipes,
                     columns: [
                         { title: 'Name', data: 'name' },
@@ -34,25 +36,25 @@
                         { title: '' },
                         { title: '' }
                     ],
-                    'columnDefs': [
+                    columnDefs: [
                         {
-                            'targets': 4,
-                            'data': 'name',
-                            'render': function (d, a, m, n) {
+                            targets: 4,
+                            data: 'name',
+                            render: function (d, a, m, n) {
                                 return '<a href="javascript:void(0);" ng-click="ctrl.editRecipe(' + m.id + ')"><i class="fa fa-pencil-square-o"></i></a>';
                             },
-                            'createdCell': function (g, r, a, p, e) {
+                            createdCell: function (g, r, a, p, e) {
                                 $compile(g)($scope);
                             },
                             orderable: false
                         },
                         {
-                            'targets': 5,
-                            'data': 'name',
-                            'render': function (d, a, m, n) {
+                            targets: 5,
+                            data: 'name',
+                            render: function (d, a, m, n) {
                                 return '<a href="javascript:void(0);" ng-click="ctrl.deleteRecipe(' + m.id + ')"><i class="fa fa-trash"></i></a>';
                             },
-                            'createdCell': function (g, r, a, p, e) {
+                            createdCell: function (g, r, a, p, e) {
                                 $compile(g)($scope);
                             },
                             orderable: false

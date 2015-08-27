@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('brewApp.directives')
     .directive('brewTable', ['$q', function($q) {
         return {
