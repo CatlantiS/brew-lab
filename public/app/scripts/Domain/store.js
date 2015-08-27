@@ -42,6 +42,10 @@
             return resource.userRecipes.query({ userId: userId }).$promise;
         }
 
+        Store.prototype.getCurrentUserRecipes = function() {
+            return $resource(Configuration.store.url.api + 'recipes/currentUser').query().$promise;
+        }
+
         Store.prototype.getRecipeById = function(recipeId) {
             return resource.recipe.get({ recipeId: recipeId }).$promise;
         }

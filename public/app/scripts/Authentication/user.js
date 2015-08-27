@@ -11,7 +11,7 @@
             store = new ThriftStore(id);
 
         function getRecipes() {
-            return store.getRecipesByUserId(id);
+            return store.getCurrentUserRecipes();
         }
 
         function saveRecipe(recipe) {
