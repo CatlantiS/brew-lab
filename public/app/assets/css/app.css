@@ -1,3 +1,7 @@
+html, body {
+	overflow-x: hidden !important;
+}
+
 .brew-app-header {
 	margin-bottom: 50px !important;
 }

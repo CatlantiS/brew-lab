@@ -2,7 +2,32 @@
     'use strict';
 
     angular.module('brewApp.controllers')
+        .directive('myRecipes', myRecipes)
         .controller('MyRecipesCtrl', ['$compile', '$scope', 'User', myRecipesController]);
+
+    function myRecipes() {
+        function link(scope, element, attrs, ctrl) {
+            var table = $("#myRecipesTable");
+
+            table.on('click','.row-edit', function() {
+                var recipeId = $(this).attr('data-id');
+
+                ctrl.editRecipe(recipeId);
+            });
+
+            table.on('click','.row-delete', function() {
+                var recipeId = $(this).attr('data-id');
+
+                ctrl.deleteRecipe(recipeId);
+            });
+        }
+
+        return {
+            restrict: 'A',
+            controller: 'MyRecipesCtrl',
+            link: link
+        };
+    }
 
     function myRecipesController($compile, $scope, User) {
         /* jshint validthis: true */
@@ -39,9 +64,9 @@
                     columnDefs: [
                         {
                             targets: 4,
-                            data: 'name',
+                            data: 'id',
                             render: function (d, a, m, n) {
-                                return '<a href="javascript:void(0);" ng-click="ctrl.editRecipe(' + m.id + ')"><i class="fa fa-pencil-square-o"></i></a>';
+                                return '<a class="row-edit" href="javascript:void(0);" data-id="' + m.id + '"><i class="fa fa-pencil-square-o"></i></a>';
                             },
                             createdCell: function (g, r, a, p, e) {
                                 $compile(g)($scope);
@@ -50,9 +75,9 @@
                         },
                         {
                             targets: 5,
-                            data: 'name',
+                            data: 'id',
                             render: function (d, a, m, n) {
-                                return '<a href="javascript:void(0);" ng-click="ctrl.deleteRecipe(' + m.id + ')"><i class="fa fa-trash"></i></a>';
+                                return '<a class="row-delete" href="javascript:void(0);" data-id="' + m.id + '"><i class="fa fa-trash"></i></a>';
                             },
                             createdCell: function (g, r, a, p, e) {
                                 $compile(g)($scope);
