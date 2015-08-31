@@ -2,9 +2,9 @@
 
 (function() {
     angular.module('brewApp.controllers')
-        .controller('LoginCtrl', ['$scope', '$http','Auth', 'notifications', 'Store', 'User', LoginController]);
+        .controller('LoginCtrl', ['$scope', '$http','Auth', 'notifications', 'Store', 'User', 'logger', LoginController]);
 
-    function LoginController($scope, $http, Auth, notifications, Store, User) {
+    function LoginController($scope, $http, Auth, notifications, Store, User, logger) {
         $scope.isLogin = true;
         var login = {}
         login.isAuthorized = false;
@@ -15,6 +15,7 @@
                    notifications.success('Login successful');
                    notifications.info('received authToken = ' + data);
                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + data;
+                   logger.setAuthHeader('Bearer ' + data);
                    login.isAuthorized = true;
                    login.currentUser = login.username;
                    $scope.isAuthenticated = true;
