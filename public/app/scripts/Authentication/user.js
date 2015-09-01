@@ -7,15 +7,15 @@
     //Obviously need to actually implement this.
     function user($resource, ThriftStore) {
         var id = '1',
-            isAuthenticated = false,
+             isAuthenticated = false,
             store = new ThriftStore(id);
 
         function getRecipes() {
-            return store.getRecipesByUserId(id);
+            return store.getCurrentUserRecipes();
         }
 
         function saveRecipe(recipe) {
-            recipe.userId = recipe.userId || id;
+            recipe.userId = recipe.userId || this.id;
 
             return store.saveRecipe(recipe);
         }

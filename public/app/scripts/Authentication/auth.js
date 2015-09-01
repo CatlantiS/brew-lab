@@ -21,9 +21,6 @@
 
             var url = Configuration.authUrl;   
 
-            console.log('hitting url = ');
-            console.dir(url);
-
             var clientId = 1;
             var secret = 'secret';
             var body = JSON.stringify({grant_type: 'password', username: username, password: password});

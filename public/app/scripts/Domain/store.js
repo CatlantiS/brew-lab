@@ -30,6 +30,10 @@
             return $resource(Configuration.store.url.api + 'users/create').save(user).$promise;
         };
 
+        Store.prototype.getCurrentUserId = function() {
+            return $resource(Configuration.store.url.api + 'users/current').get({}).$promise;
+        }
+
         Store.prototype.saveRecipe = function(recipe) {
             return resource.recipe.save(recipe).$promise;
         };
@@ -41,6 +45,10 @@
         Store.prototype.getRecipesByUserId = function(userId) {
             return resource.userRecipes.query({ userId: userId }).$promise;
         };
+
+        Store.prototype.getCurrentUserRecipes = function() {
+            return $resource(Configuration.store.url.api + 'recipes/currentUser').query().$promise;
+        }
 
         Store.prototype.getRecipeById = function(recipeId) {
             return resource.recipe.get({ recipeId: recipeId }).$promise;
