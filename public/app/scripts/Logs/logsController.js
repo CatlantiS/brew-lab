@@ -12,10 +12,10 @@ function logsController($scope, logger, notifications) {
 
     $scope.prepareData = function() {
         return logger.getLogs().then(function(data) {
-
+            console.log(data);
             return options = {
                 data: data.map(function(i) {
-                   return [i._id, convertUTC(i.logdate), i.level, i.url, i.userid, i.message];
+                   return [i.id, convertUTC(i.utcdate), i.level, i.url, i.userid, i.message];
                 }),
                 columns: [
                     { title: 'Id' },

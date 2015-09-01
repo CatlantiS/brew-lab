@@ -54,6 +54,10 @@
             return resource.recipe.get({ recipeId: recipeId }).$promise;
         };
 
+        Store.prototype.getLogs = function() {
+            return $resource(Configuration.store.url.api + 'logs/all').query().$promise;
+        }
+
         return new Store();
     }
 })();

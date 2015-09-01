@@ -4,7 +4,7 @@
 (function() {
     var app = angular.module('brewApp.services');
 
-    var logger = function ($http, $resource, User, Configuration) {
+    var logger = function ($http, $resource, User, Configuration, Store) {
 
         var log4jslogger = log4javascript.getLogger();
         var ajaxAppender = new log4javascript.AjaxAppender(Configuration.store.url.api + 'logs/');
@@ -32,7 +32,8 @@
         };
 
         var getLogs = function() {
-            return $resource('/api/v1/logs').query().$promise;
+            //return $resource('/api/v1/logs').query().$promise;
+            return  Store.getLogs();
         };
 
         var deleteLog = function(id) {
@@ -59,5 +60,5 @@
         }
     }
 
-    app.factory('logger', ['$http', '$resource', 'User', 'Configuration', logger]);
+    app.factory('logger', ['$http', '$resource', 'User', 'Configuration', 'Store', logger]);
 })();
