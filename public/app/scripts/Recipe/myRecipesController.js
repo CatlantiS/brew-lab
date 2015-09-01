@@ -15,7 +15,7 @@
         };
 
         self.deleteRecipe = function(id) {
-            alert('Delete ' + id);
+            User.deleteRecipe(id);
         };
 
         $scope.prepareData = function() {
@@ -52,7 +52,7 @@
                             targets: 5,
                             data: 'id',
                             render: function (d, a, m, n) {
-                                return '<a class="row-delete" href="javascript:void(0);" data-id="' + m.id + '"><i class="fa fa-trash"></i></a>';
+                                return '<a class="row-delete" href="javascript:void(0);" data-id="' + m.id + '"><i class="fa fa-trash brew-delete"></i></a>';
                             },
                             createdCell: function (g, r, a, p, e) {
                                 $compile(g)($scope);

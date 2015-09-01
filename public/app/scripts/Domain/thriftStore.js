@@ -19,8 +19,12 @@
                 deferred = $q.defer();
 
             Store.saveRecipe(recipe).then(function(data) {
-                if (isSessionUser.call(self, recipe.userId))
-                    self.session.recipes.added.push(recipe);
+                //Mark recipe as added and add to cache.
+                if (isSessionUser.call(self, recipe.userId)) {
+                    recipe.added = true;
+
+                    self.session.data.recipes.push(recipe);
+                }
 
                 recipe.id = data.id;
 
@@ -28,43 +32,55 @@
             });
 
             return deferred.promise;
-        }
+        };
+
+        ThriftStore.prototype.deleteRecipe = function(recipeId, userId) {
+            var self = this,
+                deferred = $q.defer();
+
+            Store.deleteRecipe(recipeId).then(function() {
+                //Remove recipe from cache.
+                if (isSessionUser.call(self, userId))
+                    self.session.data.recipes = self.session.data.recipes
+                        .filter(function(recipe) {
+                            return recipe.id != recipeId;
+                        });
+
+                defer.resolve();
+            });
+
+            return deferred.promise;
+        };
 
         ThriftStore.prototype.getRecipesByUserId = function(userId) {
             var self = this,
                 deferred = $q.defer();
 
-            if (isSessionUser.call(this, userId) && this.session.recipes.isFetched)
-                deferred.resolve(this.session.recipes.all());
+            //If we've already fetched user data, then just return from cached data.
+            if (isSessionUser.call(this, userId) && this.session.data.isFetched)
+                deferred.resolve(this.session.data.recipes);
             else
                 Store.getRecipesByUserId(userId).then(function(data) {
                     if (isSessionUser.call(self, userId)) {
-                        self.session.recipes.fetched = data;
-                        self.session.recipes.isFetched = true;
+                        self.session.data.recipes = self.session.data.recipes.concat(data);
+                        self.session.data.isFetched = true;
                     }
 
                     deferred.resolve(data);
                 });
 
             return deferred.promise;
-        }
+        };
 
         function initSession(userId) {
-            var recipes = {
-                fetched: [],
-                added: [],
-                all: all,
+            var data = {
+                recipes: [],
                 isFetched: false
             };
 
-            //This isn't very efficient.
-            function all() {
-                return recipes.fetched.concat(recipes.added);
-            }
-
             return {
                 id: userId,
-                recipes: recipes
+                data: data
             };
         }
 

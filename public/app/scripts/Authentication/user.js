@@ -20,11 +20,16 @@
             return store.saveRecipe(recipe);
         }
 
+        function deleteRecipe(recipeId) {
+            return store.deleteRecipe(recipeId, id);
+        }
+
         return {
             id: id,
             isAuthenticated: isAuthenticated,
             getRecipes: getRecipes,
-            saveRecipe: saveRecipe
+            saveRecipe: saveRecipe,
+            deleteRecipe: deleteRecipe
         };
     }
 })();

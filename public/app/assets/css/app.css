@@ -83,6 +83,10 @@ html, body {
 	font-style: italic;
 }
 
+.brew-delete {
+	color: #800000;
+}
+
 @media (min-width: 768px) {
 	.brew-navbar-nav, .brew-navbar-right {
 		min-height: 50px;
@@ -110,4 +114,11 @@ html, body {
 .dropdown-menu > .active > a:focus {
     color: #000;
     background-color: #f5f5f5;
+}
+
+/*Make collapse button in responsive DataTable row the same color as expand.  Red looks like delete.*/
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
+	content: '-';
+	background-color: #337ab7 !important;
 }
