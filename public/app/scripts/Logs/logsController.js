@@ -10,7 +10,7 @@ function logsController($scope, logger, notifications) {
         alert('got delete');
     }
 
-    $scope.loadData = function() {
+    $scope.prepareData = function() {
         return logger.getLogs().then(function(data) {
 
             return options = {
