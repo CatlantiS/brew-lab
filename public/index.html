@@ -54,17 +54,11 @@
 							<li>
 								<a href="/user">Users</a>
 							</li>
-							<li ng-hide="isAuthenticated">
-								<a href="/login">Login</a>
-							</li>
-							<li ng-show="isAuthenticated">
-								<a href="#" ng-click="Logoff()">Logout</a>
-							</li>
 						</ul>
 					
 						<ul class="nav navbar-nav navbar-right brew-navbar-right">
-							<li>
-								<a href="#" data-toggle="tooltip" title="Lol, just kidding.">Sign Out</a>
+							<li ng-if="isAuthenticated">
+								<a href="#" ng-click="Logoff()">Logout</a>
 							</li>
 						</ul>
 					</div>

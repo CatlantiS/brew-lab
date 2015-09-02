@@ -15,7 +15,7 @@
         $scope.Logoff = function() {
             $http.get('/logoff')
                 .success(function(res) {
-                   notifications.success(res);
+                   //notifications.success(res);
                     $scope.isAuthenticated = false;
                     $window.location.href = '/login';
 

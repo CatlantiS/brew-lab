@@ -2,9 +2,9 @@
 
 (function() {
     angular.module('brewApp.controllers')
-        .controller('LoginCtrl', ['$scope', '$http','Auth', 'notifications', 'Store', 'User', 'logger', LoginController]);
+        .controller('LoginCtrl', ['$scope', '$http', '$location', 'Auth', 'notifications', 'Store', 'User', 'logger', LoginController]);
 
-    function LoginController($scope, $http, Auth, notifications, Store, User, logger) {
+    function LoginController($scope, $http, $location, Auth, notifications, Store, User, logger) {
         $scope.isLogin = true;
         var login = {}
         login.isAuthorized = false;
@@ -20,6 +20,8 @@
                    login.currentUser = login.username;
                    $scope.isAuthenticated = true;
                    Auth.isAuthenticated = true;
+
+                   $location.path('/');
                },
                function(err) {
                    notifications.error(err);

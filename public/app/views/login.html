@@ -1,16 +1,26 @@
 <h1 class="page-header brew-header">Login</h1>
 
-<div ng-controller="LoginCtrl">
-    <div ng-hide="login.isAuthorized">
-    Username:  <input type="text" ng-model="login.username" />
-    Password:  <input type="password" ng-model="login.password" />
-    <button ng-click="login.ProcessLogin()">Login</button>
-    </div>
-    <div ng-show="login.isAuthorized">
-        <h1>Welcome {{login.currentUser}}!</h1>
-    </div>
-    <div>
-        <button ng-click="login.secureTest()">Test secure api endpoint</button><br />
-        <span>{{login.testOutput}}</span>
+<div class="row" ng-controller="LoginCtrl">
+    <div class="col-md-6" ng-show="!login.isAuthorized">
+        <form name="loginForm" novalidate>
+            <div class="form-group">
+                <label id="usernameLabel" for="username">Username</label>
+
+                <input type="text" name="username" class="form-control brew-input brew-input-required" id="username" ng-model="login.username"
+                       aria-labelledby="usernameLabel" required aria-required="true" title="Enter your username."
+                       placeholder="Enter username">
+            </div>
+
+            <div class="form-group">
+                <label id="passwordLabel" for="password">Password</label>
+
+                <input type="password" class="form-control brew-input brew-input-required" id="password" ng-model="login.password"
+                       aria-labelledby="passwordLabel" required aria-required="true" title="Enter your password."
+                       placeholder="Enter password">
+            </div>
+
+            <button type="submit" class="btn btn-default" role="button" ng-click="login.ProcessLogin(loginForm.$valid)"
+                    ng-disabled="loginForm.$invalid">Login</button>
+        </form>
     </div>
 </div>
