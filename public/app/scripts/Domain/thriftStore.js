@@ -46,25 +46,24 @@
                             return recipe.id != recipeId;
                         });
 
-                defer.resolve();
+                //Will it cause confusion returning this from delete?
+                deferred.resolve(self.session.data.recipes);
             });
 
             return deferred.promise;
         };
 
-        ThriftStore.prototype.getRecipesByUserId = function(userId) {
+        ThriftStore.prototype.getCurrentUserRecipes = function() {
             var self = this,
                 deferred = $q.defer();
 
             //If we've already fetched user data, then just return from cached data.
-            if (isSessionUser.call(this, userId) && this.session.data.isFetched)
+            if (this.session.data.isFetched)
                 deferred.resolve(this.session.data.recipes);
             else
-                Store.getRecipesByUserId(userId).then(function(data) {
-                    if (isSessionUser.call(self, userId)) {
-                        self.session.data.recipes = self.session.data.recipes.concat(data);
-                        self.session.data.isFetched = true;
-                    }
+                Store.getCurrentUserRecipes().then(function(data) {
+                    self.session.data.recipes = self.session.data.recipes.concat(data);
+                    self.session.data.isFetched = true;
 
                     deferred.resolve(data);
                 });
