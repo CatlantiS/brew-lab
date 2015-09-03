@@ -37,8 +37,10 @@ app.get('/views/:static', function(request, response) {
 	    route;
 	
 	if (static) {
+		route = static;
+
 		if (!path.extname(static))
-			route = static + '.html';
+			route += '.html';
 	}
 	else
 		route = 'home.html';

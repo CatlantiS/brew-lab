@@ -6,25 +6,37 @@
 
     function LoginController($scope, $http, $location, Auth, notifications, Store, User, logger) {
         $scope.isLogin = true;
-        var login = {}
-        login.isAuthorized = false;
 
-        login.ProcessLogin = function() {
+        var login = {
+            auth: Auth
+        };
+
+        login.logIn = function() {
            Auth.login(login.username, login.password)
                .then(function(data) {
-                   notifications.success('Login successful');
-                   notifications.info('received authToken = ' + data);
+                   //notifications.success('Login successful');
+                   //notifications.info('received authToken = ' + data);
                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + data;
                    logger.setAuthHeader('Bearer ' + data);
-                   login.isAuthorized = true;
                    login.currentUser = login.username;
-                   $scope.isAuthenticated = true;
                    Auth.isAuthenticated = true;
 
                    $location.path('/');
                },
                function(err) {
                    notifications.error(err);
+                });
+        };
+
+        login.logOut = function() {
+            $http.get('/logoff')
+                .success(function(res) {
+                    Auth.isAuthenticated = false;
+
+                    $location.path('/');
+                })
+                .error(function(err) {
+                    notifications.error(err);
                 });
         };
 

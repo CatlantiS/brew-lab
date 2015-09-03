@@ -27,6 +27,22 @@ html, body {
 	background-color: #474747;
 }
 
+.brew-navbar-login {
+	padding-top: 10px;
+}
+
+.brew-navbar-input {
+	border-radius: 0 !important;
+}
+
+.brew-navbar-input-left {
+	border-radius: 4px 0 0 4px !important;
+}
+
+.brew-navbar-input-right {
+	border-radius: 0 4px 4px 0 !important;
+}
+
 .brew-drop-shadow {
 	box-shadow: 0 4px 4px -2px #232323;
 	-moz-box-shadow: 0 4px 4px -2px #232323;
