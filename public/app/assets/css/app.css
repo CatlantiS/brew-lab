@@ -66,6 +66,16 @@ html, body {
 	border-top: 1px solid #e7e7e7;
 }
 
+.brew-footer-nav {
+	border-radius: 2px;
+	background-color: #f7f7fa;
+	padding: 20px;
+}
+
+.brew-footer-nav-item {
+	padding: 5px 20px;
+}
+
 .brew-nav-list {
 	font-size: larger;
 }

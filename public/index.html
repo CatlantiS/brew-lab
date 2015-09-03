@@ -48,12 +48,6 @@
 							<li>
 								<a href="/contact">Contact</a>
 							</li>
-							<li>
-								<a href="/logs">Logs</a>
-							</li>
-							<li>
-								<a href="/user">Users</a>
-							</li>
 						</ul>
 					
 						<ul class="nav navbar-nav navbar-right brew-navbar-right" ng-controller="LoginCtrl">
@@ -82,6 +76,14 @@
 		<footer class="brew-footer">
 			<div ng-controller="InfoCtrl as info">
 				You are using version <span class="brew-important" ng-bind="info.app.version|version"></span> of the brew lab app.
+			</div>
+
+			<div class="row" ng-if="app.auth.isAuthenticated">
+				<div class="col-md-4 col-md-offset-4 brew-footer-nav">
+					<span><i class="fa fa-unlock-alt"></i> Admin </span>
+					<a class="brew-footer-nav-item" href="/logs"><i class="fa fa-file-text"></i> Logs</a>
+					<a class="brew-footer-nav-item" href="/user"><i class="fa fa-users"></i> Users</a>
+				</div>
 			</div>
 		</footer>
 
