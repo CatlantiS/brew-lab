@@ -4,6 +4,10 @@ angular.module('brewApp.directives')
     .directive('brewTable', ['$q', 'Halper', function($q, Halper) {
         return {
             restrict: 'AE',
+            scope: {
+                data: '=',
+                prepareData: '&'
+            },
             link: function(scope, element) {
                 $q.when(scope.prepareData()).then(function(options) {
                     $(element).DataTable(options);

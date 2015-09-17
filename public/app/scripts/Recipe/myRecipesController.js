@@ -16,22 +16,22 @@
 
         self.deleteRecipe = function(id) {
             User.deleteRecipe(id).then(function(recipes) {
-                $scope.data = recipes;
+                self.recipes = recipes;
             });
         };
 
-        $scope.prepareData = function() {
+        self.prepareData = function() {
             self.loading = true;
 
             return User.getRecipes().then(function(recipes) {
                 self.loading = false;
 
-                $scope.data = recipes;
+                self.recipes = recipes;
 
                 return {
                     responsive: true,
                     bLengthChange: false,
-                    data: $scope.data,
+                    data: self.recipes,
                     columns: [
                         { title: 'Name', data: 'name' },
                         { title: 'Volume', data: 'volume' },
