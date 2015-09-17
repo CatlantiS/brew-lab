@@ -5,7 +5,7 @@
         .directive('myRecipes', myRecipes);
 
     function myRecipes() {
-        function link(scope, element, attrs, ctrl) {
+        function link(s, e, a, ctrl) {
             var table = $("#myRecipesTable");
 
             table.on('click','.row-edit', function() {
@@ -24,6 +24,7 @@
         return {
             restrict: 'A',
             controller: 'MyRecipesCtrl',
+            controllerAs: 'ctrl',
             link: link
         };
     }

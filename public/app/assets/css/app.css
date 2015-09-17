@@ -1,5 +1,6 @@
 html, body {
 	overflow-x: hidden !important;
+	color: #474747 !important;
 }
 
 .brew-app-header {
@@ -13,7 +14,6 @@ html, body {
 
 .brew-header {
 	color: #ffcc00 !important;
-	font-size: 24px;
 	margin-bottom: 30px;
 }
 
