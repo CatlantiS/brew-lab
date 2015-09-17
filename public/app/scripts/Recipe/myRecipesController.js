@@ -2,28 +2,24 @@
     'use strict';
 
     angular.module('brewApp.controllers')
-        .controller('MyRecipesCtrl', ['$q', 'User', myRecipesController]);
+        .controller('MyRecipesCtrl', ['User', myRecipesController]);
 
-    function myRecipesController($q, User) {
+    function myRecipesController(User) {
         /* jshint validthis: true */
         var self = this;
 
         self.isLoading = false;
 
         self.getMyRecipes = function() {
-            var deferred = $q.defer();
-
             self.isLoading = true;
 
-            User.getRecipes().then(function(recipes) {
+            return User.getRecipes().then(function(recipes) {
                 self.isLoading = false;
 
                 self.recipes = recipes;
 
-                deferred.resolve(recipes);
+                return recipes;
             });
-
-            return deferred.promise;
         }
 
         self.editRecipe = function(id) {
