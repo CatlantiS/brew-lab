@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('brewApp.directives')
-        .directive('myRecipes', myRecipes);
+        .directive('myRecipes', ['$compile', 'Halper', myRecipes]);
 
-    function myRecipes() {
-        function link(s, e, a, ctrl) {
+    function myRecipes($compile, Halper) {
+        function link(scope, e, a, ctrl) {
             var table = $("#myRecipesTable");
 
             table.on('click','.row-edit', function() {
@@ -19,6 +19,48 @@
 
                 ctrl.deleteRecipe(recipeId);
             });
+
+            ctrl.prepareData = function() {
+                ctrl.getMyRecipes();
+
+                return {
+                    responsive: true,
+                    bLengthChange: false,
+                    data: ctrl.recipes,
+                    columns: [
+                        {title: 'Name', data: 'name'},
+                        {title: 'Volume', data: 'volume'},
+                        {title: 'Units', data: 'units'},
+                        {title: 'Yeast', data: 'yeastType'},
+                        {title: ''},
+                        {title: ''}
+                    ],
+                    columnDefs: [
+                        {
+                            targets: 4,
+                            data: 'id',
+                            render: function (d, a, m, n) {
+                                return Halper.getRowEditIconHtml(m.id);
+                            },
+                            createdCell: function (g, r, a, p, e) {
+                                $compile(g)(scope);
+                            },
+                            orderable: false
+                        },
+                        {
+                            targets: 5,
+                            data: 'id',
+                            render: function (d, a, m, n) {
+                                return Halper.getRowDeleteIconHtml(m.id);
+                            },
+                            createdCell: function (g, r, a, p, e) {
+                                $compile(g)(scope);
+                            },
+                            orderable: false
+                        }
+                    ]
+                };
+            }
         }
 
         return {
