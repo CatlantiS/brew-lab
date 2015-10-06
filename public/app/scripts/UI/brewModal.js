@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('brewApp.services')
-    .service('Modal', ['$modal', function($modal) {
+    .service('BrewModal', ['$modal', function($modal) {
         var _instance;
 
         this.open = function(options) {

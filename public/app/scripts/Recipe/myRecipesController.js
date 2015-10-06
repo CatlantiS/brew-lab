@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('brewApp.controllers')
-        .controller('MyRecipesCtrl', ['User', myRecipesController]);
+        .controller('MyRecipesCtrl', ['BrewModal', 'User', myRecipesController]);
 
-    function myRecipesController(User) {
+    function myRecipesController(BrewModal, User) {
         /* jshint validthis: true */
         var self = this;
 
@@ -23,7 +23,7 @@
         }
 
         self.editRecipe = function(id) {
-            alert('Edit ' + id);
+            BrewModal.open({ controller: 'RecipeCtrl', template: 'views/recipeModal', size: 'lg' });
         };
 
         self.deleteRecipe = function(id) {
