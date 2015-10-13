@@ -24,7 +24,7 @@
                    $location.path('/');
                },
                function(err) {
-                   notifications.error(err);
+                   notifications.error(err.error_description);
                 });
         };
 
