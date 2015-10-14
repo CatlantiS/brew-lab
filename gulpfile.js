@@ -40,7 +40,8 @@ gulp.task('vendor', function() {
             'public/app/assets/js/vendor/typeahead.jquery.min.js',
             'public/app/assets/js/vendor/toastr.min.js',
             'public/app/assets/js/vendor/log4javascript_uncompressed.js',
-            'public/app/assets/js/no-pm/datatables.min.js'
+            'public/app/assets/js/no-pm/datatables.min.js',
+            'public/app/assets/js/no-pm/molar.min.js'
         ])
         .pipe(concat('vendor.min.js'))
         .pipe(gulp.dest('public/app/dist/'));

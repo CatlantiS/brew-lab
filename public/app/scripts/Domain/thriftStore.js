@@ -3,9 +3,9 @@
 
     //Caches for current user to save trips to the backend.  *Saves*, hence thrift store.  Get it?
     angular.module('brewApp.services')
-        .factory('ThriftStore', ['$q', 'Configuration', 'Store', thriftStore]);
+        .factory('ThriftStore', ['$q', 'Configuration', 'ClassFactory', 'Store', thriftStore]);
 
-    function thriftStore($q, Configuration, Store) {
+    function thriftStore($q, Configuration, ClassFactory, Store) {
         var ThriftStore = function(userId) {
             this.userId = userId;
             this.session = Configuration.currentUser.cacheRecipes ? initSession(userId) : null;
@@ -23,7 +23,7 @@
                 if (isSessionUser.call(self, recipe.userId)) {
                     recipe.added = true;
 
-                    self.session.data.recipes.push(recipe);
+                    self.session.data.recipes.add(data.id, recipe);
                 }
 
                 recipe.id = data.id;
@@ -41,13 +41,10 @@
             Store.deleteRecipe(recipeId).then(function() {
                 //Remove recipe from cache.
                 if (isSessionUser.call(self, userId))
-                    self.session.data.recipes = self.session.data.recipes
-                        .filter(function(recipe) {
-                            return recipe.id != recipeId;
-                        });
+                    self.session.data.recipes.remove(Number(recipeId));
 
                 //Will it cause confusion returning this from delete?
-                deferred.resolve(self.session.data.recipes);
+                deferred.resolve(self.session.data.recipes.values());
             });
 
             return deferred.promise;
@@ -59,10 +56,10 @@
 
             //If we've already fetched user data, then just return from cached data.
             if (this.session.data.isFetched)
-                deferred.resolve(this.session.data.recipes);
+                deferred.resolve(this.session.data.recipes.values());
             else
                 Store.getCurrentUserRecipes().then(function(data) {
-                    self.session.data.recipes = self.session.data.recipes.concat(data);
+                    self.session.data.recipes.import(data, function(recipe) { return recipe.id });
                     self.session.data.isFetched = true;
 
                     deferred.resolve(data);
@@ -71,9 +68,13 @@
             return deferred.promise;
         };
 
+        ThriftStore.prototype.getRecipeById = function(recipeId) {
+
+        };
+
         function initSession(userId) {
             var data = {
-                recipes: [],
+                recipes: new ClassFactory.Lookup(false),
                 isFetched: false
             };
 
