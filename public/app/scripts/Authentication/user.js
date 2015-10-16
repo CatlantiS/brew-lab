@@ -14,6 +14,10 @@
             return store.getCurrentUserRecipes();
         }
 
+        function getRecipeById(recipeId) {
+            return store.getRecipeById(recipeId);
+        }
+
         function saveRecipe(recipe) {
             recipe.userId = recipe.userId || this.id;
 
@@ -28,6 +32,7 @@
             id: id,
             isAuthenticated: isAuthenticated,
             getRecipes: getRecipes,
+            getRecipeById: getRecipeById,
             saveRecipe: saveRecipe,
             deleteRecipe: deleteRecipe
         };

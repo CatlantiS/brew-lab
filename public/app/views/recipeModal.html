@@ -5,54 +5,47 @@
 <div class="modal-body recipe brew-form" recipe>
     <p class="brew-info">Create a legendary recipe.</p>
 
-    <form name="recipeForm" novalidate>
+    <form name="ctrl.recipeForm" novalidate>
         <div class="form-group">
-            <label for="recipeName">Recipe name</label>
+            <label id="recipeNameLabel" for="recipeName">Recipe name</label>
 
-            <input type="text" class="form-control brew-input" id="recipeName" ng-model="recipe.name"
-                   required aria-required="true" title="Provide a name for your recipe."
-                   placeholder="Enter recipe name">
-
-            <div role="alert">
-                <span class="error" ng-show="recipeForm.recipeName.$invalid && !recipeForm.recipeName.$pristine">
-                    Required!
-                </span>
-            </div>
+            <input type="text" name="name" class="form-control brew-input brew-input-required" id="recipeName" ng-model="ctrl.recipe.name"
+                   aria-labelledby="recipeNameLabel" required aria-required="true" title="Provide a name for your recipe."
+                   placeholder="Enter recipe name (required)">
         </div>
 
         <div class="form-group">
-            <label for="recipeVolume">Volume</label>
+            <label id="recipeVolumeLabel" for="recipeVolume">Volume</label>
 
-            <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="recipe.volume"
-                   aria-required="false" title="Provide a numeric recipe volume."
+            <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="ctrl.recipe.volume"
+                   aria-labelledby="recipeVolumeLabel" aria-required="false" title="Provide a numeric recipe volume."
                    placeholder="Enter numeric recipe volume (optional)">
 
-            <label class="sr-only" for="recipeUnits"></label>
-
-            <div class="btn-group" id="recipeUnits" dropdown>
-                <button type="button" class="btn btn-default">Units</button>
-                <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
-                    <span class="caret"></span>
-                    <span class="sr-only"></span>
+            <div class="btn-group" dropdown keyboard-nav brew-dropdown>
+                <button id="recipeUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                    {{ ctrl.recipe.units || 'Units' }} <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">gallons</a></li>
-                    <li><a href="#">liters</a></li>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="recipeUnits">
+                    <li role="menuitem" ng-repeat="units in ctrl.units">
+                        <a href="#" ng-click="ctrl.recipe.units = units">{{ units }}</a>
+                    </li>
                 </ul>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Yeast</label>
+            <label id="recipeYeastLabel" for="recipeYeast">Yeast</label>
 
-            <input type="text" class="form-control brew-input" ng-model="recipe.yeastType"
-                   title="Provide a yeast type (optional)." placeholder="Enter yeast type (optional)"
-                   typeahead="yeastType for yeastType in yeastTypes">
+            <input type="text" class="form-control brew-input" id="recipeYeast" ng-model="ctrl.recipe.yeastType"
+                   aria-labelledby="recipeYeastLabel" aria-required="false" title="Provide yeast type for your recipe."
+                   placeholder="Enter yeast type (optional)"
+                   typeahead="yeastType for yeastType in ctrl.yeastTypes">
         </div>
 
-        <button type="submit" class="btn btn-default" role="button" ng-disabled="recipeForm.$invalid"
-                ng-click="submit(recipe)">Submit</button>
-        <button type="submit" class="btn btn-default" role="button" ng-click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-default" role="button"
+                ng-click="ctrl.submit(ctrl.recipeForm.$valid)"
+                ng-disabled="ctrl.recipeForm.$invalid">Submit</button>
+        <a href="#" class="brew-clear-button-right" role="button" ng-click="ctrl.clear()">Clear</a>
     </form>
 </div>
 

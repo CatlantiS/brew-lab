@@ -17,7 +17,7 @@
         }
 
         function deResourcifyArray(resourceArray) {
-            return resourceArray.map(function(resource) { return deResourcify(resource); });
+            return resourceArray.map(deResourcify);
         }
 
         function getRowEditIconHtml(dataId) {

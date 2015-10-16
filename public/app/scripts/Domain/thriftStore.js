@@ -3,9 +3,9 @@
 
     //Caches for current user to save trips to the backend.  *Saves*, hence thrift store.  Get it?
     angular.module('brewApp.services')
-        .factory('ThriftStore', ['$q', 'Configuration', 'ClassFactory', 'Store', thriftStore]);
+        .factory('ThriftStore', ['$q', 'Configuration', 'ClassFactory', 'ObjectMapper', 'Store', thriftStore]);
 
-    function thriftStore($q, Configuration, ClassFactory, Store) {
+    function thriftStore($q, Configuration, ClassFactory, ObjectMapper, Store) {
         var ThriftStore = function(userId) {
             this.userId = userId;
             this.session = Configuration.currentUser.cacheRecipes ? initSession(userId) : null;
@@ -35,13 +35,15 @@
         };
 
         ThriftStore.prototype.deleteRecipe = function(recipeId, userId) {
+            recipeId = Number(recipeId);
+
             var self = this,
                 deferred = $q.defer();
 
             Store.deleteRecipe(recipeId).then(function() {
                 //Remove recipe from cache.
                 if (isSessionUser.call(self, userId))
-                    self.session.data.recipes.remove(Number(recipeId));
+                    self.session.data.recipes.remove(recipeId);
 
                 //Will it cause confusion returning this from delete?
                 deferred.resolve(self.session.data.recipes.values());
@@ -59,7 +61,10 @@
                 deferred.resolve(this.session.data.recipes.values());
             else
                 Store.getCurrentUserRecipes().then(function(data) {
-                    self.session.data.recipes.import(data, function(recipe) { return recipe.id });
+                    self.session.data.recipes.import(data,
+                        function(recipe) { return recipe.id; },
+                        function(recipe) { return ObjectMapper.mapper.map(recipe, 'BackendArtifact'); });
+
                     self.session.data.isFetched = true;
 
                     deferred.resolve(data);
@@ -68,8 +73,14 @@
             return deferred.promise;
         };
 
+        //Should this be getCurrentUserRecipeById?
         ThriftStore.prototype.getRecipeById = function(recipeId) {
+            recipeId = Number(recipeId);
 
+            //Need to expand this to check if we have a cached copy and fetching otherwise.
+            var recipe = this.session.data.recipes.findFirst(function(r) { return r.key === recipeId; });
+
+            return recipe == null ? recipe : recipe.value;
         };
 
         function initSession(userId) {
