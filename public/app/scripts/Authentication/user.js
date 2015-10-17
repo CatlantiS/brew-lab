@@ -2,13 +2,13 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('User', ['$resource', 'ThriftStore', user]);
+        .factory('User', ['$resource', 'UserStore', user]);
 
     //Obviously need to actually implement this.
-    function user($resource, ThriftStore) {
+    function user($resource, UserStore) {
         var id = '1',
              isAuthenticated = false,
-            store = new ThriftStore(id);
+            store = new UserStore(id);
 
         function getRecipes() {
             return store.getCurrentUserRecipes();

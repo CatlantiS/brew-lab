@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    angular.module('brewApp').factory('Halper', halper);
+    angular.module('brewApp').factory('Helper', helper);
 
-    function halper() {
+    function helper() {
         function deResourcify(resource) {
             var obj = {};
 

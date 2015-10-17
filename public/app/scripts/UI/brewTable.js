@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('brewApp.directives')
-    .directive('brewTable', ['$q', 'Halper', function($q, Halper) {
+    .directive('brewTable', ['$q', 'Helper', function($q, Helper) {
         return {
             restrict: 'AE',
             scope: {
@@ -18,7 +18,7 @@ angular.module('brewApp.directives')
                         dataTable.fnClearTable();
 
                         if (angular.isArray(updated) && updated.length > 0) {
-                            updated = Halper.deResourcifyArray(updated);
+                            updated = Helper.deResourcifyArray(updated);
 
                             dataTable.fnAddData(updated);
                         }

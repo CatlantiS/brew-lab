@@ -12,7 +12,7 @@
         mapper.register(backendArtifact);
 
         return {
-            mapper: mapper
+            map: function(source, definitionName) { return mapper.map(source, definitionName); }
         };
     }
 })();

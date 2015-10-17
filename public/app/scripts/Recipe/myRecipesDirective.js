@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('brewApp.directives')
-        .directive('myRecipes', ['$compile', 'Halper', myRecipes]);
+        .directive('myRecipes', ['$compile', 'Helper', myRecipes]);
 
-    function myRecipes($compile, Halper) {
+    function myRecipes($compile, Helper) {
         function link(scope, e, a, ctrl) {
             var table = $("#myRecipesTable");
 
@@ -40,7 +40,7 @@
                             targets: 4,
                             data: 'id',
                             render: function (d, a, m, n) {
-                                return Halper.getRowEditIconHtml(m.id);
+                                return Helper.getRowEditIconHtml(m.id);
                             },
                             createdCell: function (g, r, a, p, e) {
                                 $compile(g)(scope);
@@ -51,7 +51,7 @@
                             targets: 5,
                             data: 'id',
                             render: function (d, a, m, n) {
-                                return Halper.getRowDeleteIconHtml(m.id);
+                                return Helper.getRowDeleteIconHtml(m.id);
                             },
                             createdCell: function (g, r, a, p, e) {
                                 $compile(g)(scope);

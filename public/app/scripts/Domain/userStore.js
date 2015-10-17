@@ -1,20 +1,20 @@
 (function() {
     'use strict';
 
-    //Caches for current user to save trips to the backend.  *Saves*, hence thrift store.  Get it?
+    //Caches for current user to save trips to the backend.
     angular.module('brewApp.services')
-        .factory('ThriftStore', ['$q', 'Configuration', 'ClassFactory', 'ObjectMapper', 'Store', thriftStore]);
+        .factory('UserStore', ['$q', 'Configuration', 'ClassFactory', 'ObjectMapper', 'Store', userStore]);
 
-    function thriftStore($q, Configuration, ClassFactory, ObjectMapper, Store) {
-        var ThriftStore = function(userId) {
+    function userStore($q, Configuration, ClassFactory, ObjectMapper, Store) {
+        var UserStore = function(userId) {
             this.userId = userId;
             this.session = Configuration.currentUser.cacheRecipes ? initSession(userId) : null;
         };
 
         //Not true prototype inheritance.
-        ThriftStore.prototype = Object.create(Store);
+        UserStore.prototype = Object.create(Store);
 
-        ThriftStore.prototype.saveRecipe = function(recipe) {
+        UserStore.prototype.saveRecipe = function(recipe) {
             var self = this,
                 deferred = $q.defer();
 
@@ -34,7 +34,7 @@
             return deferred.promise;
         };
 
-        ThriftStore.prototype.deleteRecipe = function(recipeId, userId) {
+        UserStore.prototype.deleteRecipe = function(recipeId, userId) {
             recipeId = Number(recipeId);
 
             var self = this,
@@ -52,7 +52,7 @@
             return deferred.promise;
         };
 
-        ThriftStore.prototype.getCurrentUserRecipes = function() {
+        UserStore.prototype.getCurrentUserRecipes = function() {
             var self = this,
                 deferred = $q.defer();
 
@@ -63,7 +63,7 @@
                 Store.getCurrentUserRecipes().then(function(data) {
                     self.session.data.recipes.import(data,
                         function(recipe) { return recipe.id; },
-                        function(recipe) { return ObjectMapper.mapper.map(recipe, 'BackendArtifact'); });
+                        function(recipe) { return ObjectMapper.map(recipe, 'BackendArtifact'); });
 
                     self.session.data.isFetched = true;
 
@@ -74,7 +74,7 @@
         };
 
         //Should this be getCurrentUserRecipeById?
-        ThriftStore.prototype.getRecipeById = function(recipeId) {
+        UserStore.prototype.getRecipeById = function(recipeId) {
             recipeId = Number(recipeId);
 
             //Need to expand this to check if we have a cached copy and fetching otherwise.
@@ -99,6 +99,6 @@
             return this.session && this.userId === userId;
         }
 
-        return ThriftStore;
+        return UserStore;
     }
 })();
