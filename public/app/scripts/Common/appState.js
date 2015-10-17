@@ -1,32 +1,18 @@
-'use strict';
+(function() {
+    'use strict';
 
-//There's probably a much better solution than this.
-//Do we want to add the option to use local storage here?
-angular.module('brewApp.services')
-    .service('AppState', function() {
-        var _state = {};
+    //Use local storage?
+    angular.module('brewApp.services').factory('AppState', ['ClassFactory', appState]);
 
-        var Area = function() {};
+    function appState(ClassFactory) {
+        var state = {};
 
-        Area.prototype.store = function(key, value) {
-            this[key] = value;
+        function area(area) {
+            return (state[area] = state[area] || { store: new ClassFactory.Lookup()}, state[area]);
+        }
+
+        return {
+            area: area
         };
-
-        Area.prototype.retrieve = function(key) {
-            return this[key];
-        };
-
-        Area.prototype.destroy = function(key) {
-            if (typeof this[key] !== 'undefined')
-                delete this[key];
-        };
-
-        this.area = function(area) {
-            _state[area] = _state[area] || new Area();
-
-            return _state[area];
-        };
-
-        //Force callers to only use areas to store state and not store it directly on the service object.
-        Object.freeze(this);
-    });
+    }
+})();
