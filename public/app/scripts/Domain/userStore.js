@@ -19,7 +19,7 @@
                 deferred = $q.defer();
 
             Store.saveRecipe(recipe).then(function(data) {
-                //Mark recipe as added and add to cache.
+                //Mark recipe as added and cache.
                 if (isCacheUser.call(self, recipe.userId)) {
                     recipe.added = true;
 
@@ -63,7 +63,7 @@
                 Store.getCurrentUserRecipes().then(function(data) {
                     self.cache.recipes.import(data,
                         function(recipe) { return recipe.id; },
-                        function(recipe) { return ObjectMapper.map(recipe, 'BackendArtifact'); });
+                        function(recipe) { return ObjectMapper.map(recipe, ObjectMapper.BACKEND_ARTIFACT); });
 
                     self.cache.isFetched = true;
 

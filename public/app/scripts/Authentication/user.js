@@ -6,35 +6,27 @@
 
     //Obviously need to actually implement this.
     function user($resource, UserStore) {
-        var id = '1',
-             isAuthenticated = false,
-            store = new UserStore(id);
+        var store;
 
-        function getRecipes() {
+        function User() { this.id = 1; this.isAuthenticated = false; store = new UserStore(this.id); }
+
+        User.prototype.getRecipes = function() {
             return store.getCurrentUserRecipes();
-        }
-
-        function getRecipeById(recipeId) {
-            return store.getRecipeById(recipeId);
-        }
-
-        function saveRecipe(recipe) {
-            recipe.userId = recipe.userId || this.id;
-
-            return store.saveRecipe(recipe);
-        }
-
-        function deleteRecipe(recipeId) {
-            return store.deleteRecipe(recipeId, id);
-        }
-
-        return {
-            id: id,
-            isAuthenticated: isAuthenticated,
-            getRecipes: getRecipes,
-            getRecipeById: getRecipeById,
-            saveRecipe: saveRecipe,
-            deleteRecipe: deleteRecipe
         };
+
+        User.prototype.getRecipeById = function(recipeId) {
+            return store.getRecipeById(recipeId);
+        };
+
+        User.prototype.saveRecipe = function(recipe) {
+            //User id in recipe is populate in backend based on oauth token.
+            return store.saveRecipe(recipe);
+        };
+
+        User.prototype.deleteRecipe = function(recipeId) {
+            return store.deleteRecipe(recipeId, this.id);
+        };
+
+        return new User();
     }
 })();
