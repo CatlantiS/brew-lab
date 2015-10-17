@@ -6,9 +6,9 @@
         .factory('UserStore', ['$q', 'Configuration', 'ClassFactory', 'ObjectMapper', 'Store', userStore]);
 
     function userStore($q, Configuration, ClassFactory, ObjectMapper, Store) {
-        var UserStore = function(userId) {
+        function UserStore(userId) {
             this.userId = userId;
-            this.session = Configuration.currentUser.cacheRecipes ? initSession(userId) : null;
+            this.cache = Configuration.currentUser.cacheRecipes ? initCache(userId) : null;
         };
 
         //Not true prototype inheritance.
@@ -20,10 +20,10 @@
 
             Store.saveRecipe(recipe).then(function(data) {
                 //Mark recipe as added and add to cache.
-                if (isSessionUser.call(self, recipe.userId)) {
+                if (isCacheUser.call(self, recipe.userId)) {
                     recipe.added = true;
 
-                    self.session.data.recipes.add(data.id, recipe);
+                    self.cache.recipes.add(data.id, recipe);
                 }
 
                 recipe.id = data.id;
@@ -42,11 +42,11 @@
 
             Store.deleteRecipe(recipeId).then(function() {
                 //Remove recipe from cache.
-                if (isSessionUser.call(self, userId))
-                    self.session.data.recipes.remove(recipeId);
+                if (isCacheUser.call(self, userId))
+                    self.cache.recipes.remove(recipeId);
 
                 //Will it cause confusion returning this from delete?
-                deferred.resolve(self.session.data.recipes.values());
+                deferred.resolve(self.cache.recipes.values());
             });
 
             return deferred.promise;
@@ -57,15 +57,15 @@
                 deferred = $q.defer();
 
             //If we've already fetched user data, then just return from cached data.
-            if (this.session.data.isFetched)
-                deferred.resolve(this.session.data.recipes.values());
+            if (this.cache.isFetched)
+                deferred.resolve(this.cache.recipes.values());
             else
                 Store.getCurrentUserRecipes().then(function(data) {
-                    self.session.data.recipes.import(data,
+                    self.cache.recipes.import(data,
                         function(recipe) { return recipe.id; },
                         function(recipe) { return ObjectMapper.map(recipe, 'BackendArtifact'); });
 
-                    self.session.data.isFetched = true;
+                    self.cache.isFetched = true;
 
                     deferred.resolve(data);
                 });
@@ -78,25 +78,21 @@
             recipeId = Number(recipeId);
 
             //Need to expand this to check if we have a cached copy and fetching otherwise.
-            var recipe = this.session.data.recipes.findFirst(function(r) { return r.key === recipeId; });
+            var recipe = this.cache.recipes.findFirst(function(r) { return r.key === recipeId; });
 
             return recipe == null ? recipe : recipe.value;
         };
 
-        function initSession(userId) {
-            var data = {
+        function initCache(userId) {
+            return {
+                id: userId,
                 recipes: new ClassFactory.Lookup(false),
                 isFetched: false
             };
-
-            return {
-                id: userId,
-                data: data
-            };
         }
 
-        function isSessionUser(userId) {
-            return this.session && this.userId === userId;
+        function isCacheUser(userId) {
+            return this.cache && this.userId === userId;
         }
 
         return UserStore;

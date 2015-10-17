@@ -12,7 +12,7 @@
             recipe: $resource(Configuration.store.url.api + 'recipes/:recipeId')
         };
 
-        var Store = function() {};
+        function Store() {};
 
         Store.prototype.getUser = function(userId) {
             return resource.user.get({ userId: userId }).$promise;
