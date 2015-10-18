@@ -2,13 +2,16 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('User', ['$resource', 'UserStore', user]);
+        .factory('User', ['$q', 'UserStore', user]);
 
-    //Obviously need to actually implement this.
-    function user($resource, UserStore) {
-        var store;
+    function user($q, UserStore) {
+        var store = new UserStore();
 
-        function User() { this.id = 1; this.isAuthenticated = false; store = new UserStore(this.id); }
+        function User() {
+            this.isAuthenticated = false;
+
+            getCurrentUser.call(this);
+        }
 
         User.prototype.getRecipes = function() {
             return store.getCurrentUserRecipes();
@@ -19,13 +22,33 @@
         };
 
         User.prototype.saveRecipe = function(recipe) {
-            //User id in recipe is populate in backend based on oauth token.
             return store.saveRecipe(recipe);
         };
 
         User.prototype.deleteRecipe = function(recipeId) {
-            return store.deleteRecipe(recipeId, this.id);
+            if (this.id) return store.deleteRecipe(recipeId, this.id);
+            else {
+                var deferred = $q.defer();
+
+                getCurrentUser.call(this).then(function(currentUser) {
+                    deferred.resolve(store.deleteRecipe(recipeId, currentUser.id));
+                });
+
+                return deferred.promise;
+            }
         };
+
+        function getCurrentUser() {
+            var self = this, deferred = $q.defer();
+
+            store.getCurrentUser().then(function(data) {
+                self.id = data.id;
+
+                deferred.resolve(data);
+            });
+
+            return deferred.promise;
+        }
 
         return new User();
     }

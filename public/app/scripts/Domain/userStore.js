@@ -6,13 +6,29 @@
         .factory('UserStore', ['$q', 'Configuration', 'ClassFactory', 'ObjectMapper', 'Store', userStore]);
 
     function userStore($q, Configuration, ClassFactory, ObjectMapper, Store) {
-        function UserStore(userId) {
-            this.userId = userId;
-            this.cache = Configuration.currentUser.cacheRecipes ? initCache(userId) : null;
+        var currentUser;
+
+        function UserStore() {
+            this.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
         };
 
         //Not true prototype inheritance.
         UserStore.prototype = Object.create(Store);
+
+        UserStore.prototype.getCurrentUser = function() {
+            var deferred = $q.defer();
+
+            if (currentUser)
+                deferred.resolve(currentUser);
+            else
+                Store.getCurrentUser().then(function(data) {
+                    currentUser = data;
+
+                    deferred.resolve(currentUser);
+                });
+
+            return deferred.promise;
+        };
 
         UserStore.prototype.saveRecipe = function(recipe) {
             var self = this,
@@ -39,16 +55,16 @@
                 deferred = $q.defer();
 
             Store.deleteRecipe(recipeId).then(function() {
-                //Remove recipe from cache.
-                //Todo: need a cleaner way of assuming this is for current user.
-                if (self.cache && self.userId === userId) {
-                    var removed = self.cache.recipes.remove(Number(recipeId));
+                self.getCurrentUser().then(function(currentUser) {
+                    if (self.cache && currentUser.id === userId) {
+                        var removed = self.cache.recipes.remove(Number(recipeId));
 
-                    //Will it cause confusion returning this only if user is cached?
-                    deferred.resolve(removed);
-                }
-                else
-                    deferred.resolve();
+                        //Will it cause confusion returning this only if user is cached?
+                        deferred.resolve(removed);
+                    }
+                    else
+                        deferred.resolve();
+                })
             });
 
             return deferred.promise;
@@ -111,9 +127,8 @@
             return deferred.promise;
         };
 
-        function initCache(userId) {
+        function initCache() {
             return {
-                id: userId,
                 recipes: new ClassFactory.Lookup(false),
                 isFetched: false
             };

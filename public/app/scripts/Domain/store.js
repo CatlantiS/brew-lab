@@ -30,7 +30,7 @@
             return $resource(Configuration.store.url.api + 'users/create').save(user).$promise;
         };
 
-        Store.prototype.getCurrentUserId = function() {
+        Store.prototype.getCurrentUser = function() {
             return $resource(Configuration.store.url.api + 'users/current').get({}).$promise;
         }
 
