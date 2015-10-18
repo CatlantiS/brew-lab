@@ -47,8 +47,13 @@
         };
 
         Store.prototype.getCurrentUserRecipes = function() {
-            return $resource(Configuration.store.url.api + 'recipes/currentUser').query().$promise;
-        }
+            return $resource(Configuration.store.url.api + 'currentUser/recipes').query().$promise;
+        };
+
+        Store.prototype.getCurrentUserRecipeById = function(recipeId) {
+            return $resource(Configuration.store.url.api + 'currentUser/recipes/:recipeId')
+                .get({ recipeId: recipeId }).$promise;
+        };
 
         Store.prototype.getRecipeById = function(recipeId) {
             return resource.recipe.get({ recipeId: recipeId }).$promise;

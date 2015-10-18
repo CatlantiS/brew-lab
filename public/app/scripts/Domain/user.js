@@ -15,7 +15,7 @@
         };
 
         User.prototype.getRecipeById = function(recipeId) {
-            return store.getRecipeById(recipeId);
+            return store.getCurrentUserRecipeById(recipeId);
         };
 
         User.prototype.saveRecipe = function(recipe) {

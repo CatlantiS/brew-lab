@@ -7,8 +7,15 @@
     function appState(ClassFactory) {
         var state = {};
 
+        function Area() { this.store = new ClassFactory.Lookup(); return this; }
+
+        Area.prototype.remove = function(key) {
+            if (typeof this[key] !== 'undefined')
+                delete this[key];
+        };
+
         function area(area) {
-            return (state[area] = state[area] || { store: new ClassFactory.Lookup()}, state[area]);
+            return (state[area] = state[area] || new Area(), state[area]);
         }
 
         return {

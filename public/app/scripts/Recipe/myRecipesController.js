@@ -23,15 +23,16 @@
         }
 
         self.editRecipe = function(id) {
-            var editRecipe = User.getRecipeById(id);
-            AppState.area('Recipe').recipe = editRecipe;
+            User.getRecipeById(id).then(function(editRecipe) {
+                AppState.area('Recipe').recipe = editRecipe;
 
-            BrewModal.open({ controller: 'RecipeCtrl as ctrl', template: 'views/recipeModal', size: 'lg' });
+                BrewModal.open({ controller: 'RecipeCtrl as ctrl', template: 'views/recipeModal', size: 'lg' });
+            });
         };
 
         self.deleteRecipe = function(id) {
-            User.deleteRecipe(id).then(function(recipes) {
-                self.recipes = recipes;
+            User.deleteRecipe(id).then(function() {
+                User.getRecipes().then(function(recipes) { self.recipes = recipes; });
             });
         };
     };

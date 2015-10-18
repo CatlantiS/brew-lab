@@ -24,7 +24,7 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, U
                 self.recipeForm.$setPristine();
                 self.recipe = {};
 
-                AppState.area('Recipe').destroy('recipe');
+                AppState.area('Recipe').remove('recipe');
             });
         }
     };
@@ -33,7 +33,7 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, U
         self.recipeForm.$setPristine();
         self.recipe = {};
 
-        AppState.area('Recipe').destroy('recipe');
+        AppState.area('Recipe').remove('recipe');
     };
 
     $scope.$on('$destroy', function() {
