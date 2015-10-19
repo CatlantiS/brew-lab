@@ -36,12 +36,10 @@
 
             Store.saveRecipe(recipe).then(function(data) {
                 if (self.cache) {
-                    var recipeId = Number(data.id);
-
-                    recipe.id = recipeId;
+                    recipe.id = data.id;
                     recipe.added = true;
 
-                    self.cache.recipes.add(Number(recipeId), recipe);
+                    self.cache.recipes.add(recipe.id, recipe);
                 }
 
                 deferred.resolve(data);
@@ -116,7 +114,7 @@
 
             var self = this;
 
-            this.getCurrentUserRecipeById(recipeId).then(function(data) {
+            Store.getCurrentUserRecipeById(recipeId).then(function(data) {
                 recipe = ObjectMapper.map(data, ObjectMapper.BACKEND_ARTIFACT);
 
                 if (self.cache) self.cache.recipes.add(recipe.id, recipe);
