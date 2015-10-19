@@ -20,8 +20,8 @@ function editRecipeController(AppState, BrewMaster, notifications, logger, User)
         if (isValid) {
             //Need a spinner on this?
             User.saveRecipe(self.recipe).then(function(data) {
-                notifications.success('Recipe ' + self.recipe.name + ' saved.');
-                logger.info('Recipe ' + data.id + ' saved.');
+                notifications.success('Recipe ' + self.recipe.name + ' updated.');
+                logger.info('Recipe ' + data.id + ' updated.');
 
                 self.recipeForm.$setPristine();
                 self.recipe = {};
@@ -29,12 +29,5 @@ function editRecipeController(AppState, BrewMaster, notifications, logger, User)
                 AppState.area('EditRecipe').remove('recipe');
             });
         }
-    };
-
-    self.clear = function() {
-        self.recipeForm.$setPristine();
-        self.recipe = {};
-
-        AppState.area('EditRecipe').remove('recipe');
     };
 }

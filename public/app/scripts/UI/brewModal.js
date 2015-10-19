@@ -12,5 +12,7 @@ angular.module('brewApp.services')
                 controller: options.controller,
                 size: options.size
             });
+
+            return _instance.result;
         };
     }]);
