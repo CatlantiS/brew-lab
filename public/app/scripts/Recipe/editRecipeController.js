@@ -3,9 +3,9 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('EditRecipeCtrl', ['AppState', 'BrewMaster', 'notifications', 'logger', 'User', editRecipeController]);
+    .controller('EditRecipeCtrl', ['$modalInstance', 'AppState', 'BrewMaster', 'notifications', 'logger', 'User', editRecipeController]);
 
-function editRecipeController(AppState, BrewMaster, notifications, logger, User) {
+function editRecipeController($modalInstance, AppState, BrewMaster, notifications, logger, User) {
     /* jshint validthis: true */
     var self = this;
 
@@ -19,15 +19,26 @@ function editRecipeController(AppState, BrewMaster, notifications, logger, User)
     self.update = function(isValid) {
         if (isValid) {
             //Need a spinner on this?
-            User.saveRecipe(self.recipe).then(function(data) {
+            User.updateRecipe(self.recipe).then(function() {
                 notifications.success('Recipe ' + self.recipe.name + ' updated.');
-                logger.info('Recipe ' + data.id + ' updated.');
+                logger.info('Recipe ' + self.recipe.id + ' updated.');
 
                 self.recipeForm.$setPristine();
                 self.recipe = {};
 
                 AppState.area('EditRecipe').remove('recipe');
+
+                $modalInstance.close();
             });
         }
+    };
+
+    self.cancel = function() {
+        self.recipeForm.$setPristine();
+        self.recipe = {};
+
+        AppState.area('EditRecipe').remove('recipe');
+
+        $modalInstance.dismiss();
     };
 }

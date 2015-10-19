@@ -28,7 +28,11 @@
 
                 BrewModal.open({ controller: 'EditRecipeCtrl as ctrl', template: 'views/editRecipe', size: 'lg' })
                     //When edit modal closes, blow away app state data.
-                    .then(function() { removeAppState(); }, function() { removeAppState(); });
+                    .then(function() {
+                        self.getMyRecipes();
+
+                        removeAppState();
+                    }, function() { removeAppState(); });
             });
         };
 

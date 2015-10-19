@@ -25,6 +25,10 @@
             return store.saveRecipe(recipe);
         };
 
+        User.prototype.updateRecipe = function(recipe) {
+            return store.updateRecipe(recipe);
+        };
+
         User.prototype.deleteRecipe = function(recipeId) {
             if (this.id) return store.deleteRecipe(recipeId, this.id);
             else {

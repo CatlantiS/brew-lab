@@ -9,7 +9,9 @@
             user: $resource(Configuration.store.url.api + 'users/id/:userId'),
             //Do we really need a separate resource for this?
             userRecipes: $resource(Configuration.store.url.api + 'users/:userId/recipes/'),
-            recipe: $resource(Configuration.store.url.api + 'recipes/:recipeId')
+            recipe: $resource(Configuration.store.url.api + 'recipes/:recipeId', null, {
+                'update': { method:'PUT' }
+            })
         };
 
         function Store() {};
@@ -36,6 +38,10 @@
 
         Store.prototype.saveRecipe = function(recipe) {
             return resource.recipe.save(recipe).$promise;
+        };
+
+        Store.prototype.updateRecipe = function(recipe) {
+            return resource.recipe.update({ recipeId: recipe.id }, recipe).$promise;
         };
 
         Store.prototype.deleteRecipe = function(recipeId) {
