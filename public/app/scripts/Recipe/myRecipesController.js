@@ -24,9 +24,9 @@
 
         self.editRecipe = function(id) {
             User.getRecipeById(id).then(function(editRecipe) {
-                AppState.area('Recipe').recipe = editRecipe;
+                AppState.area('EditRecipe').recipe = editRecipe;
 
-                BrewModal.open({ controller: 'RecipeCtrl as ctrl', template: 'views/recipeModal', size: 'lg' });
+                BrewModal.open({ controller: 'EditRecipeCtrl as ctrl', template: 'views/editRecipe', size: 'lg' });
             });
         };
 

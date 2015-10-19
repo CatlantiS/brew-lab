@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-	.controller('RecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'logger', 'User', recipeController]);
+	.controller('AddRecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'logger', 'User', addRecipeController]);
 
-function recipeController($scope, AppState, BrewMaster, notifications, logger, User) {
+function addRecipeController($scope, AppState, BrewMaster, notifications, logger, User) {
     /* jshint validthis: true */
     var self = this;
 
     //Might not need to worry about AppState, just depends on how the UI will look.
-    self.recipe = AppState.area('Recipe').recipe || {};
+    self.recipe = AppState.area('AddRecipe').recipe || {};
 
     self.units = BrewMaster.units;
 
@@ -24,7 +24,7 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, U
                 self.recipeForm.$setPristine();
                 self.recipe = {};
 
-                AppState.area('Recipe').remove('recipe');
+                AppState.area('AddRecipe').remove('recipe');
             });
         }
     };
@@ -33,12 +33,12 @@ function recipeController($scope, AppState, BrewMaster, notifications, logger, U
         self.recipeForm.$setPristine();
         self.recipe = {};
 
-        AppState.area('Recipe').remove('recipe');
+        AppState.area('AddRecipe').remove('recipe');
     };
 
     $scope.$on('$destroy', function() {
         //Only persist recipe if it exists and isn't empty.
         if (self.recipe && !angular.equals({}, self.recipe))
-            AppState.area('Recipe').recipe = self.recipe;
+            AppState.area('AddRecipe').recipe = self.recipe;
     });
 }

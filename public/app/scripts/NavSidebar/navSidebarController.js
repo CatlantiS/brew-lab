@@ -14,7 +14,7 @@ function navSidebarController(notifications) {
 			}
 		}, {
 			title: 'Enter a new recipe',
-			url: '/recipe'
+			url: '/addRecipe'
 		}, {
 			title: 'My recipes',
 			url: '/myRecipes'

@@ -23,9 +23,9 @@ angular.module('brewApp', [
 				url: '/contact',
 				templateUrl: '/views/contact'
 			})
-			.state('recipe', {
-				url: '/recipe',
-				templateUrl: '/views/recipe'
+			.state('addRecipe', {
+				url: '/addRecipe',
+				templateUrl: '/views/addRecipe'
 			})
 			.state('myRecipes', {
 				url: '/myRecipes',
