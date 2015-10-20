@@ -2,9 +2,9 @@
 
 (function() {
     angular.module('brewApp.controllers')
-        .controller('LoginCtrl', ['$scope', '$http', '$location', '$window', 'Auth', 'notifications', 'Store', 'User', 'logger', LoginController]);
+        .controller('LoginCtrl', ['$scope', '$http', '$location', '$window', 'Auth', 'notifications', 'logger', LoginController]);
 
-    function LoginController($scope, $http, $location, $window, Auth, notifications, Store, User, logger) {
+    function LoginController($scope, $http, $location, $window, Auth, notifications, logger) {
         $scope.isLogin = true;
 
         var login = {

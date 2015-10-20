@@ -4,17 +4,8 @@
     angular.module('brewApp.services')
         .factory('Auth', ['$http','$q', 'User', 'Configuration', auth]);
 
-    //Obviously need to actually implement this.
     function auth($http, $q, User, Configuration) {
         var isAuthenticated = false;
-
-        function getCurrentUser() {
-            return User.id;
-        }
-        
-        function isInRole(role) {
-            return true;
-        }
 
         var login = function(username, password) {
             var deferred = $q.defer();
@@ -40,9 +31,7 @@
         };
 
         return {
-            getCurrentUser: getCurrentUser,
             isAuthenticated: isAuthenticated,
-            isInRole: isInRole,
             login: login
         };
     }
