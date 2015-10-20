@@ -6,20 +6,21 @@
 
     function configuration() {
         //This can be expanded.
-        function Url(base) {
-            this.base = base;
-        }
+        function Url(base) { this.base = base; return this; }
 
-        var storeUrl = new Url('http://localhost:3000');
-        storeUrl.api = storeUrl.base + '/api/v1/';
+        //Can make this much cooler.
+        Url.prototype.route = function(name, route) { this[name] = this.base + route; return this; };
 
-        var authUrl = new Url('http://localhost:3000/authorize');
+        var storeUrl = new Url('http://localhost:3000').route('api', '/api/v1/'),
+            authUrl = new Url('http://localhost:3000/authorize');
 
         return {
             store: {
                 url: storeUrl
             },
-            authUrl: authUrl,
+            auth: {
+                url: authUrl
+            },
             currentUser: {
                 cacheRecipes: true
             }

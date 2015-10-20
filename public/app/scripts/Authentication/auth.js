@@ -10,7 +10,7 @@
         var login = function(username, password) {
             var deferred = $q.defer();
 
-            var url = Configuration.authUrl;   
+            var url = Configuration.auth.url;
 
             var clientId = 1;
             var secret = 'secret';
