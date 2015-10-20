@@ -2,7 +2,7 @@
 (function() {
     'use strict';
 
-    angular.module('brewApp.services').service('Configuration', configuration);
+    angular.module('brewApp.services').factory('Configuration', configuration);
 
     function configuration() {
         //This can be expanded.
