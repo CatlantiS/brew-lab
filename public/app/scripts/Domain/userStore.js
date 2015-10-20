@@ -62,7 +62,7 @@
                     }
                     else
                         deferred.resolve();
-                })
+                });
             });
 
             return deferred.promise;
