@@ -132,6 +132,6 @@
             };
         }
 
-        return UserStore;
+        return new UserStore();
     }
 })();

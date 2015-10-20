@@ -5,8 +5,6 @@
         .factory('User', ['$q', 'UserStore', user]);
 
     function user($q, UserStore) {
-        var store = new UserStore();
-
         function User() {
             this.isAuthenticated = false;
 
@@ -14,28 +12,28 @@
         }
 
         User.prototype.getRecipes = function() {
-            return store.getCurrentUserRecipes();
+            return UserStore.getCurrentUserRecipes();
         };
 
         User.prototype.getRecipeById = function(recipeId) {
-            return store.getCurrentUserRecipeById(recipeId);
+            return UserStore.getCurrentUserRecipeById(recipeId);
         };
 
         User.prototype.saveRecipe = function(recipe) {
-            return store.saveRecipe(recipe);
+            return UserStore.saveRecipe(recipe);
         };
 
         User.prototype.updateRecipe = function(recipe) {
-            return store.updateRecipe(recipe);
+            return UserStore.updateRecipe(recipe);
         };
 
         User.prototype.deleteRecipe = function(recipeId) {
-            if (this.id) return store.deleteRecipe(recipeId, this.id);
+            if (this.id) return UserStore.deleteRecipe(recipeId, this.id);
             else {
                 var deferred = $q.defer();
 
                 getCurrentUser.call(this).then(function(currentUser) {
-                    deferred.resolve(store.deleteRecipe(recipeId, currentUser.id));
+                    deferred.resolve(UserStore.deleteRecipe(recipeId, currentUser.id));
                 });
 
                 return deferred.promise;
@@ -45,7 +43,7 @@
         function getCurrentUser() {
             var self = this, deferred = $q.defer();
 
-            store.getCurrentUser().then(function(data) {
+            UserStore.getCurrentUser().then(function(data) {
                 self.id = data.id;
 
                 deferred.resolve(data);
