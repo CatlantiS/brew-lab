@@ -40,7 +40,7 @@
                 if (hasBaseSeparator && hasRouteSeparator)
                     base = base.substring(0, base.length - 1);
                 else if (!(hasBaseSeparator || hasRouteSeparator))
-                    base = base + '/';
+                    base += '/';
 
                 return base + route;
             });
