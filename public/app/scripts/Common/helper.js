@@ -29,12 +29,18 @@
         }
 
         //Probably a nicer way to do this.
+        //Can hand in param for what type of separator...
         function joinPaths(paths) {
             if (arguments.length > 1) paths = Array.prototype.slice.call(arguments);
 
             return paths.reduce(function(base, route) {
-                if (base[base.length - 1] === '/' && route[0] === '/')
+                var hasBaseSeparator = base[base.length - 1] === '/',
+                    hasRouteSeparator = route[0] === '/';
+
+                if (hasBaseSeparator && hasRouteSeparator)
                     base = base.substring(0, base.length - 1);
+                else if (!(hasBaseSeparator || hasRouteSeparator))
+                    base = base + '/';
 
                 return base + route;
             });
