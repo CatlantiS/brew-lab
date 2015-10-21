@@ -9,17 +9,11 @@
 
         function Area() { this.store = new ClassFactory.Lookup(); return this; }
 
-        Area.prototype.remove = function(key) {
-            if (typeof this[key] !== 'undefined')
-                delete this[key];
-        };
+        //Do we need to do anything special to make sure delete is safe?
+        Area.prototype.remove = function(key) { delete this[key]; return this; };
 
-        function area(area) {
-            return (state[area] = state[area] || new Area(), state[area]);
-        }
+        function area(area) { return (state[area] = state[area] || new Area(), state[area]); }
 
-        return {
-            area: area
-        };
+        return { area: area };
     }
 })();
