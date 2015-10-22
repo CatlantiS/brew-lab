@@ -1,0 +1,19 @@
+<div class="row brew-filter-bar" filter-bar>
+    <div class="col-sm-6 brew-sort-by">
+        <div class="form-inline">
+            <label id="sortByLabel" for="sortBy">Sort by: </label>
+
+            <select id="sortBy" class="form-control input-sm" ng-options="sortBy for sortBy in sortByDictionary" ng-model="sortBy"
+                    role="menu" aria-labelledby="sortByLabel"></select>
+        </div>
+    </div>
+
+    <div class="col-sm-6 brew-search-bar">
+        <div class="form-inline pull-right">
+            <input type="search" class="form-control input-sm" placeholder="Search" ng-model="search"
+                   aria-required="false" title="Provide text to search by." />
+
+            <a href="javascript:void(0)" role="button" ng-click="search = ''">clear</a>
+        </div>
+    </div>
+</div>

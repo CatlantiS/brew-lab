@@ -34,6 +34,7 @@
         }
 
         return {
+            restrict: 'AE',
             scope: {
                 recipe: '=',
                 recipeEdit: '=',

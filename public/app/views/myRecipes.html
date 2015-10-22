@@ -2,19 +2,9 @@
 
 <div ng-controller="MyRecipesCtrl as ctrl">
     <div class="fa fa-spinner fa-pulse" ng-if="ctrl.isLoading"></div>
-    <div class="row">
-        <div class="col-sm-6">
-            Sort by:
-            <a href="javascript:void(0)" ng-click="ctrl.orderBy = 'name'">Name</a> |
-            <a href="javascript:void(0)" ng-click="ctrl.orderBy = 'yeastType'">Yeast Type</a>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-inline pull-right">
-                <input type="search" class="form-control input-sm" placeholder="Search" ng-model="ctrl.search" />
-                <a href="javascript:void(0)" ng-click="ctrl.search = ''">clear</a>
-            </div>
-        </div>
-    </div>
+
+    <div search="ctrl.search" sort-by-dictionary="{ name: 'Name' }" sort-by="ctrl.sortBy" brew-filter></div>
+
     <div ng-repeat="recipe in ctrl.recipes | filter : { name: ctrl.search } : false"
          recipe="recipe" recipe-edit="ctrl.editRecipe" recipe-delete="ctrl.deleteRecipe" recipe-card></div>
 </div>
