@@ -42,6 +42,10 @@
             });
         };
 
+        (function init() {
+            self.getMyRecipes();
+        })();
+
         function removeAppState() {
             AppState.area('EditRecipe').remove('recipe');
         }

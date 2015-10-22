@@ -84,6 +84,13 @@ html, body {
 	padding: 10px 0 15px 15px;
 }
 
+.brew-card {
+	padding: 20px;
+	margin: 15px 0;
+	background-color: #f7f7fa;
+	border-radius: 2px;
+}
+
 .brew-form {
 	max-width: 600px;
 }
@@ -102,6 +109,10 @@ html, body {
 
 .brew-info {
 	padding: 10px 0 15px 0;
+}
+
+.row.brew-break {
+	margin-bottom: 10px;
 }
 
 .brew-important {
