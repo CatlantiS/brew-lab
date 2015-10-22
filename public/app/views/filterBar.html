@@ -3,7 +3,7 @@
         <div class="form-inline">
             <label id="sortByLabel" for="sortBy">Sort by: </label>
 
-            <select id="sortBy" class="form-control input-sm" ng-options="sortBy for sortBy in sortByDictionary" ng-model="sortBy"
+            <select id="sortBy" class="form-control input-sm" ng-options="key as value for (key, value) in sortByDictionary" ng-model="sortBy"
                     role="menu" aria-labelledby="sortByLabel"></select>
         </div>
     </div>

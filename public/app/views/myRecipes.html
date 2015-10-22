@@ -5,6 +5,6 @@
 
     <div search="ctrl.search" sort-by-dictionary="{ name: 'Name' }" sort-by="ctrl.sortBy" brew-filter></div>
 
-    <div ng-repeat="recipe in ctrl.recipes | filter : { name: ctrl.search } : false"
+    <div ng-repeat="recipe in ctrl.recipes | filter : { name: ctrl.search } : false | orderBy : ctrl.sortBy"
          recipe="recipe" recipe-edit="ctrl.editRecipe" recipe-delete="ctrl.deleteRecipe" recipe-card></div>
 </div>
