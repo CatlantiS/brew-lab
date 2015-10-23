@@ -13,11 +13,7 @@
                 var edit = angular.element(element[0].querySelector('.recipe-edit'));
                 edit.append(Helper.getEditIconHtml(recipeId));
 
-                edit.on('click', '.data-edit', function() {
-                    var recipeId = $(this).attr('data-id');
-
-                    scope.recipeEdit(recipeId);
-                });
+                edit.on('click', '.edit-icon', function() { scope.recipeEdit(recipeId); });
             }
 
             //Add delete icon if callback exists.
@@ -25,11 +21,7 @@
                 var del = angular.element(element[0].querySelector('.recipe-delete'));
                 del.append(Helper.getDeleteIconHtml(recipeId));
 
-                del.on('click', '.data-delete', function() {
-                    var recipeId = $(this).attr('data-id');
-
-                    scope.recipeDelete(recipeId);
-                });
+                del.on('click', '.delete-icon', function() { scope.recipeDelete(recipeId); });
             }
         }
 

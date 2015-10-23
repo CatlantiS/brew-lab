@@ -21,11 +21,11 @@
         }
 
         function getEditIconHtml(dataId) {
-            return '<a class="data-edit" href="javascript:void(0);" data-id="' + dataId + '" title="Edit"><i class="fa fa-pencil-square-o"></i></a>';
+            return '<a class="edit-icon" href="javascript:void(0);" data-id="' + dataId + '" title="Edit"><i class="fa fa-pencil-square-o"></i></a>';
         }
 
         function getDeleteIconHtml(dataId) {
-            return '<a class="data-delete" href="javascript:void(0);" data-id="' + dataId + '" title="Delete"><i class="fa fa-trash brew-delete"></i></a>';
+            return '<a class="delete-icon" href="javascript:void(0);" data-id="' + dataId + '" title="Delete"><i class="fa fa-trash brew-delete"></i></a>';
         }
 
         //Probably a nicer way to do this.
