@@ -8,16 +8,16 @@
             //Don't insert icon if no callback defined.
             if (typeof callback !== 'function') return;
 
-            element.append(getEditIconHtml(identifier));
-            element.on('click', '.edit-icon', function() { callback(identifier); });
+            $(element).append(getEditIconHtml(identifier));
+            $(element).on('click', '.edit-icon', function() { callback(identifier); });
         }
 
         function insertDeleteIcon(element, identifier, callback) {
             //Don't insert icon if no callback defined.
             if (typeof callback !== 'function') return;
 
-            element.append(getDeleteIconHtml(identifier));
-            element.on('click', '.delete-icon', function() { callback(identifier); });
+            $(element).append(getDeleteIconHtml(identifier));
+            $(element).on('click', '.delete-icon', function() { callback(identifier); });
         }
 
         function getEditIconHtml(identifier) {
