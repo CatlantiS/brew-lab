@@ -10,7 +10,7 @@ function navSidebarController(notifications) {
 	self.actions = [{
 			title: 'Discover',
 			click: function() {
-				notifications.error('Smell my cheese dust.')
+				notifications.error('Coming soon...')
 			}
 		}, {
 			title: 'Enter a new recipe',
@@ -21,12 +21,12 @@ function navSidebarController(notifications) {
 		}, {
 			title: 'Saved recipes',
 			click: function() {
-				notifications.error('Farkled it up, Farkleton.')
+				notifications.error('Coming soon...')
 			}
 		}, {
 			title: 'Search',
 			click: function() {
-				notifications.error('Some of my best friends are obstetricians.')
+				notifications.error('Coming soon...')
 			}
 		}
 	]
