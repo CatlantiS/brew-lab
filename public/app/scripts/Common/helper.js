@@ -20,14 +20,6 @@
             return resourceArray.map(deResourcify);
         }
 
-        function getEditIconHtml(dataId) {
-            return '<a class="edit-icon" href="javascript:void(0);" data-id="' + dataId + '" title="Edit"><i class="fa fa-pencil-square-o"></i></a>';
-        }
-
-        function getDeleteIconHtml(dataId) {
-            return '<a class="delete-icon" href="javascript:void(0);" data-id="' + dataId + '" title="Delete"><i class="fa fa-trash brew-delete"></i></a>';
-        }
-
         //Probably a nicer way to do this.
         //Can hand in param for what type of separator...
         function joinPaths(paths) {
@@ -49,8 +41,6 @@
         return {
             deResourcify: deResourcify,
             deResourcifyArray: deResourcifyArray,
-            getEditIconHtml: getEditIconHtml,
-            getDeleteIconHtml: getDeleteIconHtml,
             joinPaths: joinPaths
         };
     };
