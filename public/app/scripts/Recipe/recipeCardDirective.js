@@ -9,10 +9,7 @@
                 editElement = angular.element(element[0].querySelector('.recipe-edit')),
                 deleteElement = angular.element(element[0].querySelector('.recipe-delete'));;
 
-            //Add edit icon if callback exists.
             UI.insertEditIcon(editElement, recipeId, scope.recipeEdit);
-
-            //Add delete icon if callback exists.
             UI.insertDeleteIcon(deleteElement, recipeId, scope.recipeDelete);
         }
 

@@ -5,6 +5,7 @@
 
     function ui() {
         function insertEditIcon(element, identifier, callback) {
+            //Don't insert icon if no callback defined.
             if (typeof callback !== 'function') return;
 
             element.append(getEditIconHtml(identifier));
@@ -12,6 +13,7 @@
         }
 
         function insertDeleteIcon(element, identifier, callback) {
+            //Don't insert icon if no callback defined.
             if (typeof callback !== 'function') return;
 
             element.append(getDeleteIconHtml(identifier));
