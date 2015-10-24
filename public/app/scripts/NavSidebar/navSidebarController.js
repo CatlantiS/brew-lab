@@ -1,13 +1,14 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('brewApp.controllers')
-	.controller('NavSidebarCtrl', ['notifications', navSidebarController]);
+	angular.module('brewApp.controllers')
+		.controller('NavSidebarCtrl', ['notifications', navSidebarController]);
 
-function navSidebarController(notifications) {
-	/* jshint validthis: true */
-	var self = this;
+	function navSidebarController(notifications) {
+		/* jshint validthis: true */
+		var self = this;
 
-	self.actions = [{
+		self.actions = [{
 			title: 'Discover',
 			click: function() {
 				notifications.error('Coming soon...')
@@ -29,5 +30,6 @@ function navSidebarController(notifications) {
 				notifications.error('Coming soon...')
 			}
 		}
-	]
-}
+		]
+	}
+})();

@@ -1,8 +1,10 @@
-'use strict';
+(function() {
+    'use strict';
 
 //Can get this stuff from a web service as well.
-angular.module('brewApp.services')
-    .service('BrewMaster', function() {
+    angular.module('brewApp.services').service('BrewMaster', brewMaster);
+
+    function brewMaster() {
         this.units = [
             'Gallons',
             'Liters'
@@ -17,4 +19,5 @@ angular.module('brewApp.services')
             'Irish Ale',
             'Safale US-56 Ale Yeast (rehydrated)'
         ];
-    });
+    }
+})();

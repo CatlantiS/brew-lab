@@ -1,8 +1,7 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('brewApp.controllers')
-	.controller('AboutCtrl', aboutController);
+	angular.module('brewApp.controllers').controller('AboutCtrl', aboutController);
 
-function aboutController() {
-	
-}
+	function aboutController() {}
+})();

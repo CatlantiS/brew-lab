@@ -52,7 +52,6 @@ angular.module('brewApp', [
 				templateUrl: '/views/error'
 			});
 
-
 		$locationProvider.html5Mode(true);
 	}])
 	.run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
