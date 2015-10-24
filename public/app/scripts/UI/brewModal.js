@@ -1,18 +1,26 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('brewApp.services')
-    .service('BrewModal', ['$modal', function($modal) {
-        var _instance;
+    angular.module('brewApp.services').factory('BrewModal', ['$modal', brewModal]);
 
-        this.open = function(options) {
-            _instance = $modal.open({
+    function brewModal($modal) {
+        var instance;
+
+        function open(options) {
+            instance = $modal.open({
                 animation: true,
-                backdrop: options.lockBackdrop ? 'static' : true,
+                backdrop: options.static ? 'static' : true,
                 templateUrl: options.template,
                 controller: options.controller,
                 size: options.size
             });
 
-            return _instance.result;
+            return instance.result;
+        }
+
+        return {
+            open: open
         };
-    }]);
+    }
+})();
+
