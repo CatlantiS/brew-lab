@@ -4,14 +4,14 @@
     angular.module('brewApp').factory('UI', ui);
 
     function ui() {
-        function addEditIcon(element, identifier, callback) {
+        function insertEditIcon(element, identifier, callback) {
             if (typeof callback !== 'function') return;
 
             element.append(getEditIconHtml(identifier));
             element.on('click', '.edit-icon', function() { callback(identifier); });
         }
 
-        function addDeleteIcon(element, identifier, callback) {
+        function insertDeleteIcon(element, identifier, callback) {
             if (typeof callback !== 'function') return;
 
             element.append(getDeleteIconHtml(identifier));
@@ -27,8 +27,8 @@
         }
 
         return {
-            addEditIcon: addEditIcon,
-            addDeleteIcon: addDeleteIcon
+            insertEditIcon: insertEditIcon,
+            insertDeleteIcon: insertDeleteIcon
         };
     };
 })();
