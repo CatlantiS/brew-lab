@@ -7,7 +7,7 @@
     function appState(ClassFactory) {
         var state = {};
 
-        function Area() { this.store = new ClassFactory.Lookup(); return this; }
+        function Area() { this.store = new ClassFactory.Lookup(); }
 
         //Do we need to do anything special to make sure delete is safe?
         Area.prototype.remove = function(key) { delete this[key]; return this; };

@@ -6,7 +6,7 @@
 
     function configuration(Helper) {
         //This can be expanded.
-        function Url(base) { this.base = base; return this; }
+        function Url(base) { this.base = base; }
 
         Url.prototype.route = function(name, route) { this[name] = Helper.joinPaths(this.base, route); return this; };
 

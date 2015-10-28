@@ -10,7 +10,7 @@
 
         function UserStore() {
             this.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
-        };
+        }
 
         //Not true prototype inheritance.
         UserStore.prototype = Object.create(Store);
