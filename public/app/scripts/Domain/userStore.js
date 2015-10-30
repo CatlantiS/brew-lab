@@ -55,7 +55,7 @@
             Store.deleteRecipe(recipeId).then(function() {
                 self.getCurrentUser().then(function(currentUser) {
                     if (self.cache && currentUser.id === userId) {
-                        var removed = self.cache.recipes.remove(Number(recipeId));
+                        var removed = self.cache.recipes.remove(+recipeId); //Convert to number just in case we get handed a string.
 
                         //Will it cause confusion returning this only if user is cached?
                         deferred.resolve(removed);
@@ -99,7 +99,7 @@
             var deferred = $q.defer(), recipe;
 
             if (this.cache) {
-                recipeId = Number(recipeId);
+                recipeId = +recipeId; //Convert to number just in case we get handed a string.
 
                 //Need to expand this to check if we have a cached copy and fetching otherwise.
                 recipe = this.cache.recipes.findFirst(function(r) { return r.key === recipeId; });

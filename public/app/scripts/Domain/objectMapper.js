@@ -8,7 +8,7 @@
             mapper = new ClassFactory.ObjectMapper(),
             backendArtifact = new ClassFactory.MapperDefinition(BACKEND_ARTIFACT, true)
                 .define('For fixing issues coming from the backend like numeric being serialized as string')
-                .addMap('volume', 'volume', function(src) { return Number(src); });
+                .addMap('volume', 'volume', function(src) { return +src; });
 
         mapper.register(backendArtifact);
 
