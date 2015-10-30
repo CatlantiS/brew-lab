@@ -35,14 +35,16 @@
                 deferred = $q.defer();
 
             Store.saveRecipe(recipe).then(function(data) {
+                var recipeId = +data.id; //Convert to number just in case we get handed a string.
+
                 if (self.cache) {
-                    recipe.id = data.id;
+                    recipe.id = recipeId;
                     recipe.added = true;
 
-                    self.cache.recipes.add(recipe.id, recipe);
+                    self.cache.recipes.add(recipeId, recipe);
                 }
 
-                deferred.resolve(data);
+                deferred.resolve(recipeId);
             });
 
             return deferred.promise;
@@ -80,7 +82,7 @@
                     if (self.cache) {
                         self.cache.recipes.import(data,
                             function (recipe) {
-                                return recipe.id;
+                                return +recipe.id; //Convert to number just in case we get handed a string.
                             },
                             function (recipe) {
                                 return ObjectMapper.map(recipe, ObjectMapper.BACKEND_ARTIFACT);
@@ -98,9 +100,9 @@
         UserStore.prototype.getCurrentUserRecipeById = function(recipeId) {
             var deferred = $q.defer(), recipe;
 
-            if (this.cache) {
-                recipeId = +recipeId; //Convert to number just in case we get handed a string.
+            recipeId = +recipeId; //Convert to number just in case we get handed a string.
 
+            if (this.cache) {
                 //Need to expand this to check if we have a cached copy and fetching otherwise.
                 recipe = this.cache.recipes.findFirst(function(r) { return r.key === recipeId; });
                 recipe = recipe == null ? recipe : recipe.value;
@@ -117,7 +119,7 @@
             Store.getCurrentUserRecipeById(recipeId).then(function(data) {
                 recipe = ObjectMapper.map(data, ObjectMapper.BACKEND_ARTIFACT);
 
-                if (self.cache) self.cache.recipes.add(recipe.id, recipe);
+                if (self.cache) self.cache.recipes.add(recipeId, recipe);
 
                 deferred.resolve(recipe);
             });
