@@ -9,6 +9,8 @@
         var base = Store.prototype, currentUser;
 
         function UserStore() {
+            Store.call(this);
+
             this.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
         }
 
