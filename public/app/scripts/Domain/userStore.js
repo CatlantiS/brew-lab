@@ -3,9 +3,9 @@
 
     //Caches for current user to save trips to the backend.
     angular.module('brewApp.services')
-        .factory('UserStore', ['$q', 'Configuration', 'ClassFactory', 'ObjectMapper', 'Store', userStore]);
+        .factory('UserStore', ['$q', 'ClassFactory', 'Configuration', 'ObjectMapper', 'Store', userStore]);
 
-    function userStore($q, Configuration, ClassFactory, ObjectMapper, Store) {
+    function userStore($q, ClassFactory, Configuration, ObjectMapper, Store) {
         var base = Store.prototype, currentUser;
 
         function UserStore() {
