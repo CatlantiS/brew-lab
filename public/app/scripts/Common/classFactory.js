@@ -5,9 +5,9 @@
 
     function classFactory() {
         return {
-            Lookup: molar.class.Lookup,
-            ObjectMapper: molar.class.ObjectMapper,
-            MapperDefinition: molar.class.MapperDefinition
+            Lookup: molar.Lookup,
+            ObjectMapper: molar.ObjectMapper,
+            MapperDefinition: molar.MapperDefinition
         };
     }
 })();
