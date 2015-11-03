@@ -69,6 +69,6 @@
             return $resource(Configuration.store.url.api + 'logs/all').query().$promise;
         }
 
-        return new Store();
+        return Store;
     }
 })();

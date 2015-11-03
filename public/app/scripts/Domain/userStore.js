@@ -6,14 +6,13 @@
         .factory('UserStore', ['$q', 'Configuration', 'ClassFactory', 'ObjectMapper', 'Store', userStore]);
 
     function userStore($q, Configuration, ClassFactory, ObjectMapper, Store) {
-        var currentUser;
+        var base = Store.prototype, currentUser;
 
         function UserStore() {
             this.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
         }
 
-        //Not true prototype inheritance.
-        UserStore.prototype = Object.create(Store);
+        UserStore.prototype = Object.create(base);
 
         UserStore.prototype.getCurrentUser = function() {
             var deferred = $q.defer();
@@ -21,7 +20,7 @@
             if (currentUser)
                 deferred.resolve(currentUser);
             else
-                Store.getCurrentUser().then(function(data) {
+                base.getCurrentUser.call(this).then(function(data) {
                     currentUser = data;
 
                     deferred.resolve(currentUser);
@@ -34,7 +33,7 @@
             var self = this,
                 deferred = $q.defer();
 
-            Store.saveRecipe(recipe).then(function(data) {
+            base.saveRecipe.call(this, recipe).then(function(data) {
                 var recipeId = +data.id; //Convert to number just in case we get handed a string.
 
                 if (self.cache) {
@@ -54,7 +53,7 @@
             var self = this,
                 deferred = $q.defer();
 
-            Store.deleteRecipe(recipeId).then(function() {
+            base.deleteRecipe.call(this, recipeId).then(function() {
                 self.getCurrentUser().then(function(currentUser) {
                     if (self.cache && currentUser.id === userId) {
                         var removed = self.cache.recipes.remove(+recipeId); //Convert to number just in case we get handed a string.
@@ -78,7 +77,7 @@
             if (this.cache && this.cache.isFetched)
                 deferred.resolve(this.cache.recipes.values());
             else
-                Store.getCurrentUserRecipes().then(function(data) {
+                base.getCurrentUserRecipes.call(this).then(function(data) {
                     if (self.cache) {
                         self.cache.recipes.import(data,
                             function (recipe) {
@@ -116,7 +115,7 @@
 
             var self = this;
 
-            Store.getCurrentUserRecipeById(recipeId).then(function(data) {
+            base.getCurrentUserRecipeById.call(this, recipeId).then(function(data) {
                 recipe = ObjectMapper.map(data, ObjectMapper.BACKEND_ARTIFACT);
 
                 if (self.cache) self.cache.recipes.add(recipeId, recipe);
