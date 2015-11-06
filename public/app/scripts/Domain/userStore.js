@@ -32,8 +32,7 @@
         };
 
         UserStore.prototype.saveRecipe = function(recipe) {
-            var self = this,
-                deferred = $q.defer();
+            var self = this, deferred = $q.defer();
 
             base.saveRecipe.call(this, recipe).then(function(data) {
                 var recipeId = +data.id; //Convert to number just in case we get handed a string.
@@ -52,8 +51,7 @@
         };
 
         UserStore.prototype.deleteRecipe = function(recipeId, userId) {
-            var self = this,
-                deferred = $q.defer();
+            var self = this, deferred = $q.defer();
 
             base.deleteRecipe.call(this, recipeId).then(function() {
                 self.getCurrentUser().then(function(currentUser) {
@@ -72,8 +70,7 @@
         };
 
         UserStore.prototype.getCurrentUserRecipes = function() {
-            var self = this,
-                deferred = $q.defer();
+            var self = this, deferred = $q.defer();
 
             //If we've already fetched user data, then just return from cached data.
             if (this.cache && this.cache.isFetched)
