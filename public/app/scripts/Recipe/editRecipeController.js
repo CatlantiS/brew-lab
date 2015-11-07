@@ -12,16 +12,21 @@ function editRecipeController($modalInstance, AppState, BrewMaster, notification
     //Might not need to worry about AppState, just depends on how the UI will look.
     self.recipe = AppState.area('EditRecipe').recipe || {};
 
-    self.units = BrewMaster.units;
+    BrewMaster.getAllDefinitions().then(function(definitions) {
+        //We handle undefined gracefully here, but really should blow up.
+        var units = definitions[BrewMaster.types.UNITS];
+        self.units = units == null ? units : units.map(function(def) { return def.name; });
 
-    self.yeastTypes = BrewMaster.yeastTypes;
+        var yeastTypes = definitions[BrewMaster.types.YEAST];
+        self.yeastTypes = yeastTypes == null ? yeastTypes : yeastTypes.map(function(def) { return def.name; });
+    });
 
     self.update = function(isValid) {
         if (isValid) {
             //Need a spinner on this?
             User.updateRecipe(self.recipe).then(function() {
                 notifications.success('Recipe ' + self.recipe.name + ' updated.');
-                logger.info('Recipe ' + self.recipe.id + ' updated.');
+                logger.info('Recipe ' + self.recipe.recipeId + ' updated.');
 
                 self.recipeForm.$setPristine();
                 self.recipe = {};

@@ -5,7 +5,7 @@
 
     function recipeCard(UI) {
         function link(scope, element) {
-            var recipeId = scope.recipe.id,
+            var recipeId = scope.recipe.recipeId,
                 editElement = angular.element(element[0].querySelector('.recipe-edit')),
                 deleteElement = angular.element(element[0].querySelector('.recipe-delete'));;
 

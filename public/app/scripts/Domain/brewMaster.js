@@ -2,22 +2,49 @@
     'use strict';
 
 //Can get this stuff from a web service as well.
-    angular.module('brewApp.services').service('BrewMaster', brewMaster);
+    angular.module('brewApp.services').factory('BrewMaster', ['$q', 'UserStore', brewMaster]);
 
-    function brewMaster() {
-        this.units = [
-            'Gallons',
-            'Liters'
-        ];
+    function brewMaster($q, UserStore) {
+        var definitions,
+            fetching;
 
-        this.yeastTypes = [
-            'American Ale',
-            'Australian Ale',
-            'British Ale',
-            'Californian Ale',
-            'Chico Ale',
-            'Irish Ale',
-            'Safale US-56 Ale Yeast (rehydrated)'
-        ];
+        (function init() { fetching = getAllDefinitions(); })();
+
+        function getAllDefinitions() {
+            var deferred = $q.defer();
+
+            if (definitions != null) {
+                deferred.resolve(definitions);
+
+                return deferred.promise;
+            }
+
+            return fetching || UserStore.getBrewMasterDefinitions().then(function(data) {
+                definitions = {};
+
+                for (var property in data)
+                    if (data.hasOwnProperty(property) && property[0] !== '$')
+                        definitions[property] = data[property];
+
+                fetching = null;
+
+                return definitions;
+            });
+        }
+
+        function getDefinitions(definitionType) {
+            var deferred = $q.defer(), definition = definitions[definitionType];
+
+            if (definition != null) deferred.resolve(definition);
+            else getAllDefinitions.then(function(data) { deferred.resolve(data[definitionType]) });
+
+            return deferred.promise;
+        }
+
+        return {
+            types: { UNITS: 'units', HOPS: 'hops', MALT: 'malt', YEAST: 'yeast' },
+            getAllDefinitions: getAllDefinitions,
+            getDefinitions: getDefinitions
+        };
     }
 })();

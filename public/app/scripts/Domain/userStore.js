@@ -35,10 +35,10 @@
             var self = this, deferred = $q.defer();
 
             base.saveRecipe.call(this, recipe).then(function(data) {
-                var recipeId = +data.id; //Convert to number just in case we get handed a string.
+                var recipeId = +data.recipeId; //Convert to number just in case we get handed a string.
 
                 if (self.cache) {
-                    recipe.id = recipeId;
+                    recipe.recipeId = recipeId;
                     recipe.added = true;
 
                     self.cache.recipes.add(recipeId, recipe);
@@ -80,7 +80,7 @@
                     if (self.cache) {
                         self.cache.recipes.import(data,
                             function (recipe) {
-                                return +recipe.id; //Convert to number just in case we get handed a string.
+                                return +recipe.recipeId; //Convert to number just in case we get handed a string.
                             },
                             function (recipe) {
                                 return ObjectMapper.map(recipe, ObjectMapper.BACKEND_ARTIFACT);

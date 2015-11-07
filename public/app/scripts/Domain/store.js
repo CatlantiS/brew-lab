@@ -2,16 +2,18 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('Store', ['$resource', 'Configuration', store]);
+        .factory('Store', ['$resource', 'Configuration', 'Helper', store]);
 
-    function store($resource, Configuration) {
+    function store($resource, Configuration, Helper) {
         var resource = {
-            user: $resource(Configuration.store.url.api + 'users/id/:userId'),
+            user: $resource(Helper.joinPaths(Configuration.store.url.api, 'users/id/:userId')),
             //Do we really need a separate resource for this?
-            userRecipes: $resource(Configuration.store.url.api + 'users/:userId/recipes/'),
-            recipe: $resource(Configuration.store.url.api + 'recipes/:recipeId', null, {
+            userRecipes: $resource(Helper.joinPaths(Configuration.store.url.api, 'users/:userId/recipes/')),
+            recipe: $resource(Helper.joinPaths(Configuration.store.url.api, 'recipes/:recipeId'), null, {
                 'update': { method:'PUT' }
-            })
+            }),
+            definition: $resource(Helper.joinPaths(Configuration.store.url.api, 'definitions/:definition')),
+            brewMaster:  $resource(Helper.joinPaths(Configuration.store.url.api, 'brewMaster/definitions/'))
         };
 
         function Store() {}
@@ -41,7 +43,7 @@
         };
 
         Store.prototype.updateRecipe = function(recipe) {
-            return resource.recipe.update({ recipeId: recipe.id }, recipe).$promise;
+            return resource.recipe.update({ recipeId: recipe.recipeId }, recipe).$promise;
         };
 
         Store.prototype.deleteRecipe = function(recipeId) {
@@ -65,9 +67,17 @@
             return resource.recipe.get({ recipeId: recipeId }).$promise;
         };
 
+        Store.prototype.getDefinitions = function(definition) {
+            return resource.definition.query({ definition: definition }).$promise;
+        };
+
+        Store.prototype.getBrewMasterDefinitions = function() {
+            return resource.brewMaster.get().$promise;
+        };
+
         Store.prototype.getLogs = function() {
             return $resource(Configuration.store.url.api + 'logs/all').query().$promise;
-        }
+        };
 
         return Store;
     }

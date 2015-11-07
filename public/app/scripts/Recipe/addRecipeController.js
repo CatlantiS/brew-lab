@@ -10,9 +10,14 @@ function addRecipeController($scope, AppState, BrewMaster, notifications, logger
     //Might not need to worry about AppState, just depends on how the UI will look.
     self.recipe = AppState.area('AddRecipe').recipe || {};
 
-    self.units = BrewMaster.units;
+    BrewMaster.getAllDefinitions().then(function(definitions) {
+        //We handle undefined gracefully here, but really should blow up.
+        var units = definitions[BrewMaster.types.UNITS];
+        self.units = units == null ? units : units.map(function(def) { return def.name; });
 
-    self.yeastTypes = BrewMaster.yeastTypes;
+        var yeastTypes = definitions[BrewMaster.types.YEAST];
+        self.yeastTypes = yeastTypes == null ? yeastTypes : yeastTypes.map(function(def) { return def.name; });
+    });
 
     self.submit = function(isValid) {
         if (isValid) {
