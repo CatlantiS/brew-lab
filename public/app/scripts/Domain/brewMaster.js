@@ -19,6 +19,7 @@
                 return deferred.promise;
             }
 
+            //If already fetching, then return current promise, otherwise fetch and cache promise.  Don't want to execute multiple fetches before first one returns.
             return fetching || (function() {
                 return fetching = UserStore.getBrewMasterDefinitions().then(function (data) {
                     definitions = {};
