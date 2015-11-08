@@ -24,7 +24,7 @@ function addRecipeController($scope, AppState, BrewMaster, notifications, logger
             //Need a spinner on this?
             User.saveRecipe(self.recipe).then(function(data) {
                 notifications.success('Recipe ' + self.recipe.name + ' saved.');
-                logger.info('Recipe ' + data.id + ' saved.');
+                logger.info('Recipe ' + data.recipeId + ' saved.');
 
                 self.recipeForm.$setPristine();
                 self.recipe = {};
