@@ -35,19 +35,9 @@
             })();
         }
 
-        function getDefinitions(definitionType) {
-            var deferred = $q.defer(), definition = definitions[definitionType];
-
-            if (definition != null) deferred.resolve(definition);
-            else getAllDefinitions.then(function(data) { deferred.resolve(data[definitionType]) });
-
-            return deferred.promise;
-        }
-
         return {
             types: { UNITS: 'units', HOPS: 'hops', MALT: 'malt', YEAST: 'yeast' },
-            getAllDefinitions: getAllDefinitions,
-            getDefinitions: getDefinitions
+            getAllDefinitions: getAllDefinitions
         };
     }
 })();
