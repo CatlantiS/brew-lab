@@ -4,9 +4,9 @@
     angular.module('brewApp.services').factory('BrewMaster', ['$q', 'UserStore', brewMaster]);
 
     function brewMaster($q, UserStore) {
-        var definitions,
-            fetching;
+        var definitions, fetching;
 
+        //Start fetching definitions right away.
         (function init() { getAllDefinitions(); })();
 
         function getAllDefinitions() {
@@ -21,7 +21,7 @@
 
             //If already fetching, then return current promise, otherwise fetch and cache promise.  Don't want to execute multiple fetches before first one returns.
             return fetching || (function() {
-                return fetching = UserStore.getBrewMasterDefinitions().then(function (data) {
+                return fetching = UserStore.getBrewMasterDefinitions().then(function(data) {
                     definitions = {};
 
                     for (var property in data)
