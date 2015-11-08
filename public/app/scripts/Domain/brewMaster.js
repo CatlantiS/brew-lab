@@ -8,7 +8,7 @@
         var definitions,
             fetching;
 
-        (function init() { fetching = getAllDefinitions(); })();
+        (function init() { getAllDefinitions(); })();
 
         function getAllDefinitions() {
             var deferred = $q.defer();
@@ -19,17 +19,19 @@
                 return deferred.promise;
             }
 
-            return fetching || UserStore.getBrewMasterDefinitions().then(function(data) {
-                definitions = {};
+            return fetching || (function() {
+                return fetching = UserStore.getBrewMasterDefinitions().then(function (data) {
+                    definitions = {};
 
-                for (var property in data)
-                    if (data.hasOwnProperty(property) && property[0] !== '$')
-                        definitions[property] = data[property];
+                    for (var property in data)
+                        if (data.hasOwnProperty(property) && property[0] !== '$')
+                            definitions[property] = data[property];
 
-                fetching = null;
+                    fetching = null;
 
-                return definitions;
-            });
+                    return definitions;
+                });
+            })();
         }
 
         function getDefinitions(definitionType) {
