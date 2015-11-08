@@ -1,7 +1,6 @@
 (function() {
     'use strict';
 
-//Can get this stuff from a web service as well.
     angular.module('brewApp.services').factory('BrewMaster', ['$q', 'UserStore', brewMaster]);
 
     function brewMaster($q, UserStore) {
@@ -13,6 +12,7 @@
         function getAllDefinitions() {
             var deferred = $q.defer();
 
+            //Wrap cached results in a promise for consistency and return immediately.
             if (definitions != null) {
                 deferred.resolve(definitions);
 
