@@ -4,40 +4,19 @@
     angular.module('brewApp.services').factory('BrewMaster', ['$q', 'UserStore', brewMaster]);
 
     function brewMaster($q, UserStore) {
-        var definitions, fetching;
+        var fetch = {};
 
         //Start fetching definitions right away.
-        (function init() { getAllDefinitions(); })();
+        (function init() { getDefinitions(); })();
 
-        function getAllDefinitions() {
-            var deferred = $q.defer();
-
-            //Wrap cached results in a promise for consistency and return immediately.
-            if (definitions != null) {
-                deferred.resolve(definitions);
-
-                return deferred.promise;
-            }
-
-            //If already fetching, then return current promise, otherwise fetch and cache promise.  Don't want to execute multiple fetches before first one returns.
-            return fetching || (function() {
-                return fetching = UserStore.getBrewMasterDefinitions().then(function(data) {
-                    definitions = {};
-
-                    for (var property in data)
-                        if (data.hasOwnProperty(property) && property[0] !== '$')
-                            definitions[property] = data[property];
-
-                    fetching = null;
-
-                    return definitions;
-                });
-            })();
+        function getDefinitions() {
+            //If fetch has already been made...
+            if (fetch.definitions != null) return fetch.definitions;
+            else return fetch.definitions = UserStore.getBrewMasterDefinitions();
         }
 
         return {
-            types: { UNITS: 'units', HOPS: 'hops', MALT: 'malt', YEAST: 'yeast' },
-            getAllDefinitions: getAllDefinitions
+            getDefinitions: getDefinitions
         };
     }
 })();
