@@ -11,8 +11,7 @@
 
         function getDefinitions() {
             //If fetch has already been made...
-            if (fetch.definitions != null) return fetch.definitions;
-            else return fetch.definitions = UserStore.getBrewMasterDefinitions();
+            return fetch.definitions || (fetch.definitions = UserStore.getBrewMasterDefinitions(), fetch.definitions);
         }
 
         return {
