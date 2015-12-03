@@ -15,7 +15,8 @@ function editRecipeController($modalInstance, AppState, BrewMaster, notification
     BrewMaster.getDefinitions().then(function(definitions) {
         self.units = definitions.units.volume.map(function(def) { return def.name; });
 
-        self.yeastTypes = definitions.ingredient.yeast.map(function(def) { return def.name; });
+        if (BrewMaster.hasIngredient(definitions, 'yeast'))
+            self.yeastTypes = definitions.ingredient.yeast.map(function(def) { return def.name; });
     });
 
     self.update = function(isValid) {

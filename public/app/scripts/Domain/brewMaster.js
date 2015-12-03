@@ -14,8 +14,16 @@
             return fetch.definitions || (fetch.definitions = UserStore.getBrewMasterDefinitions(), fetch.definitions);
         }
 
+        function hasIngredient(definitions, type) {
+            type = type.toLowerCase();
+
+            return definitions.ingredient != null &&
+                angular.isArray(definitions.ingredient[type]) && definitions.ingredient[type].length > 0;
+        }
+
         return {
-            getDefinitions: getDefinitions
+            getDefinitions: getDefinitions,
+            hasIngredient: hasIngredient
         };
     }
 })();

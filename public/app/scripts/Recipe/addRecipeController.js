@@ -13,7 +13,8 @@ function addRecipeController($scope, AppState, BrewMaster, notifications, logger
     BrewMaster.getDefinitions().then(function(definitions) {
         self.units = definitions.units.volume.map(function(def) { return def.name; });
 
-        self.yeastTypes = definitions.ingredient.yeast.map(function(def) { return def.name; });
+        if (BrewMaster.hasIngredient(definitions, 'yeast'))
+            self.yeastTypes = definitions.ingredient.yeast.map(function(def) { return def.name; });
     });
 
     self.submit = function(isValid) {
