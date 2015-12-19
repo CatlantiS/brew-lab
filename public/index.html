@@ -51,10 +51,10 @@
 						</ul>
 					
 						<ul class="nav navbar-nav navbar-right brew-navbar-right" ng-controller="LoginCtrl">
-							<li ng-if="!app.auth.isAuthenticated()">
+							<li ng-if="!app.isAuthenticated">
 								<div class="brew-navbar-login" ng-include src="'/views/navLogin.html'"></div>
 							</li>
-							<li ng-if="app.auth.isAuthenticated()">
+							<li ng-if="app.isAuthenticated">
 								<a href="#" ng-click="login.logOut()">Log Out</a>
 							</li>
 						</ul>
@@ -65,7 +65,7 @@
 			
 		<div class="row">
 			<div class="col-sm-3">
-				<div id="nav-sidebar" class="container-fluid brew-nav-sidebar" role="navigation" ng-if="app.auth.isAuthenticated()" nav-sidebar></div>
+				<div id="nav-sidebar" class="container-fluid brew-nav-sidebar" role="navigation" nav-sidebar></div>
 			</div>
 			
 			<div class="col-sm-9">
@@ -78,7 +78,7 @@
 				You are using version <span class="brew-important" ng-bind="info.app.version|version"></span> of the brew lab app.
 			</div>
 
-			<div class="row" ng-if="app.auth.isAuthenticated()">
+			<div class="row" ng-if="app.isAuthenticated">
 				<div class="col-md-4 col-md-offset-4 brew-footer-nav">
 					<span><i class="fa fa-unlock-alt"></i> Admin </span>
 					<a class="brew-footer-nav-item" href="/logs"><i class="fa fa-file-text"></i> Logs</a>

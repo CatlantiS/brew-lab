@@ -48,9 +48,9 @@
             ajaxAppender.addHeader('Authorization', authHeader);
         }
 
-        Auth.onAuthenticate(function(auth) { setAuthHeader(auth.header) });
+        Auth.onAuthenticate('logger', function(auth) { setAuthHeader(auth.header) });
 
-        Auth.onSignOut(function() { setAuthHeader(undefined)});
+        Auth.onSignOut('logger', function() { setAuthHeader(undefined)});
 
         return {
             error: error,

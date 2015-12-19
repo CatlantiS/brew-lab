@@ -24,7 +24,7 @@
 
                     $http.defaults.headers.common['Authorization'] = header;
 
-                    for (var fn in listeners.authenticate) fn({ header: header, token: accessToken });
+                    for (var l in listeners.authenticate) listeners.authenticate[l]({ header: header, token: accessToken });
 
                     _isAuthenticated = true;
 
@@ -44,7 +44,7 @@
                     ////Is this right?  Want to remove auth token from header once logged off.
                     //$http.defaults.headers.common['Authorization'] = undefined;
 
-                    //for (var fn in listeners.signOut) fn();
+                    for (var l in listeners.signOut) listeners.signOut[l]();
 
                     _isAuthenticated = false;
 

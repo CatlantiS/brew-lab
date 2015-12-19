@@ -7,6 +7,11 @@
         /* jshint validthis: true */
         var self = this;
 
-        self.auth = Auth;
+        setAuthenticated();
+
+        Auth.onAuthenticate('app', setAuthenticated);
+        Auth.onSignOut('app', setAuthenticated);
+
+        function setAuthenticated() { self.isAuthenticated = Auth.isAuthenticated(); }
     }
 })();
