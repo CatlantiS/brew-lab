@@ -2,11 +2,12 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('Auth', ['$http','$q', 'Configuration', 'Helper', 'logger', auth]);
+        .factory('Auth', ['$http','$q', 'Configuration', 'Helper', auth]);
 
-    function auth($http, $q, Configuration, Helper, logger) {
+    function auth($http, $q, Configuration, Helper) {
         var _isAuthenticated = false,
-            authUrl = Configuration.auth.url;
+            authUrl = Configuration.auth.url,
+            listeners = { authenticate: {}, signOut: {} };
 
         function authenticate(username, password) {
             var deferred = $q.defer();
@@ -16,37 +17,40 @@
             var body = JSON.stringify({grant_type: 'password', username: username, password: password});
             var authHeader = 'Basic ' + btoa(clientId + ':' + secret);
 
-            $http.post(Helper.joinPaths([authUrl.auth, '/authorize']), body, { headers: {'Authorization': authHeader }})
+            $http.post(Helper.joinPaths([authUrl.auth, '/authenticate']), body, { headers: {'Authorization': authHeader }})
                 .success(function(data) {
+                    var accessToken = data.access_token,
+                        header = 'Bearer ' + accessToken;
+
+                    $http.defaults.headers.common['Authorization'] = header;
+
+                    for (var fn in listeners.authenticate) fn({ header: header, token: accessToken });
+
                     _isAuthenticated = true;
-
-                    var accessToken = data.access_token;
-
-                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
-
-                    logger.setAuthHeader('Bearer ' + accessToken);
 
                     deferred.resolve(_isAuthenticated);
                 })
-                .error(function(err) {
-                    deferred.reject(err);
-                });
+                .error(function(err) { deferred.reject(err); });
 
             return deferred.promise;
         };
 
+        //Todo: wire up sign out on server side?
         function signOut() {
             var deferred = $q.defer();
 
-            return $http.get('/logoff')
-                .success(function(res) {
+            //$http.get(Helper.joinPaths([authUrl.auth, '/signOut']))
+                //.success(function(res) {
+                    ////Is this right?  Want to remove auth token from header once logged off.
+                    //$http.defaults.headers.common['Authorization'] = undefined;
+
+                    //for (var fn in listeners.signOut) fn();
+
                     _isAuthenticated = false;
 
                     deferred.resolve(_isAuthenticated);
-                })
-                .error(function(err) {
-                    deferred.reject(err);
-                });
+                //})
+                //.error(function(err) { deferred.reject(err); });
 
             return deferred.promise;
         }
@@ -55,10 +59,23 @@
 
         function isAuthenticated() { return _isAuthenticated; }
 
+        //Work on these listeners.
+        function onAuthenticate(id, callback) { listeners.authenticate[id] = callback;}
+
+        function removeAuthenticateListener(id) { delete listeners.authenticate[id]; }
+
+        function onSignOut(id, callback) { listeners.signOut[id] = callback; }
+
+        function removeSignOutListener(id) { delete listeners.signOut[id]; }
+
         return {
             isAuthenticated: isAuthenticated,
             authenticate: authenticate,
-            signOut: signOut
+            signOut: signOut,
+            onAuthenticate: onAuthenticate,
+            removeAuthenticateListener: removeAuthenticateListener,
+            onSignOut: onSignOut,
+            removeSignOutListener: removeSignOutListener
         };
     }
 })();

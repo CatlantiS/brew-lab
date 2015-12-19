@@ -4,7 +4,7 @@
 (function() {
     var app = angular.module('brewApp.services');
 
-    var logger = function ($http, $resource, User, Configuration, Store) {
+    var logger = function ($http, $resource, Auth, User, Configuration, Store) {
 
         var log4jslogger = log4javascript.getLogger();
         var ajaxAppender = new log4javascript.AjaxAppender(Configuration.store.url.api + 'logs/');
@@ -48,6 +48,10 @@
             ajaxAppender.addHeader('Authorization', authHeader);
         }
 
+        Auth.onAuthenticate(function(auth) { setAuthHeader(auth.header) });
+
+        Auth.onSignOut(function() { setAuthHeader(undefined)});
+
         return {
             error: error,
             info: info,
@@ -60,5 +64,5 @@
         }
     }
 
-    app.factory('logger', ['$http', '$resource', 'User', 'Configuration', 'Store', logger]);
+    app.factory('logger', ['$http', '$resource', 'Auth', 'User', 'Configuration', 'Store', logger]);
 })();

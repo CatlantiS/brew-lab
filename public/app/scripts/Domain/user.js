@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('brewApp.services')
-        .factory('User', ['$q', 'UserStore', user]);
+        .factory('User', ['$q', 'Auth', 'UserStore', user]);
 
-    function user($q, UserStore) {
+    function user($q, Auth, UserStore) {
         function User() { getCurrentUser.call(this); }
 
         User.prototype.getRecipes = function() {
@@ -38,6 +38,8 @@
 
         function getCurrentUser() {
             var self = this, deferred = $q.defer();
+
+            if (!Auth.isAuthenticated()) return (deferred.reject('User is not authenticated'), deferred.promise);
 
             UserStore.getCurrentUser().then(function(data) {
                 self.id = data.id;
