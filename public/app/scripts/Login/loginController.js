@@ -2,9 +2,9 @@
 
 (function() {
     angular.module('brewApp.controllers')
-        .controller('LoginCtrl', ['$scope', '$http', '$location', '$window', 'Auth', 'notifications', 'logger', LoginController]);
+        .controller('LoginCtrl', ['$scope', 'Auth', 'notifications', LoginController]);
 
-    function LoginController($scope, $http, $location, $window, Auth, notifications, logger) {
+    function LoginController($scope, Auth, notifications) {
         var login = { auth: Auth };
 
         login.logIn = function() {
@@ -15,9 +15,9 @@
         };
 
         login.logOut = function() {
-            Auth.signOut().then(function() {
-                $window.location.href = '/';
-            }, function(err) { notifications.error(err); });
+            Auth.signOut().then(null, function(err) {
+                notifications.error(err);
+            });
         };
 
         $scope.login = login;

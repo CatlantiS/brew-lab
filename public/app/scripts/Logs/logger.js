@@ -50,6 +50,7 @@
 
         Auth.onAuthenticate('logger', function(auth) { setAuthHeader(auth.header) });
 
+        //Is this right?
         Auth.onSignOut('logger', function() { setAuthHeader(undefined)});
 
         return {
