@@ -5,21 +5,22 @@
         .controller('LoginCtrl', ['$scope', 'Auth', 'notifications', LoginController]);
 
     function LoginController($scope, Auth, notifications) {
-        var login = { auth: Auth };
+        var self = this;
 
-        login.logIn = function() {
-           Auth.authenticate(login.username, login.password)
+        self.logIn = function() {
+            if (!(self.username || self.password))
+                notifications.error('Must provide username and password to log in.');
+
+            Auth.authenticate(self.username, self.password)
                .then(null, function(err) {
                    notifications.error(err.error_description);
                });
         };
 
-        login.logOut = function() {
+        self.logOut = function() {
             Auth.signOut().then(null, function(err) {
                 notifications.error(err);
             });
         };
-
-        $scope.login = login;
     }
 })();
