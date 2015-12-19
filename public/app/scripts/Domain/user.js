@@ -5,11 +5,7 @@
         .factory('User', ['$q', 'UserStore', user]);
 
     function user($q, UserStore) {
-        function User() {
-            this.isAuthenticated = false;
-
-            getCurrentUser.call(this);
-        }
+        function User() { getCurrentUser.call(this); }
 
         User.prototype.getRecipes = function() {
             return UserStore.getCurrentUserRecipes();

@@ -6,35 +6,24 @@
         .factory('UserStore', ['$q', 'ClassFactory', 'Configuration', 'ObjectMapper', 'Store', userStore]);
 
     function userStore($q, ClassFactory, Configuration, ObjectMapper, Store) {
-        var base = Store.prototype, currentUser;
+        var self = this, base = Store.prototype, fetch = {};
 
         function UserStore() {
-            Store.call(this);
+            Store.call(self);
 
-            this.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
+            self.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
         }
 
         UserStore.prototype = Object.create(base);
 
         UserStore.prototype.getCurrentUser = function() {
-            var deferred = $q.defer();
-
-            if (currentUser)
-                deferred.resolve(currentUser);
-            else
-                base.getCurrentUser.call(this).then(function(data) {
-                    currentUser = data;
-
-                    deferred.resolve(currentUser);
-                });
-
-            return deferred.promise;
+            return fetch.currentUser || (fetch.currentUser = base.getCurrentUser(), fetch.currentUser);
         };
 
         UserStore.prototype.saveRecipe = function(recipe) {
-            var self = this, deferred = $q.defer();
+            var deferred = $q.defer();
 
-            base.saveRecipe.call(this, recipe).then(function(data) {
+            base.saveRecipe.call(self, recipe).then(function(data) {
                 var recipeId = +data.recipeId; //Convert to number just in case we get handed a string.
 
                 if (self.cache) {
@@ -51,9 +40,9 @@
         };
 
         UserStore.prototype.deleteRecipe = function(recipeId, userId) {
-            var self = this, deferred = $q.defer();
+            var deferred = $q.defer();
 
-            base.deleteRecipe.call(this, recipeId).then(function() {
+            base.deleteRecipe.call(self, recipeId).then(function() {
                 self.getCurrentUser().then(function(currentUser) {
                     if (self.cache && currentUser.id === userId) {
                         var removed = self.cache.recipes.remove(+recipeId); //Convert to number just in case we get handed a string.
@@ -70,13 +59,13 @@
         };
 
         UserStore.prototype.getCurrentUserRecipes = function() {
-            var self = this, deferred = $q.defer();
+            var deferred = $q.defer();
 
             //If we've already fetched user data, then just return from cached data.
-            if (this.cache && this.cache.isFetched)
-                deferred.resolve(this.cache.recipes.values());
+            if (self.cache && self.cache.isFetched)
+                deferred.resolve(self.cache.recipes.values());
             else
-                base.getCurrentUserRecipes.call(this).then(function(data) {
+                base.getCurrentUserRecipes.call(self).then(function(data) {
                     if (self.cache) {
                         self.cache.recipes.import(data,
                             function (recipe) {
@@ -100,9 +89,9 @@
 
             recipeId = +recipeId; //Convert to number just in case we get handed a string.
 
-            if (this.cache) {
+            if (self.cache) {
                 //Need to expand this to check if we have a cached copy and fetching otherwise.
-                recipe = this.cache.recipes.findFirst(function(r) { return r.key === recipeId; });
+                recipe = self.cache.recipes.findFirst(function(r) { return r.key === recipeId; });
                 recipe = recipe == null ? recipe : recipe.value;
 
                 if (recipe) {
@@ -112,9 +101,7 @@
                 }
             }
 
-            var self = this;
-
-            base.getCurrentUserRecipeById.call(this, recipeId).then(function(data) {
+            base.getCurrentUserRecipeById.call(self, recipeId).then(function(data) {
                 recipe = ObjectMapper.map(data, ObjectMapper.BACKEND_ARTIFACT);
 
                 if (self.cache) self.cache.recipes.add(recipeId, recipe);

@@ -1,4 +1,3 @@
-//Todo: make this suck a much smaller carton of rotten eggs.
 (function() {
     'use strict';
 
@@ -10,8 +9,9 @@
 
         Url.prototype.route = function(name, route) { this[name] = Helper.joinPaths(this.base, route); return this; };
 
-        var storeUrl = new Url('http://localhost:3000').route('api', '/api/v1/'),
-            authUrl = new Url('http://localhost:3000/authorize');
+        var baseUrl = new Url('http://localhost:3000'),
+            storeUrl = baseUrl.route('api', '/api/v1/'),
+            authUrl = baseUrl.route('auth', '/auth/v1/');
 
         return {
             store: {
