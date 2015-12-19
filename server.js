@@ -1,21 +1,13 @@
 var express  = require('express'),
 	app = express(),
-	mongoose = require('mongoose'),
-	morgan = require('morgan'),          
+	morgan = require('morgan'),
 	bodyParser = require('body-parser'), 
 	methodOverride = require('method-override'),
 	path = require('path'),
 	session = require('express-session'),
-	query = require('querystring'),
-	User = require('./db_mongo/User.js');
+	query = require('querystring');
 
 //Todo: move REST API into separate service.
-mongoose.connect('mongodb://localhost:27017/brewlab');
-
-var storeSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
-var Store = mongoose.model('store', storeSchema);
-var logsSchema = new mongoose.Schema({ type: mongoose.Schema.Types.Mixed }, { strict: false });
-var Logs = mongoose.model('logs', logsSchema);
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
