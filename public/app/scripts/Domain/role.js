@@ -24,8 +24,8 @@
                 var isInRoles = false;
 
                 for (var type in roles) {
-                    if (predicate != null && !predicate(type)) continue;
                     if (isInRoles === true) break;
+                    if (predicate != null && !predicate(type)) continue;
 
                     for (var i = 0; i < type.length; i++)
                         if (user.role === type[i].name) {
