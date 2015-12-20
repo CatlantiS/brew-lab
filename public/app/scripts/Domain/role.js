@@ -52,7 +52,11 @@
 
             if (appRole === APP_ROLES.LOGGED_IN) return isUserInRoles(user);
             if (appRole === APP_ROLES.ADMIN) return isAdmin(user);
-            if (appRole === APP_ROLES.GUEST) return !Auth.isAuthenticated();
+            if (appRole === APP_ROLES.GUEST) {
+                var deferred = $q.defer();
+
+                return (deferred.resolve(!Auth.isAuthenticated()), deferred.promise);
+            }
         }
 
         function isUserInRoles(user) { return _isUserInRoles(user); }
