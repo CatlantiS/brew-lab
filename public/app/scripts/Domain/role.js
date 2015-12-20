@@ -62,7 +62,7 @@
         function isUserInRoles(user) { return _isUserInRoles(user); }
 
         function isAdmin(user) {
-            return _isUserInRoles(user, function(type) { return type.isAdmin !== false; });
+            return _isUserInRoles(user, function(type) { return type.isAdmin === true; });
         }
 
         return {
