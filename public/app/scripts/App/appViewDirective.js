@@ -2,14 +2,16 @@
 (function() {
     'use strict';
 
-    angular.module('brewApp.directives').directive('appView', appView);
+    angular.module('brewApp.directives').directive('appView', ['Role', appView]);
 
-    function appView() {
+    function appView(Role) {
         return {
             restrict: 'AE',
-            controller: 'AppCtrl as app',
+            scope: {
+                role: '@role'
+            },
             transclude: true,
-            template: '<div ng-if="app.isAuthenticated === true"><ng-transclude></ng-transclude></div>'
+            template: '<div ng-if="role != null"><ng-transclude></ng-transclude></div>'
         }
     }
 })();
