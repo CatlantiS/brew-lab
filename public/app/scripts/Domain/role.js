@@ -14,28 +14,28 @@
 
         (function init() { getRoles(); })();
 
-        function _isUserInRoles(user, predicate) {
+        function _isUserInRole(user, typePredicate) {
             var deferred = $q.defer();
 
             if (!(user && user.role))
                 return (deferred.resolve(false), deferred.promise);
 
             getRoles().then(function(roles) {
-                var isInRoles = false;
+                var isInRole = false;
 
                 for (var type in roles) {
-                    if (isInRoles === true) break;
-                    if (predicate != null && !predicate(type)) continue;
+                    if (isInRole === true) break;
+                    if (typePredicate != null && !typePredicate(type)) continue;
 
-                    for (var i = 0; i < type.length; i++)
-                        if (user.role === type[i].name) {
-                            isInRoles = true;
+                    for (var i = 0; i < type.roles.length; i++)
+                        if (user.role === type.roles[i].name) {
+                            isInRole = true;
 
                             break;
                         }
                 }
 
-                deferred.resolve(isInRoles);
+                deferred.resolve(isInRole);
             });
 
             return deferred.promise;
@@ -50,16 +50,21 @@
 
             appRole = appRole.toLowerCase();
 
-            if (appRole === APP_ROLES.LOGGED_IN) return isUserInRoles(user);
             if (appRole === APP_ROLES.ADMIN) return isAdmin(user);
-            if (appRole === APP_ROLES.GUEST) {
-                var deferred = $q.defer();
 
-                return (deferred.resolve(!Auth.isAuthenticated()), deferred.promise);
-            }
+            var deferred = $q.defer(),
+                isAuthenticated = Auth.isAuthenticated();
+
+            if (appRole === APP_ROLES.LOGGED_IN)
+                return (deferred.resolve(isAuthenticated), deferred.promise);
+
+            if (appRole === APP_ROLES.GUEST)
+                return (deferred.resolve(!isAuthenticated), deferred.promise);
         }
 
-        function isUserInRoles(user) { return _isUserInRoles(user); }
+        function isUserInRoleByType(user, type) {
+            return _isUserInRole(user, function(t) { return t.type === type.type; });
+        }
 
         function isAdmin(user) {
             return _isUserInRoles(user, function(type) { return type.isAdmin === true; });
@@ -69,7 +74,7 @@
             APP_ROLES: APP_ROLES,
             getRoles: getRoles,
             isUserInAppRole: isUserInAppRole,
-            isUserInRoles: isUserInRoles,
+            isUserInRoleByType: isUserInRoleByType,
             isAdmin: isAdmin
         };
     }
