@@ -6,8 +6,13 @@
 
     function auth($http, $q, Configuration, Helper) {
         var _isAuthenticated = false,
+            _token,
             authUrl = Configuration.auth.url,
             listeners = { authenticate: {}, signOut: {} };
+
+        function isAuthenticated() { return _isAuthenticated; }
+
+        function token() { return _token; }
 
         function authenticate(username, password) {
             var deferred = $q.defer();
@@ -19,12 +24,13 @@
 
             $http.post(Helper.joinPaths([authUrl.auth, '/authenticate']), body, { headers: {'Authorization': authHeader }})
                 .success(function(data) {
-                    var accessToken = data.access_token,
-                        header = 'Bearer ' + accessToken;
+                    _token = data.access_token;
+
+                    var header = 'Bearer ' + _token;
 
                     $http.defaults.headers.common['Authorization'] = header;
 
-                    for (var l in listeners.authenticate) listeners.authenticate[l]({ header: header, token: accessToken });
+                    for (var l in listeners.authenticate) listeners.authenticate[l]({ header: header, token: _token });
 
                     _isAuthenticated = true;
 
@@ -55,10 +61,6 @@
             return deferred.promise;
         }
 
-        function secureTest() { return $http.get(Helper.joinPaths([authUrl.auth, '/secure'])); }
-
-        function isAuthenticated() { return _isAuthenticated; }
-
         //Work on these listeners.
         function onAuthenticate(id, callback) { listeners.authenticate[id] = callback;}
 
@@ -68,8 +70,11 @@
 
         function removeSignOutListener(id) { delete listeners.signOut[id]; }
 
+        function secureTest() { return $http.get(Helper.joinPaths([authUrl.auth, '/secure'])); }
+
         return {
             isAuthenticated: isAuthenticated,
+            token: token,
             authenticate: authenticate,
             signOut: signOut,
             onAuthenticate: onAuthenticate,
