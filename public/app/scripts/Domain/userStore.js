@@ -21,7 +21,7 @@
             if (!Auth.isAuthenticated()) {
                 var deferred = $q.defer();
 
-                return (deferred.reject('User has not authenticated'), deferred.promise);
+                return (deferred.reject('User has not logged in.'), deferred.promise);
             }
 
             return fetch.currentUser || (fetch.currentUser = base.getCurrentUser(), fetch.currentUser);
@@ -29,6 +29,9 @@
 
         UserStore.prototype.saveRecipe = function(recipe) {
             var self = this, deferred = $q.defer();
+
+            if (!Auth.isAuthenticated())
+                return (deferred.reject('User has not logged in.'), deferred.promise);
 
             base.saveRecipe.call(self, recipe).then(function(data) {
                 var recipeId = +data.recipeId; //Convert to number just in case we get handed a string.
@@ -49,6 +52,9 @@
         UserStore.prototype.deleteRecipe = function(recipeId) {
             var self = this, deferred = $q.defer();
 
+            if (!Auth.isAuthenticated())
+                return (deferred.reject('User has not logged in.'), deferred.promise);
+
             base.deleteRecipe.call(self, recipeId).then(function() {
                 self.getCurrentUser().then(function(currentUser) {
                     if (self.cache) {
@@ -67,6 +73,9 @@
 
         UserStore.prototype.getCurrentUserRecipes = function() {
             var self = this, deferred = $q.defer();
+
+            if (!Auth.isAuthenticated())
+                return (deferred.reject('User has not logged in.'), deferred.promise);
 
             //If we've already fetched user data, then just return from cached data.
             if (self.cache && self.cache.isFetched)
@@ -93,6 +102,9 @@
 
         UserStore.prototype.getCurrentUserRecipeById = function(recipeId) {
             var self = this, deferred = $q.defer(), recipe;
+
+            if (!Auth.isAuthenticated())
+                return (deferred.reject('User has not logged in.'), deferred.promise);
 
             recipeId = +recipeId; //Convert to number just in case we get handed a string.
 
