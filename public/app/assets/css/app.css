@@ -15,10 +15,16 @@ html, body {
 .brew-header {
 	color: #ffcc00 !important;
 	margin-bottom: 30px;
+	font-family: "Courier New", Courier, monospace;
+	font-weight: 600;
+	text-transform: uppercase;
 }
 
 .brew-modal-header {
 	color: #ffcc00 !important;
+	font-family: "Courier New", Courier, monospace;
+	font-weight: 600;
+	text-transform: uppercase;
 }
 
 .brew-navbar {
