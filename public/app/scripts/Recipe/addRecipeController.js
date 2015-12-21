@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-	.controller('AddRecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'logger', 'User', addRecipeController]);
+	.controller('AddRecipeCtrl', ['$scope', 'AppState', 'BrewMaster', 'notifications', 'logger', 'UserStore', addRecipeController]);
 
-function addRecipeController($scope, AppState, BrewMaster, notifications, logger, User) {
+function addRecipeController($scope, AppState, BrewMaster, notifications, logger, UserStore) {
     /* jshint validthis: true */
     var self = this;
 
@@ -20,7 +20,7 @@ function addRecipeController($scope, AppState, BrewMaster, notifications, logger
     self.submit = function(isValid) {
         if (isValid) {
             //Need a spinner on this?
-            User.saveRecipe(self.recipe).then(function(data) {
+            UserStore.saveRecipe(self.recipe).then(function(data) {
                 notifications.success('Recipe ' + self.recipe.name + ' saved.');
                 logger.info('Recipe ' + data.recipeId + ' saved.');
 

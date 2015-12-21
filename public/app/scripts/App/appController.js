@@ -7,7 +7,7 @@
         /* jshint validthis: true */
         var self = this;
 
-        setAuthenticated();
+        (function init() { setAuthenticated(); })();
 
         Auth.onAuthenticate('app', setAuthenticated);
 
@@ -18,6 +18,8 @@
             $window.location.href = '/';
         });
 
-        function setAuthenticated() { self.isAuthenticated = Auth.isAuthenticated(); }
+        function setAuthenticated() {
+            self.isAuthenticated = Auth.isAuthenticated();
+        }
     }
 })();

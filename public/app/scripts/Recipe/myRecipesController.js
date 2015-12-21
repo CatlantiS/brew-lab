@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('brewApp.controllers')
-        .controller('MyRecipesCtrl', ['AppState', 'BrewModal', 'User', myRecipesController]);
+        .controller('MyRecipesCtrl', ['AppState', 'BrewModal', 'UserStore', myRecipesController]);
 
-    function myRecipesController(AppState, BrewModal, User) {
+    function myRecipesController(AppState, BrewModal, UserStore) {
         /* jshint validthis: true */
         var self = this;
 
@@ -13,7 +13,7 @@
         self.getMyRecipes = function() {
             self.isLoading = true;
 
-            return User.getRecipes().then(function(recipes) {
+            return UserStore.getCurrentUserRecipes().then(function(recipes) {
                 self.isLoading = false;
 
                 self.recipes = recipes;
@@ -23,10 +23,15 @@
         }
 
         self.editRecipe = function(id) {
-            User.getRecipeById(id).then(function(editRecipe) {
+            UserStore.getCurrentUserRecipeById(id).then(function(editRecipe) {
                 AppState.area('EditRecipe').recipe = editRecipe;
 
-                BrewModal.open({ controller: 'EditRecipeCtrl as ctrl', template: 'views/editRecipe', size: 'lg' })
+                BrewModal.open({
+                        controller: 'EditRecipeCtrl as ctrl',
+                        template: 'views/editRecipe',
+                        size: 'lg',
+                        resolve: { id: id }
+                    })
                     //When edit modal closes, blow away app state data.
                     .then(function() {
                         self.getMyRecipes();
@@ -37,8 +42,8 @@
         };
 
         self.deleteRecipe = function(id) {
-            User.deleteRecipe(id).then(function() {
-                User.getRecipes().then(function(recipes) { self.recipes = recipes; });
+            UserStore.deleteRecipe(id).then(function() {
+                UserStore.getCurrentUserRecipes().then(function(recipes) { self.recipes = recipes; });
             });
         };
 

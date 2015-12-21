@@ -4,12 +4,12 @@
 (function() {
     var app = angular.module('brewApp.services');
 
-    var logger = function ($http, $resource, Auth, User, Configuration, Store) {
+    var logger = function ($http, $resource, Auth, Configuration, Store, UserStore) {
 
         var log4jslogger = log4javascript.getLogger();
         var ajaxAppender = new log4javascript.AjaxAppender(Configuration.store.url.api + 'logs/');
         var brewLayout = new log4javascript.JsonLayout();
-        brewLayout.setCustomField('userid', User.id);
+
         ajaxAppender.setLayout(brewLayout);
         log4jslogger.addAppender(ajaxAppender);
 
@@ -48,7 +48,13 @@
             ajaxAppender.addHeader('Authorization', authHeader);
         }
 
-        Auth.onAuthenticate('logger', function(auth) { setAuthHeader(auth.header) });
+        Auth.onAuthenticate('logger', function(auth) {
+            UserStore.getCurrentUser().then(function(user) {
+                brewLayout.setCustomField('userid', user.id);
+            });
+
+            setAuthHeader(auth.header);
+        });
 
         //Is this right?
         Auth.onSignOut('logger', function() { setAuthHeader(undefined)});
@@ -65,5 +71,5 @@
         }
     }
 
-    app.factory('logger', ['$http', '$resource', 'Auth', 'User', 'Configuration', 'Store', logger]);
+    app.factory('logger', ['$http', '$resource', 'Auth', 'Configuration', 'Store', 'UserStore', logger]);
 })();

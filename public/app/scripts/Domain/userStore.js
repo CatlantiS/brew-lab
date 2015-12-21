@@ -3,25 +3,32 @@
 
     //Caches for current user to save trips to the backend.
     angular.module('brewApp.services')
-        .factory('UserStore', ['$q', 'ClassFactory', 'Configuration', 'ObjectMapper', 'Store', userStore]);
+        .factory('UserStore', ['$q', 'Auth', 'ClassFactory', 'Configuration', 'ObjectMapper', 'Store', userStore]);
 
-    function userStore($q, ClassFactory, Configuration, ObjectMapper, Store) {
-        var self = this, base = Store.prototype, fetch = {};
+    function userStore($q, Auth, ClassFactory, Configuration, ObjectMapper, Store) {
+        var base = Store.prototype, fetch = {};
 
         function UserStore() {
-            Store.call(self);
+            Store.call(this);
 
-            self.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
+            this.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
         }
 
         UserStore.prototype = Object.create(base);
 
         UserStore.prototype.getCurrentUser = function() {
+            //User hasn't logged in yet, so can't get current user info from backend.
+            if (!Auth.isAuthenticated()) {
+                var deferred = $q.defer();
+
+                return (deferred.reject('User has not authenticated'), deferred.promise);
+            }
+
             return fetch.currentUser || (fetch.currentUser = base.getCurrentUser(), fetch.currentUser);
         };
 
         UserStore.prototype.saveRecipe = function(recipe) {
-            var deferred = $q.defer();
+            var self = this, deferred = $q.defer();
 
             base.saveRecipe.call(self, recipe).then(function(data) {
                 var recipeId = +data.recipeId; //Convert to number just in case we get handed a string.
@@ -39,12 +46,12 @@
             return deferred.promise;
         };
 
-        UserStore.prototype.deleteRecipe = function(recipeId, userId) {
-            var deferred = $q.defer();
+        UserStore.prototype.deleteRecipe = function(recipeId) {
+            var self = this, deferred = $q.defer();
 
             base.deleteRecipe.call(self, recipeId).then(function() {
                 self.getCurrentUser().then(function(currentUser) {
-                    if (self.cache && currentUser.id === userId) {
+                    if (self.cache) {
                         var removed = self.cache.recipes.remove(+recipeId); //Convert to number just in case we get handed a string.
 
                         //Will it cause confusion returning this only if user is cached?
@@ -59,7 +66,7 @@
         };
 
         UserStore.prototype.getCurrentUserRecipes = function() {
-            var deferred = $q.defer();
+            var self = this, deferred = $q.defer();
 
             //If we've already fetched user data, then just return from cached data.
             if (self.cache && self.cache.isFetched)
@@ -85,7 +92,7 @@
         };
 
         UserStore.prototype.getCurrentUserRecipeById = function(recipeId) {
-            var deferred = $q.defer(), recipe;
+            var self = this, deferred = $q.defer(), recipe;
 
             recipeId = +recipeId; //Convert to number just in case we get handed a string.
 
@@ -119,6 +126,7 @@
             };
         }
 
+        //Return new instance and not constructor because we want the user store to be a singleton and only have one instance caching user data.
         return new UserStore();
     }
 })();

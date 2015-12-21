@@ -3,14 +3,13 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('EditRecipeCtrl', ['$modalInstance', 'AppState', 'BrewMaster', 'notifications', 'logger', 'User', editRecipeController]);
+    .controller('EditRecipeCtrl', ['$modalInstance', 'AppState', 'BrewMaster', 'notifications', 'logger', 'UserStore', editRecipeController]);
 
-function editRecipeController($modalInstance, AppState, BrewMaster, notifications, logger, User) {
+function editRecipeController($modalInstance, AppState, BrewMaster, notifications, logger, UserStore, id) {
     /* jshint validthis: true */
     var self = this;
 
-    //Might not need to worry about AppState, just depends on how the UI will look.
-    self.recipe = AppState.area('EditRecipe').recipe || {};
+    //Todo: remove persistence from edit form.
 
     BrewMaster.getDefinitions().then(function(definitions) {
         self.units = definitions.units.volume.map(function(def) { return def.name; });
@@ -22,7 +21,7 @@ function editRecipeController($modalInstance, AppState, BrewMaster, notification
     self.update = function(isValid) {
         if (isValid) {
             //Need a spinner on this?
-            User.updateRecipe(self.recipe).then(function() {
+            UserStore.updateRecipe(self.recipe).then(function() {
                 notifications.success('Recipe ' + self.recipe.name + ' updated.');
                 logger.info('Recipe ' + self.recipe.recipeId + ' updated.');
 
@@ -39,8 +38,6 @@ function editRecipeController($modalInstance, AppState, BrewMaster, notification
     self.cancel = function() {
         self.recipeForm.$setPristine();
         self.recipe = {};
-
-        AppState.area('EditRecipe').remove('recipe');
 
         $modalInstance.dismiss();
     };

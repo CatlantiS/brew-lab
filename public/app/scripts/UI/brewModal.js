@@ -12,7 +12,8 @@
                 backdrop: options.static ? 'static' : true,
                 templateUrl: options.template,
                 controller: options.controller,
-                size: options.size
+                size: options.size,
+                resolve: options.resolve
             });
 
             return instance.result;
