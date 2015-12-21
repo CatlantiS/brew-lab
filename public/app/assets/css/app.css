@@ -17,14 +17,12 @@ html, body {
 	margin-bottom: 30px;
 	font-family: "Courier New", Courier, monospace;
 	font-weight: 600;
-	text-transform: uppercase;
 }
 
 .brew-modal-header {
 	color: #ffcc00 !important;
 	font-family: "Courier New", Courier, monospace;
 	font-weight: 600;
-	text-transform: uppercase;
 }
 
 .brew-navbar {
@@ -115,6 +113,7 @@ html, body {
 
 .brew-info {
 	padding: 10px 0 15px 0;
+	font-family: "Courier New", Courier, monospace;
 }
 
 .row.brew-break {
