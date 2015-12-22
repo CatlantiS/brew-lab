@@ -14,8 +14,22 @@ function addRecipeController($scope, AppState, BrewMaster, notifications, logger
         self.units = definitions.units.volume.map(function(def) { return def.name; });
 
         if (BrewMaster.hasIngredient(definitions, 'yeast'))
-            self.yeastTypes = definitions.ingredient.yeast.map(function(def) { return def.name; });
+            self.yeasts = definitions.ingredient.yeast.map(function(def) { return def.name; });
     });
+
+    self.addYeast = function(yeast) {
+        (self.recipe.yeasts = self.recipe.yeasts || []).push(yeast);
+
+        self.current.yeast = null;
+    };
+
+    self.deleteYeast = function(yeast) {
+        var index = self.recipe.yeasts
+            .map(function(y) { return y.name; })
+            .indexOf(yeast.name);
+
+        self.recipe.yeasts.splice(index, 1);
+    };
 
     self.submit = function(isValid) {
         if (isValid) {
