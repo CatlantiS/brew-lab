@@ -3,9 +3,9 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('EditRecipeCtrl', ['$modalInstance', 'AppState', 'BrewMaster', 'notifications', 'logger', 'UserStore', '$modalParams', editRecipeController]);
+    .controller('EditRecipeCtrl', ['$modalInstance', 'BrewMaster', 'notifications', 'logger', 'UserStore', '$modalParams', editRecipeController]);
 
-function editRecipeController($modalInstance, AppState, BrewMaster, notifications, logger, UserStore, $modalParams) {
+function editRecipeController($modalInstance, BrewMaster, notifications, logger, UserStore, $modalParams) {
     /* jshint validthis: true */
     var self = this;
 
@@ -30,8 +30,6 @@ function editRecipeController($modalInstance, AppState, BrewMaster, notification
 
                 self.recipeForm.$setPristine();
                 self.recipe = {};
-
-                AppState.area('EditRecipe').remove('recipe');
 
                 $modalInstance.close();
             });
