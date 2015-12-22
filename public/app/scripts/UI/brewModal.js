@@ -13,7 +13,11 @@
                 templateUrl: options.template,
                 controller: options.controller,
                 size: options.size,
-                resolve: options.resolve
+                resolve: {
+                    $modalParams: function() {
+                        return options.params;
+                    }
+                }
             });
 
             return instance.result;

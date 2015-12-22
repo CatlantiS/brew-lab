@@ -3,13 +3,16 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('EditRecipeCtrl', ['$modalInstance', 'AppState', 'BrewMaster', 'notifications', 'logger', 'UserStore', editRecipeController]);
+    .controller('EditRecipeCtrl', ['$modalInstance', 'AppState', 'BrewMaster', 'notifications', 'logger', 'UserStore', '$modalParams', editRecipeController]);
 
-function editRecipeController($modalInstance, AppState, BrewMaster, notifications, logger, UserStore, id) {
+function editRecipeController($modalInstance, AppState, BrewMaster, notifications, logger, UserStore, $modalParams) {
     /* jshint validthis: true */
     var self = this;
 
     //Todo: remove persistence from edit form.
+    UserStore.getCurrentUserRecipeById($modalParams.id).then(function(recipe) {
+        self.recipe = recipe;
+    });
 
     BrewMaster.getDefinitions().then(function(definitions) {
         self.units = definitions.units.volume.map(function(def) { return def.name; });

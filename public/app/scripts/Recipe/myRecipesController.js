@@ -30,7 +30,7 @@
                         controller: 'EditRecipeCtrl as ctrl',
                         template: 'views/editRecipe',
                         size: 'lg',
-                        resolve: { id: id }
+                        params: { id: id }
                     })
                     //When edit modal closes, blow away app state data.
                     .then(function() {
