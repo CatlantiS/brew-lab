@@ -9,7 +9,6 @@ function editRecipeController($modalInstance, BrewMaster, notifications, logger,
     /* jshint validthis: true */
     var self = this;
 
-    //Todo: remove persistence from edit form.
     UserStore.getCurrentUserRecipeById($modalParams.id).then(function(recipe) {
         self.recipe = recipe;
     });
