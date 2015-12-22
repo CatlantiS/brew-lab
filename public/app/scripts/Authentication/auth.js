@@ -50,6 +50,7 @@
                     ////Is this right?  Want to remove auth token from header once logged off.
                     //$http.defaults.headers.common['Authorization'] = undefined;
 
+                    _token = null;
                     _isAuthenticated = false;
 
                     for (var l in listeners.signOut) listeners.signOut[l]();
