@@ -60,11 +60,11 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary pull-right" role="button"
-                            ng-click="ctrl.addYeast(ctrl.current.yeast)"
+                            ng-click="ctrl.addIngredient('yeast', ctrl.current.yeast)"
                             ng-disabled="ctrl.current.yeast == null">Add</button>
                 </div>
 
-                <div ng-show="ctrl.recipe.yeasts != null && ctrl.recipe.yeasts.length > 0">
+                <div ng-show="ctrl.recipe.yeast != null && ctrl.recipe.yeast.length > 0">
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr>
@@ -75,7 +75,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="yeast in ctrl.recipe.yeasts">
+                            <tr ng-repeat="yeast in ctrl.recipe.yeast">
                                 <td>
                                     {{ yeast.name }}
                                 </td>
@@ -86,7 +86,9 @@
                                     {{ yeast.units }}
                                 </td>
                                 <td class="row-delete">
-                                    <a class="delete-icon" href="javascript:void(0);" title="Delete" ng-click="ctrl.deleteYeast(yeast)"><i class="fa fa-trash brew-delete"></i></a>
+                                    <a class="delete-icon" href="javascript:void(0);" title="Delete" ng-click="ctrl.deleteIngredient('yeast', yeast, 'name')">
+                                        <i class="fa fa-trash brew-delete"></i>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>

@@ -17,18 +17,19 @@ function addRecipeController($scope, AppState, BrewMaster, notifications, logger
             self.yeasts = definitions.ingredient.yeast.map(function(def) { return def.name; });
     });
 
-    self.addYeast = function(yeast) {
-        (self.recipe.yeasts = self.recipe.yeasts || []).push(yeast);
+    self.addIngredient = function(type, ingredient) {
+        (self.recipe[type] = self.recipe[type] || []).push(ingredient);
 
-        self.current.yeast = null;
+        //This is pretty brittle.
+        self.current[type] = null;
     };
 
-    self.deleteYeast = function(yeast) {
-        var index = self.recipe.yeasts
-            .map(function(y) { return y.name; })
-            .indexOf(yeast.name);
+    self.deleteIngredient = function(type, ingredient, identifier) {
+        var index = self.recipe[type]
+            .map(function(i) { return i[identifier]; })
+            .indexOf(ingredient[identifier]);
 
-        self.recipe.yeasts.splice(index, 1);
+        self.recipe[type].splice(index, 1);
     };
 
     self.submit = function(isValid) {
