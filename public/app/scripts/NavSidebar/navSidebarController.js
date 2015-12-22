@@ -11,7 +11,7 @@
 		self.actions = [{
 			title: 'Discover',
 			click: function() {
-				notifications.error('Coming soon...')
+				notifications.warning('Coming soon...')
 			}
 		}, {
 			title: 'Enter a new recipe',
@@ -22,12 +22,12 @@
 		}, {
 			title: 'Saved recipes',
 			click: function() {
-				notifications.error('Coming soon...')
+				notifications.warning('Coming soon...')
 			}
 		}, {
 			title: 'Search',
 			click: function() {
-				notifications.error('Coming soon...')
+				notifications.warning('Coming soon...')
 			}
 		}
 		]
