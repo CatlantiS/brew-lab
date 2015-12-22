@@ -9,9 +9,14 @@
         var base = Store.prototype, fetch = {};
 
         function UserStore() {
+            var self = this;
+
             Store.call(this);
 
-            this.cache = Configuration.currentUser.cacheRecipes ? initCache() : null;
+            //Manage cache for authenticated user.  Is this really where we want to do this?
+            Auth.onAuthenticate('UserStore', function() { self.cache = initCache(); });
+
+            Auth.onSignOut('UserStore', function() { self.cache = null; });
         }
 
         UserStore.prototype = Object.create(base);
@@ -21,7 +26,7 @@
             if (!Auth.isAuthenticated()) {
                 var deferred = $q.defer();
 
-                return (deferred.reject('User has not logged in.'), deferred.promise);
+                return (deferred.reject('User is not logged in.'), deferred.promise);
             }
 
             return fetch.currentUser || (fetch.currentUser = base.getCurrentUser(), fetch.currentUser);
@@ -31,7 +36,7 @@
             var self = this, deferred = $q.defer();
 
             if (!Auth.isAuthenticated())
-                return (deferred.reject('User has not logged in.'), deferred.promise);
+                return (deferred.reject('User is not logged in.'), deferred.promise);
 
             base.saveRecipe.call(self, recipe).then(function(data) {
                 var recipeId = +data.recipeId; //Convert to number just in case we get handed a string.
@@ -53,7 +58,7 @@
             var self = this, deferred = $q.defer();
 
             if (!Auth.isAuthenticated())
-                return (deferred.reject('User has not logged in.'), deferred.promise);
+                return (deferred.reject('User is not logged in.'), deferred.promise);
 
             base.deleteRecipe.call(self, recipeId).then(function() {
                 self.getCurrentUser().then(function(currentUser) {
@@ -75,7 +80,7 @@
             var self = this, deferred = $q.defer();
 
             if (!Auth.isAuthenticated())
-                return (deferred.reject('User has not logged in.'), deferred.promise);
+                return (deferred.reject('User is not logged in.'), deferred.promise);
 
             //If we've already fetched user data, then just return from cached data.
             if (self.cache && self.cache.isFetched)
@@ -104,7 +109,7 @@
             var self = this, deferred = $q.defer(), recipe;
 
             if (!Auth.isAuthenticated())
-                return (deferred.reject('User has not logged in.'), deferred.promise);
+                return (deferred.reject('User is not logged in.'), deferred.promise);
 
             recipeId = +recipeId; //Convert to number just in case we get handed a string.
 
@@ -132,10 +137,10 @@
         };
 
         function initCache() {
-            return {
+            return Configuration.currentUser.cacheRecipes ? {
                 recipes: new ClassFactory.Lookup(false),
                 isFetched: false
-            };
+            } : null;
         }
 
         //Return new instance and not constructor because we want the user store to be a singleton and only have one instance caching user data.

@@ -39,7 +39,7 @@
                 .error(function(err) { deferred.reject(err); });
 
             return deferred.promise;
-        };
+        }
 
         //Todo: wire up sign out on server side?
         function signOut() {
@@ -61,7 +61,7 @@
             return deferred.promise;
         }
 
-        //Work on these listeners.
+        //Work on these listeners.  Right now only one listener per id.
         function onAuthenticate(id, callback) { listeners.authenticate[id] = callback;}
 
         function removeAuthenticateListener(id) { delete listeners.authenticate[id]; }
