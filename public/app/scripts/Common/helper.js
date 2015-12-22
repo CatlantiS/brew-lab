@@ -4,6 +4,14 @@
     angular.module('brewApp').factory('Helper', helper);
 
     function helper() {
+        function mapObj(source, target) {
+            for (var key in target) {
+                if(target.hasOwnProperty(key) && source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+
         function deResourcify(resource) {
             var obj = {};
 
@@ -39,6 +47,7 @@
         }
 
         return {
+            mapObj: mapObj,
             deResourcify: deResourcify,
             deResourcifyArray: deResourcifyArray,
             joinPaths: joinPaths

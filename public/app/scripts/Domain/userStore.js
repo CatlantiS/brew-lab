@@ -3,9 +3,9 @@
 
     //Caches for current user to save trips to the backend.
     angular.module('brewApp.services')
-        .factory('UserStore', ['$q', 'Auth', 'ClassFactory', 'Configuration', 'ObjectMapper', 'Store', userStore]);
+        .factory('UserStore', ['$q', 'Auth', 'ClassFactory', 'Configuration', 'Helper', 'ObjectMapper', 'Store', userStore]);
 
-    function userStore($q, Auth, ClassFactory, Configuration, ObjectMapper, Store) {
+    function userStore($q, Auth, ClassFactory, Configuration, Helper, ObjectMapper, Store) {
         var base = Store.prototype, fetch = {};
 
         function UserStore() {
@@ -52,6 +52,22 @@
             });
 
             return deferred.promise;
+        };
+
+        UserStore.prototype.updateRecipe = function(recipe) {
+            if (!Auth.isAuthenticated())
+                return (deferred.reject('User is not logged in.'), deferred.promise);
+
+            if (this.cache) {
+                //If we are handed in a copy of the original recipe, then we need to update the original to keep the cache consistent.
+                //There must be a better way of doing this.
+                var original = this.cache.recipes.findFirst(function(r) { return r.key === +recipe.recipeId; });
+
+                if (original && original.value != null && original.value !== recipe)
+                    Helper.mapObj(recipe, original.value);
+            }
+
+            return base.updateRecipe.call(self, recipe);
         };
 
         UserStore.prototype.deleteRecipe = function(recipeId) {

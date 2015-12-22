@@ -10,7 +10,7 @@ function editRecipeController($modalInstance, BrewMaster, notifications, logger,
     var self = this;
 
     UserStore.getCurrentUserRecipeById($modalParams.id).then(function(recipe) {
-        self.recipe = recipe;
+        self.recipe = angular.copy(recipe);
     });
 
     BrewMaster.getDefinitions().then(function(definitions) {
