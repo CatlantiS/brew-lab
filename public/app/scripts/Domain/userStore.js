@@ -118,11 +118,7 @@
                 recipe = self.cache.recipes.findFirst(function(r) { return r.key === recipeId; });
                 recipe = recipe == null ? recipe : recipe.value;
 
-                if (recipe) {
-                    deferred.resolve(recipe);
-
-                    return deferred.promise;
-                }
+                if (recipe) return (deferred.resolve(recipe), deferred.promise);
             }
 
             base.getCurrentUserRecipeById.call(self, recipeId).then(function(data) {
