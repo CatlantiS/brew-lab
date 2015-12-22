@@ -113,7 +113,8 @@ html, body {
 
 .brew-info {
 	padding: 10px 0 15px 0;
-	font-family: "Courier New", Courier, monospace;
+	font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+	color: #000;
 }
 
 .row.brew-break {
