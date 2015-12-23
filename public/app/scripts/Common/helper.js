@@ -4,6 +4,11 @@
     angular.module('brewApp').factory('Helper', helper);
 
     function helper() {
+        //This can be expanded.
+        function Url(base) { this.base = base; }
+
+        Url.prototype.route = function(name, route) { this[name] = joinPaths(this.base, route); return this; };
+
         function mapObj(source, target) {
             for (var key in target) {
                 if(target.hasOwnProperty(key) && source.hasOwnProperty(key)) {
@@ -47,6 +52,7 @@
         }
 
         return {
+            Url: Url,
             mapObj: mapObj,
             deResourcify: deResourcify,
             deResourcifyArray: deResourcifyArray,
