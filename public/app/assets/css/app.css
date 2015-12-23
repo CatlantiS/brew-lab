@@ -122,8 +122,16 @@ html, body {
 	color: #000;
 }
 
-.row.brew-break {
+.row.brew-break-sm {
 	margin-bottom: 10px;
+}
+
+.row.brew-break-md {
+	margin-bottom: 20px;
+}
+
+.row.brew-break-lg {
+	margin-bottom: 30px;
 }
 
 .brew-important {
