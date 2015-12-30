@@ -12,6 +12,7 @@
             recipe: $resource(Helper.joinPaths(Configuration.store.url.api, 'recipes/:recipeId'), null, {
                 'update': { method:'PUT' }
             }),
+            recipeIngredients: $resource(Helper.joinPaths(Configuration.store.url.api, 'recipeIngredients/:recipeId')),
             definition: $resource(Helper.joinPaths(Configuration.store.url.api, 'definitions/:definition')),
             brewMaster:  $resource(Helper.joinPaths(Configuration.store.url.api, 'brewMaster/definitions/'))
         };
@@ -66,6 +67,10 @@
         Store.prototype.getRecipeById = function(recipeId) {
             return resource.recipe.get({ recipeId: recipeId }).$promise;
         };
+
+        Store.prototype.getRecipeIngredientsByRecipeId = function(recipeId) {
+            return resource.recipeIngredients.query({ recipeId: recipeId }).$promise;
+        }
 
         Store.prototype.getDefinitions = function(definition) {
             return resource.definition.query({ definition: definition }).$promise;
