@@ -39,30 +39,17 @@ function addRecipeController($scope, AppState, BrewMaster, notifications, logger
         if (isValid) {
             self.recipe.ingredients = self.recipe.ingredients || [];
 
-            //A lot of redundancy in here.
-            if (self.recipe.hops && self.recipe.hops.length > 0)
-                for (var i = 0; i < self.recipe.hops.length; i++) {
-                    var hops = self.recipe.hops[i];
-                    hops.type = self.INGREDIENT_TYPE.HOPS;
+            for (var key in self.INGREDIENT_TYPE) {
+                var type = self.INGREDIENT_TYPE[key];
 
-                    self.recipe.ingredients.push(hops);
-                }
+                if (self.recipe[type] && self.recipe[type].length > 0)
+                    for (var i = 0; i < self.recipe[type].length; i++) {
+                        var ingredient = self.recipe[type][i];
+                        ingredient.type = type;
 
-            if (self.recipe.malt && self.recipe.malt.length > 0)
-                for (i = 0; i < self.recipe.malt.length; i++) {
-                    var malt = self.recipe.malt[i];
-                    malt.type = self.INGREDIENT_TYPE.MALT;
-
-                    self.recipe.ingredients.push(malt);
-                }
-
-            if (self.recipe.yeast && self.recipe.yeast.length > 0)
-                for (i = 0; i < self.recipe.yeast.length; i++) {
-                    var yeast = self.recipe.yeast[i];
-                    yeast.type = self.INGREDIENT_TYPE.YEAST;
-
-                    self.recipe.ingredients.push(yeast);
-                }
+                        self.recipe.ingredients.push(ingredient);
+                    }
+            }
 
             //Need a spinner on this?
             UserStore.saveRecipe(self.recipe).then(function(data) {
