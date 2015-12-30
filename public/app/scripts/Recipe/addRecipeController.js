@@ -19,6 +19,7 @@ function addRecipeController($scope, AppState, BrewMaster, notifications, logger
             self.yeasts = definitions.ingredient.yeast.map(function(def) { return def.name; });
     });
 
+    //Trying to do this generically but it kinda sucks.
     self.addIngredient = function(type, ingredient) {
         (self.recipe[type] = self.recipe[type] || []).push(ingredient);
 
