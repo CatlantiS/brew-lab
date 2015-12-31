@@ -6,12 +6,13 @@
 
     function addRecipeController($scope, AppState, BrewMaster, notifications, logger, UserStore) {
         /* jshint validthis: true */
-        var self = this;
+        var self = this, appState = AppState.area('AddRecipe');
 
         self.INGREDIENT_TYPE = { HOPS: 'hops', MALT: 'malt', YEAST: 'yeast' };
 
-        //Might not need to worry about AppState, just depends on how the UI will look.
-        self.recipe = AppState.area('AddRecipe').recipe || {};
+        self.recipe = appState.recipe || {};
+
+        self.ingredients = appState.ingredients || [];
 
         BrewMaster.getDefinitions().then(function(definitions) {
             self.units = definitions.units.volume.map(function(def) { return def.name; });
@@ -22,18 +23,18 @@
 
         //Trying to do this generically but it kinda sucks.
         self.addIngredient = function(type, ingredient) {
-            (self.recipe[type] = self.recipe[type] || []).push(ingredient);
+            (self.ingredients[type] = self.ingredients[type] || []).push(ingredient);
 
             //This is pretty brittle.
             self.current[type] = null;
         };
 
         self.deleteIngredient = function(type, ingredient) {
-            var index = self.recipe[type]
+            var index = self.ingredients[type]
                 .map(function(i) { return i.name; })
                 .indexOf(ingredient.name);
 
-            self.recipe[type].splice(index, 1);
+            self.ingredients[type].splice(index, 1);
         };
 
         self.submit = function(isValid) {
@@ -41,11 +42,13 @@
                 self.recipe.ingredients = self.recipe.ingredients || [];
 
                 for (var key in self.INGREDIENT_TYPE) {
+                    if (!self.INGREDIENT_TYPE.hasOwnProperty(key)) continue;
+
                     var type = self.INGREDIENT_TYPE[key];
 
-                    if (self.recipe[type] && self.recipe[type].length > 0)
-                        for (var i = 0; i < self.recipe[type].length; i++) {
-                            var ingredient = self.recipe[type][i];
+                    if (self.ingredients[type] && self.ingredients[type].length > 0)
+                        for (var i = 0; i < self.ingredients[type].length; i++) {
+                            var ingredient = self.ingredients[type][i];
                             ingredient.type = type;
 
                             self.recipe.ingredients.push(ingredient);
@@ -57,10 +60,7 @@
                     notifications.success('Recipe ' + self.recipe.name + ' saved.');
                     logger.info('Recipe ' + data.recipeId + ' saved.');
 
-                    self.recipeForm.$setPristine();
-                    self.recipe = {};
-
-                    AppState.area('AddRecipe').remove('recipe');
+                    self.clear();
                 });
             }
         };
@@ -68,14 +68,18 @@
         self.clear = function() {
             self.recipeForm.$setPristine();
             self.recipe = {};
+            self.ingredients = [];
 
-            AppState.area('AddRecipe').remove('recipe');
+            appState.remove('recipe');
+            appState.remove('ingredients');
         };
 
         $scope.$on('$destroy', function() {
             //Only persist recipe if it exists and isn't empty.
-            if (self.recipe && !angular.equals({}, self.recipe))
-                AppState.area('AddRecipe').recipe = self.recipe;
+            if (self.recipe && !angular.equals({}, self.recipe)) {
+                appState.recipe = self.recipe;
+                appState.ingredients = self.ingredients;
+            }
         });
     }
 })();

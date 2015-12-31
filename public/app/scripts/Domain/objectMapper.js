@@ -1,12 +1,12 @@
 (function() {
     'use strict';
 
-    angular.module('brewApp.services').factory('ObjectMapper', ['ClassFactory', objectMapper]);
+    angular.module('brewApp.services').factory('ObjectMapper', ['Factory', objectMapper]);
 
-    function objectMapper(ClassFactory) {
+    function objectMapper(Factory) {
         var BACKEND_ARTIFACT = 'BackendArtifact',
-            mapper = new ClassFactory.ObjectMapper(),
-            backendArtifact = new ClassFactory.MapperDefinition(BACKEND_ARTIFACT, true)
+            mapper = new Factory.ObjectMapper(),
+            backendArtifact = new Factory.MapperDefinition(BACKEND_ARTIFACT, true)
                 .define('For fixing issues coming from the backend like numeric being serialized as string')
                 .addMap('volume', 'volume', function(src) { return +src; });
 

@@ -16,9 +16,12 @@ function editRecipeController($modalInstance, BrewMaster, logger, notifications,
 
         UserStore.getRecipeIngredientsByRecipeId($modalParams.id).then(function(ingredients) {
             //Break out ingredients by type for UI.
-            if (ingredients && ingredients.length > 0)
+            if (ingredients && ingredients.length > 0) {
+                self.ingredients = [];
+
                 for (var i = 0; i < ingredients.length; i++)
-                    (self.recipe[ingredients[i].type] = self.recipe[ingredients.type] || []).push(ingredients[i]);
+                    (self.ingredients[ingredients[i].type] = self.ingredients[ingredients[i].type] || []).push(ingredients[i]);
+            }
         });
     });
 
@@ -26,47 +29,48 @@ function editRecipeController($modalInstance, BrewMaster, logger, notifications,
         self.units = definitions.units.volume.map(function(def) { return def.name; });
 
         if (BrewMaster.hasIngredient(definitions, 'yeast'))
-            self.yeastTypes = definitions.ingredient.yeast.map(function(def) { return def.name; });
+            self.yeasts = definitions.ingredient.yeast.map(function(def) { return def.name; });
     });
 
     self.addIngredient = function(type, ingredient) {
-        (self.recipe[type] = self.recipe[type] || []).push(ingredient);
+        (self.ingredients[type] = self.ingredients[type] || []).push(ingredient);
 
         //This is pretty brittle.
         self.current[type] = null;
     };
 
     self.deleteIngredient = function(type, ingredient) {
-        var index = self.recipe[type]
+        var index = self.ingredients[type]
             .map(function(i) { return i.name; })
             .indexOf(ingredient.name);
 
-        self.recipe[type].splice(index, 1);
+        self.ingredients[type].splice(index, 1);
     };
 
     self.update = function(isValid) {
-        self.recipe.ingredients = self.recipe.ingredients || [];
-
-        for (var key in self.INGREDIENT_TYPE) {
-            var type = self.INGREDIENT_TYPE[key];
-
-            if (self.recipe[type] && self.recipe[type].length > 0)
-                for (var i = 0; i < self.recipe[type].length; i++) {
-                    var ingredient = self.recipe[type][i];
-                    ingredient.type = type;
-
-                    self.recipe.ingredients.push(ingredient);
-                }
-        }
-
         if (isValid) {
+            self.recipe.ingredients = self.recipe.ingredients || [];
+
+            for (var key in self.INGREDIENT_TYPE) {
+                if (!self.INGREDIENT_TYPE.hasOwnProperty(key)) continue;
+
+                var type = self.INGREDIENT_TYPE[key];
+
+                if (self.ingredients[type] && self.ingredients[type].length > 0)
+                    for (var i = 0; i < self.ingredients[type].length; i++) {
+                        var ingredient = self.ingredients[type][i];
+                        ingredient.type = type;
+
+                        self.recipe.ingredients.push(ingredient);
+                    }
+            }
+
             //Need a spinner on this?
             UserStore.updateRecipe(self.recipe).then(function() {
                 notifications.success('Recipe ' + self.recipe.name + ' updated.');
                 logger.info('Recipe ' + self.recipe.recipeId + ' updated.');
 
-                self.recipeForm.$setPristine();
-                self.recipe = {};
+                clearForm();
 
                 $modalInstance.close();
             });
@@ -74,9 +78,14 @@ function editRecipeController($modalInstance, BrewMaster, logger, notifications,
     };
 
     self.cancel = function() {
-        self.recipeForm.$setPristine();
-        self.recipe = {};
+        clearForm();
 
         $modalInstance.dismiss();
     };
+
+    function clearForm() {
+        self.recipeForm.$setPristine();
+        self.recipe = {};
+        self.ingredients = [];
+    }
 }

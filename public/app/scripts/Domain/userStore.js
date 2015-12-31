@@ -3,9 +3,9 @@
 
     //Caches for current user to save trips to the backend.
     angular.module('brewApp.services')
-        .factory('UserStore', ['$q', 'Auth', 'ClassFactory', 'Configuration', 'Helper', 'ObjectMapper', 'Store', userStore]);
+        .factory('UserStore', ['$q', 'Auth', 'Factory', 'Configuration', 'Helper', 'ObjectMapper', 'Store', userStore]);
 
-    function userStore($q, Auth, ClassFactory, Configuration, Helper, ObjectMapper, Store) {
+    function userStore($q, Auth, Factory, Configuration, Helper, ObjectMapper, Store) {
         var base = Store.prototype, fetch = {};
 
         function UserStore() {
@@ -150,7 +150,7 @@
 
         function initCache() {
             return Configuration.currentUser.cacheRecipes ? {
-                recipes: new ClassFactory.Lookup(false),
+                recipes: new Factory.Lookup(false),
                 isFetched: false
             } : null;
         }

@@ -64,7 +64,7 @@
                             ng-disabled="ctrl.current.hops == null">Add</button>
                 </div>
 
-                <div ng-show="ctrl.recipe.hops != null && ctrl.recipe.hops.length > 0">
+                <div ng-show="ctrl.ingredients.hops != null && ctrl.ingredients.hops.length > 0">
                     <table class="table table-responsive table-striped">
                         <thead>
                         <tr>
@@ -75,7 +75,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="hops in ctrl.recipe.hops">
+                        <tr ng-repeat="hops in ctrl.ingredients.hops">
                             <td>
                                 {{ hops.name }}
                             </td>
@@ -125,7 +125,7 @@
                             ng-disabled="ctrl.current.malt == null">Add</button>
                 </div>
 
-                <div ng-show="ctrl.recipe.malt != null && ctrl.recipe.malt.length > 0">
+                <div ng-show="ctrl.ingredients.malt != null && ctrl.ingredients.malt.length > 0">
                     <table class="table table-responsive table-striped">
                         <thead>
                         <tr>
@@ -136,7 +136,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="malt in ctrl.recipe.malt">
+                        <tr ng-repeat="malt in ctrl.ingredients.malt">
                             <td>
                                 {{ malt.name }}
                             </td>
@@ -186,7 +186,7 @@
                             ng-disabled="ctrl.current.yeast == null">Add</button>
                 </div>
 
-                <div ng-show="ctrl.recipe.yeast != null && ctrl.recipe.yeast.length > 0">
+                <div ng-show="ctrl.ingredients.yeast != null && ctrl.ingredients.yeast.length > 0">
                     <table class="table table-responsive table-striped">
                         <thead>
                         <tr>
@@ -197,7 +197,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="yeast in ctrl.recipe.yeast">
+                        <tr ng-repeat="yeast in ctrl.ingredients.yeast">
                             <td>
                                 {{ yeast.name }}
                             </td>
