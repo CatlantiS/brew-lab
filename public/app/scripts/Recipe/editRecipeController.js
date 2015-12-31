@@ -3,11 +3,13 @@
 'use strict';
 
 angular.module('brewApp.controllers')
-    .controller('EditRecipeCtrl', ['$modalInstance', 'BrewMaster', 'notifications', 'logger', 'UserStore', '$modalParams', editRecipeController]);
+    .controller('EditRecipeCtrl', ['$modalInstance', 'BrewMaster', 'logger', 'notifications', 'UserStore', '$modalParams', editRecipeController]);
 
-function editRecipeController($modalInstance, BrewMaster, notifications, logger, UserStore, $modalParams) {
+function editRecipeController($modalInstance, BrewMaster, logger, notifications, UserStore, $modalParams) {
     /* jshint validthis: true */
-    var self = this;
+    var self = this, original = {};
+
+    self.INGREDIENT_TYPE = { HOPS: 'hops', MALT: 'malt', YEAST: 'yeast' };
 
     UserStore.getCurrentUserRecipeById($modalParams.id).then(function(recipe) {
         self.recipe = angular.copy(recipe);
@@ -27,7 +29,36 @@ function editRecipeController($modalInstance, BrewMaster, notifications, logger,
             self.yeastTypes = definitions.ingredient.yeast.map(function(def) { return def.name; });
     });
 
+    self.addIngredient = function(type, ingredient) {
+        (self.recipe[type] = self.recipe[type] || []).push(ingredient);
+
+        //This is pretty brittle.
+        self.current[type] = null;
+    };
+
+    self.deleteIngredient = function(type, ingredient) {
+        var index = self.recipe[type]
+            .map(function(i) { return i.name; })
+            .indexOf(ingredient.name);
+
+        self.recipe[type].splice(index, 1);
+    };
+
     self.update = function(isValid) {
+        self.recipe.ingredients = self.recipe.ingredients || [];
+
+        for (var key in self.INGREDIENT_TYPE) {
+            var type = self.INGREDIENT_TYPE[key];
+
+            if (self.recipe[type] && self.recipe[type].length > 0)
+                for (var i = 0; i < self.recipe[type].length; i++) {
+                    var ingredient = self.recipe[type][i];
+                    ingredient.type = type;
+
+                    self.recipe.ingredients.push(ingredient);
+                }
+        }
+
         if (isValid) {
             //Need a spinner on this?
             UserStore.updateRecipe(self.recipe).then(function() {
