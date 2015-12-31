@@ -12,8 +12,11 @@ function editRecipeController($modalInstance, BrewMaster, notifications, logger,
     UserStore.getCurrentUserRecipeById($modalParams.id).then(function(recipe) {
         self.recipe = angular.copy(recipe);
 
-        UserStore.getRecipeIngredientsByRecipeId($modalParams.id).then(function(recipeIngredients) {
-            //Todo: map ingredients to separate arrays for the UI.
+        UserStore.getRecipeIngredientsByRecipeId($modalParams.id).then(function(ingredients) {
+            //Break out ingredients by type for UI.
+            if (ingredients && ingredients.length > 0)
+                for (var i = 0; i < ingredients.length; i++)
+                    (self.recipe[ingredients[i].type] = self.recipe[ingredients.type] || []).push(ingredients[i]);
         });
     });
 
