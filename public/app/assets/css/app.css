@@ -17,6 +17,7 @@ html, body {
 	margin-bottom: 30px;
 	font-family: "Lucida Console", Monaco, monospace;
 	font-weight: 400;
+	font-size: 26px;
 }
 
 .brew-modal {
@@ -27,6 +28,7 @@ html, body {
 	color: #ffcc00 !important;
 	font-family: "Lucida Console", Monaco, monospace;
 	font-weight: 400;
+	font-size: 26px;
 }
 
 .brew-navbar {
@@ -171,6 +173,10 @@ html, body {
 	}
 
 	.brew-header {
+		font-size: 36px;
+	}
+
+	.brew-modal-header {
 		font-size: 36px;
 	}
 
