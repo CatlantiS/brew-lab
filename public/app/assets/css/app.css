@@ -15,8 +15,8 @@ html, body {
 .brew-header {
 	color: #ffcc00 !important;
 	margin-bottom: 30px;
-	font-family: "Courier New", Courier, monospace;
-	font-weight: 600;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-weight: 400;
 }
 
 .brew-modal {
@@ -25,14 +25,25 @@ html, body {
 
 .brew-modal-header {
 	color: #ffcc00 !important;
-	font-family: "Courier New", Courier, monospace;
-	font-weight: 600;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-weight: 400;
 }
 
 .brew-navbar {
 	margin-bottom: 0 !important;
     border-color: transparent !important;
 	background-color: #474747;
+}
+
+.brew-navbar-link {
+	color: #cca300 !important;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 16px;
+}
+
+.brew-navbar-button {
+	font-family: "Lucida Console", Monaco, monospace;
+	text-transform: uppercase;
 }
 
 .brew-navbar-login {
@@ -140,7 +151,7 @@ html, body {
 
 .brew-important {
 	font-size: larger;
-	font-style: italic;
+	color: #ffcc00 !important;
 }
 
 .brew-delete {

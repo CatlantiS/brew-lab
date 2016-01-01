@@ -1,6 +1,6 @@
 <h1 class="page-header brew-header">Login</h1>
 
-<div class="row" ng-controller="LoginCtrl">
+<div class="row">
     <div class="col-md-6" ng-show="!login.isAuthorized">
         <form name="loginForm" novalidate>
             <div class="form-group">
@@ -20,7 +20,9 @@
             </div>
 
             <button type="submit" class="btn btn-default" role="button" ng-click="login.ProcessLogin(loginForm.$valid)"
-                    ng-disabled="loginForm.$invalid">Log In</button>
+                    ng-disabled="loginForm.$invalid">
+                <i class="fa fa-sign-in"></i> Log In
+            </button>
         </form>
     </div>
 </div>

@@ -19,7 +19,7 @@
                 self.recipes = recipes;
 
                 return recipes;
-            });
+            }, function() { self.isLoading = false; });
         }
 
         self.editRecipe = function(id) {
@@ -33,11 +33,7 @@
                         params: { id: id }
                     })
                     //When edit modal closes, blow away app state data.
-                    .then(function() {
-                        self.getMyRecipes();
-
-                        removeAppState();
-                    }, function() { removeAppState(); });
+                    .then(function() { self.getMyRecipes(); });
             });
         };
 
@@ -50,10 +46,6 @@
         (function init() {
             self.getMyRecipes();
         })();
-
-        function removeAppState() {
-            AppState.area('EditRecipe').remove('recipe');
-        }
     };
 })();
 

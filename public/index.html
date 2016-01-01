@@ -43,10 +43,10 @@
 					<div class="collapse navbar-collapse brew-navbar-collapse brew-navbar-list" role="navigation">
 						<ul class="nav navbar-nav brew-navbar-nav">
 							<li>
-								<a href="/about">About</a>
+								<a class="brew-navbar-link" href="/about">About</a>
 						    </li>
 							<li>
-								<a href="/contact">Contact</a>
+								<a class="brew-navbar-link" href="/contact">Contact</a>
 							</li>
 						</ul>
 					
@@ -55,7 +55,11 @@
 								<div class="brew-navbar-login" ng-include src="'/views/navLogin.html'"></div>
 							</li>
 							<li ng-if="app.isAuthenticated">
-								<a href="#" ng-click="login.logOut()">Log Out</a>
+								<div class="brew-navbar-login">
+									<button type="submit" class="brew-navbar-button btn btn-default btn-sm" role="button" ng-click="login.logOut()">
+										<i class="fa fa-sign-out"></i> Log Out
+									</button>
+								</div>
 							</li>
 						</ul>
 					</div>
@@ -78,7 +82,7 @@
 
 		<footer class="brew-footer">
 			<div ng-controller="InfoCtrl as info">
-				<div style="font-family: 'Courier New', Courier, monospace;">You are using brew lab version <span class="brew-important" ng-bind="info.app.version|version"></span>.</div>
+				<div style="font-family: 'Lucida Console', Monaco, monospace;">You are using brew lab version <span class="brew-important" ng-bind="info.app.version|version"></span>.</div>
 			</div>
 
 			<app-view role="admin" class="row">
