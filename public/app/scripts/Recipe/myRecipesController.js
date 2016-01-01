@@ -29,7 +29,7 @@
                 BrewModal.open({
                         controller: 'EditRecipeCtrl as ctrl',
                         template: 'views/editRecipe',
-                        size: 'lg',
+                        static: true,
                         params: { id: id }
                     })
                     //When edit modal closes, blow away app state data.

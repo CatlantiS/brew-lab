@@ -75,6 +75,6 @@
             }
         };
 
-        self.cancel = function() { $modalInstance.dismiss(); };
+        self.cancel = $modalInstance.dismiss;
     }
 })();

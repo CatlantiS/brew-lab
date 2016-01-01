@@ -1,228 +1,229 @@
-<div class="modal-header">
-    <h1 class="modal-title brew-modal-header">Edit your recipe</h1>
+<div class="brew-modal">
+    <div class="modal-header">
+        <h1 class="modal-title brew-modal-header">Edit your recipe</h1>
+    </div>
+
+    <div class="recipe brew-form">
+        <form name="ctrl.recipeForm" novalidate>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label id="recipeNameLabel" for="recipeName">Recipe name</label>
+
+                    <input type="text" name="name" class="form-control brew-input brew-input-required" id="recipeName" ng-model="ctrl.recipe.name"
+                           aria-labelledby="recipeNameLabel" required aria-required="true" title="Provide a name for your recipe."
+                           placeholder="Enter recipe name (required)">
+                </div>
+
+                <div class="form-group">
+                    <label id="recipeVolumeLabel" for="recipeVolume">Volume</label>
+
+                    <div class="input-group">
+                        <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="ctrl.recipe.volume"
+                               aria-labelledby="recipeVolumeLabel" aria-required="false" title="Provide a numeric recipe volume."
+                               placeholder="Recipe volume (optional)">
+
+                        <div class="input-group-btn" dropdown>
+                            <button id="recipeUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                                {{ ctrl.recipe.units || 'Units' }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="recipeUnits">
+                                <li role="menuitem" ng-repeat="units in ctrl.units">
+                                    <a href="#" ng-click="ctrl.recipe.units = units">{{ units }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!--A lot of redundancy here with ingredients.  Would be nice to refactor at some point.-->
+                <label id="recipeHopsLabel" for="recipeHops">Hops</label>
+
+                <div class="form-inline">
+                    <input type="text" class="form-control brew-input" id="recipeHops" ng-model="ctrl.current.hops.name" style="width: 45%;"
+                           aria-labelledby="recipeHopsLabel" aria-required="false" title="Provide hops name."
+                           placeholder="Hops name" typeahead="hops for hops in ctrl.hops">
+
+                    <div class="input-group brew-inline-input-group" style="width: 42%;">
+                        <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeHopsVolume" ng-model="ctrl.current.hops.volume"
+                               aria-required="false" title="Provide numeric hops volume." placeholder="Hops volume (optional)">
+
+                        <div class="input-group-btn" dropdown>
+                            <button id="recipeHopsUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
+                                {{ ctrl.current.hops.units || 'Units' }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="recipeHopsUnits">
+                                <li role="menuitem" ng-repeat="units in ctrl.units">
+                                    <a href="#" ng-click="ctrl.current.hops.units = units">{{ units }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
+                            ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.HOPS, ctrl.current.hops)"
+                            ng-disabled="ctrl.current.hops == null">Add</button>
+                </div>
+
+                <div ng-show="ctrl.ingredients.hops != null && ctrl.ingredients.hops.length > 0">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Volume</th>
+                            <th>Units</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="hops in ctrl.ingredients.hops">
+                            <td>
+                                {{ hops.name }}
+                            </td>
+                            <td>
+                                {{ hops.volume }}
+                            </td>
+                            <td>
+                                {{ hops.units }}
+                            </td>
+                            <td class="row-delete">
+                                <a class="delete-icon" href="javascript:void(0);" title="Delete" ng-click="ctrl.deleteIngredient(ctrl.INGREDIENT_TYPE.HOPS, hops)">
+                                    <i class="fa fa-trash brew-delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row brew-break-lg"></div>
+
+                <label id="recipeMaltLabel" for="recipeMalt">Malt</label>
+
+                <div class="form-inline">
+                    <input type="text" class="form-control brew-input" id="recipeMalt" ng-model="ctrl.current.malt.name" style="width: 45%;"
+                           aria-labelledby="recipeMaltLabel" aria-required="false" title="Provide yeast name."
+                           placeholder="Yeast name" typeahead="malt for malt in ctrl.malts">
+
+                    <div class="input-group brew-inline-input-group" style="width: 42%;">
+                        <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeMaltVolume" ng-model="ctrl.current.malt.volume"
+                               aria-required="false" title="Provide numeric malt volume." placeholder="Malt volume (optional)">
+
+                        <div class="input-group-btn" dropdown>
+                            <button id="recipeMaltUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
+                                {{ ctrl.current.malt.units || 'Units' }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="recipeMaltUnits">
+                                <li role="menuitem" ng-repeat="units in ctrl.units">
+                                    <a href="#" ng-click="ctrl.current.malt.units = units">{{ units }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
+                            ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.MALT, ctrl.current.malt)"
+                            ng-disabled="ctrl.current.malt == null">Add</button>
+                </div>
+
+                <div ng-show="ctrl.ingredients.malt != null && ctrl.ingredients.malt.length > 0">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Volume</th>
+                            <th>Units</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="malt in ctrl.ingredients.malt">
+                            <td>
+                                {{ malt.name }}
+                            </td>
+                            <td>
+                                {{ malt.volume }}
+                            </td>
+                            <td>
+                                {{ malt.units }}
+                            </td>
+                            <td class="row-delete">
+                                <a class="delete-icon" href="javascript:void(0);" title="Delete" ng-click="ctrl.deleteIngredient(ctrl.INGREDIENT_TYPE.MALT, malt)">
+                                    <i class="fa fa-trash brew-delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row brew-break-lg"></div>
+
+                <label id="recipeYeastLabel" for="recipeYeast">Yeast</label>
+
+                <div class="form-inline">
+                    <input type="text" class="form-control brew-input" id="recipeYeast" ng-model="ctrl.current.yeast.name" style="width: 45%;"
+                           aria-labelledby="recipeYeastLabel" aria-required="false" title="Provide yeast name."
+                           placeholder="Yeast name" typeahead="yeast for yeast in ctrl.yeasts">
+
+                    <div class="input-group brew-inline-input-group" style="width: 42%;">
+                        <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeYeastVolume" ng-model="ctrl.current.yeast.volume"
+                               aria-required="false" title="Provide numeric yeast volume." placeholder="Yeast volume (optional)">
+
+                        <div class="input-group-btn" dropdown>
+                            <button id="recipeYeastUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
+                                {{ ctrl.current.yeast.units || 'Units' }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="recipeYeastUnits">
+                                <li role="menuitem" ng-repeat="units in ctrl.units">
+                                    <a href="#" ng-click="ctrl.current.yeast.units = units">{{ units }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
+                            ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.YEAST, ctrl.current.yeast)"
+                            ng-disabled="ctrl.current.yeast == null">Add</button>
+                </div>
+
+                <div ng-show="ctrl.ingredients.yeast != null && ctrl.ingredients.yeast.length > 0">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Volume</th>
+                            <th>Units</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="yeast in ctrl.ingredients.yeast">
+                            <td>
+                                {{ yeast.name }}
+                            </td>
+                            <td>
+                                {{ yeast.volume }}
+                            </td>
+                            <td>
+                                {{ yeast.units }}
+                            </td>
+                            <td class="row-delete">
+                                <a class="delete-icon" href="javascript:void(0);" title="Delete" ng-click="ctrl.deleteIngredient(ctrl.INGREDIENT_TYPE.YEAST, yeast)">
+                                    <i class="fa fa-trash brew-delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" role="button"
+                        ng-click="ctrl.update(ctrl.recipeForm.$valid)"
+                        ng-disabled="ctrl.recipeForm.$invalid">Update</button>
+                <a href="#" class="brew-clear-button-right" role="button" ng-click="ctrl.cancel()">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
-
-<div class="recipe brew-form">
-    <form name="ctrl.recipeForm" novalidate>
-        <div class="modal-body">
-            <div class="form-group">
-                <label id="recipeNameLabel" for="recipeName">Recipe name</label>
-
-                <input type="text" name="name" class="form-control brew-input brew-input-required" id="recipeName" ng-model="ctrl.recipe.name"
-                       aria-labelledby="recipeNameLabel" required aria-required="true" title="Provide a name for your recipe."
-                       placeholder="Enter recipe name (required)">
-            </div>
-
-            <div class="form-group">
-                <label id="recipeVolumeLabel" for="recipeVolume">Volume</label>
-
-                <div class="input-group">
-                    <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="ctrl.recipe.volume"
-                           aria-labelledby="recipeVolumeLabel" aria-required="false" title="Provide a numeric recipe volume."
-                           placeholder="Recipe volume (optional)">
-
-                    <div class="input-group-btn" dropdown>
-                        <button id="recipeUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
-                            {{ ctrl.recipe.units || 'Units' }} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="recipeUnits">
-                            <li role="menuitem" ng-repeat="units in ctrl.units">
-                                <a href="#" ng-click="ctrl.recipe.units = units">{{ units }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!--A lot of redundancy here with ingredients.  Would be nice to refactor at some point.-->
-            <label id="recipeHopsLabel" for="recipeHops">Hops</label>
-
-            <div class="form-inline">
-                <input type="text" class="form-control brew-input" id="recipeHops" ng-model="ctrl.current.hops.name" style="width: 45%;"
-                       aria-labelledby="recipeHopsLabel" aria-required="false" title="Provide hops name."
-                       placeholder="Hops name" typeahead="hops for hops in ctrl.hops">
-
-                <div class="input-group brew-inline-input-group" style="width: 42%;">
-                    <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeHopsVolume" ng-model="ctrl.current.hops.volume"
-                           aria-required="false" title="Provide numeric hops volume." placeholder="Hops volume (optional)">
-
-                    <div class="input-group-btn" dropdown>
-                        <button id="recipeHopsUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
-                            {{ ctrl.current.hops.units || 'Units' }} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="recipeHopsUnits">
-                            <li role="menuitem" ng-repeat="units in ctrl.units">
-                                <a href="#" ng-click="ctrl.current.hops.units = units">{{ units }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
-                        ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.HOPS, ctrl.current.hops)"
-                        ng-disabled="ctrl.current.hops == null">Add</button>
-            </div>
-
-            <div ng-show="ctrl.ingredients.hops != null && ctrl.ingredients.hops.length > 0">
-                <table class="table table-responsive table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Volume</th>
-                        <th>Units</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="hops in ctrl.ingredients.hops">
-                        <td>
-                            {{ hops.name }}
-                        </td>
-                        <td>
-                            {{ hops.volume }}
-                        </td>
-                        <td>
-                            {{ hops.units }}
-                        </td>
-                        <td class="row-delete">
-                            <a class="delete-icon" href="javascript:void(0);" title="Delete" ng-click="ctrl.deleteIngredient(ctrl.INGREDIENT_TYPE.HOPS, hops)">
-                                <i class="fa fa-trash brew-delete"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="row brew-break-lg"></div>
-
-            <label id="recipeMaltLabel" for="recipeMalt">Malt</label>
-
-            <div class="form-inline">
-                <input type="text" class="form-control brew-input" id="recipeMalt" ng-model="ctrl.current.malt.name" style="width: 45%;"
-                       aria-labelledby="recipeMaltLabel" aria-required="false" title="Provide yeast name."
-                       placeholder="Yeast name" typeahead="malt for malt in ctrl.malts">
-
-                <div class="input-group brew-inline-input-group" style="width: 42%;">
-                    <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeMaltVolume" ng-model="ctrl.current.malt.volume"
-                           aria-required="false" title="Provide numeric malt volume." placeholder="Malt volume (optional)">
-
-                    <div class="input-group-btn" dropdown>
-                        <button id="recipeMaltUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
-                            {{ ctrl.current.malt.units || 'Units' }} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="recipeMaltUnits">
-                            <li role="menuitem" ng-repeat="units in ctrl.units">
-                                <a href="#" ng-click="ctrl.current.malt.units = units">{{ units }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
-                        ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.MALT, ctrl.current.malt)"
-                        ng-disabled="ctrl.current.malt == null">Add</button>
-            </div>
-
-            <div ng-show="ctrl.ingredients.malt != null && ctrl.ingredients.malt.length > 0">
-                <table class="table table-responsive table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Volume</th>
-                        <th>Units</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="malt in ctrl.ingredients.malt">
-                        <td>
-                            {{ malt.name }}
-                        </td>
-                        <td>
-                            {{ malt.volume }}
-                        </td>
-                        <td>
-                            {{ malt.units }}
-                        </td>
-                        <td class="row-delete">
-                            <a class="delete-icon" href="javascript:void(0);" title="Delete" ng-click="ctrl.deleteIngredient(ctrl.INGREDIENT_TYPE.MALT, malt)">
-                                <i class="fa fa-trash brew-delete"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="row brew-break-lg"></div>
-
-            <label id="recipeYeastLabel" for="recipeYeast">Yeast</label>
-
-            <div class="form-inline">
-                <input type="text" class="form-control brew-input" id="recipeYeast" ng-model="ctrl.current.yeast.name" style="width: 45%;"
-                       aria-labelledby="recipeYeastLabel" aria-required="false" title="Provide yeast name."
-                       placeholder="Yeast name" typeahead="yeast for yeast in ctrl.yeasts">
-
-                <div class="input-group brew-inline-input-group" style="width: 42%;">
-                    <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeYeastVolume" ng-model="ctrl.current.yeast.volume"
-                           aria-required="false" title="Provide numeric yeast volume." placeholder="Yeast volume (optional)">
-
-                    <div class="input-group-btn" dropdown>
-                        <button id="recipeYeastUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
-                            {{ ctrl.current.yeast.units || 'Units' }} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="recipeYeastUnits">
-                            <li role="menuitem" ng-repeat="units in ctrl.units">
-                                <a href="#" ng-click="ctrl.current.yeast.units = units">{{ units }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
-                        ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.YEAST, ctrl.current.yeast)"
-                        ng-disabled="ctrl.current.yeast == null">Add</button>
-            </div>
-
-            <div ng-show="ctrl.ingredients.yeast != null && ctrl.ingredients.yeast.length > 0">
-                <table class="table table-responsive table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Volume</th>
-                        <th>Units</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="yeast in ctrl.ingredients.yeast">
-                        <td>
-                            {{ yeast.name }}
-                        </td>
-                        <td>
-                            {{ yeast.volume }}
-                        </td>
-                        <td>
-                            {{ yeast.units }}
-                        </td>
-                        <td class="row-delete">
-                            <a class="delete-icon" href="javascript:void(0);" title="Delete" ng-click="ctrl.deleteIngredient(ctrl.INGREDIENT_TYPE.YEAST, yeast)">
-                                <i class="fa fa-trash brew-delete"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-default" role="button"
-                    ng-click="ctrl.update(ctrl.recipeForm.$valid)"
-                    ng-disabled="ctrl.recipeForm.$invalid">Update</button>
-            <a href="#" class="brew-clear-button-right" role="button" ng-click="ctrl.cancel()">Cancel</a>
-        </div>
-    </form>
-</div>
-

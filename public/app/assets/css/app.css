@@ -19,6 +19,10 @@ html, body {
 	font-weight: 600;
 }
 
+.brew-modal {
+	padding: 30px;
+}
+
 .brew-modal-header {
 	color: #ffcc00 !important;
 	font-family: "Courier New", Courier, monospace;
