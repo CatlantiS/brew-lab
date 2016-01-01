@@ -4,7 +4,7 @@ html, body {
 }
 
 .brew-app-header {
-	margin-bottom: 50px !important;
+	margin-bottom: 20px !important;
 }
 
 .brew-brand {
@@ -14,10 +14,11 @@ html, body {
 
 .brew-header {
 	color: #ffcc00 !important;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
+	margin-top: 0px !important;
 	font-family: "Lucida Console", Monaco, monospace;
 	font-weight: 400;
-	font-size: 26px;
+	font-size: 22px;
 }
 
 .brew-modal {
@@ -28,7 +29,7 @@ html, body {
 	color: #ffcc00 !important;
 	font-family: "Lucida Console", Monaco, monospace;
 	font-weight: 400;
-	font-size: 26px;
+	font-size: 22px;
 }
 
 .brew-navbar {
@@ -38,7 +39,7 @@ html, body {
 }
 
 .brew-navbar-link {
-	color: #cca300 !important;
+	color: #b38f00 !important;
 	font-family: "Lucida Console", Monaco, monospace;
 	font-size: 16px;
 }
@@ -81,7 +82,7 @@ html, body {
 }
 
 .brew-footer {
-	margin-top: 60px;
+	margin-top: 30px;
 	padding: 20px;
 	width: 100%;
 	border-top: 1px solid #e7e7e7;
@@ -103,6 +104,10 @@ html, body {
 
 .brew-nav-list li {
 	padding: 10px 0 15px 15px;
+}
+
+.brew-nav-sidebar {
+	display: none;
 }
 
 .brew-card {
@@ -135,8 +140,13 @@ html, body {
 
 .brew-info {
 	padding: 10px 0 15px 0;
-	font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+	font-family: "Open Sans", Arial,Helvetica, Sans-Serif;
 	color: #000;
+}
+
+.brew-system-info {
+	font-family: 'Lucida Console', Monaco, monospace;
+	font-size: 12px;
 }
 
 .row.brew-break-sm {
@@ -161,9 +171,17 @@ html, body {
 }
 
 @media (min-width: 768px) {
+	.brew-app-header {
+		margin-bottom: 50px !important;
+	}
+
 	.brew-navbar-nav, .brew-navbar-right {
 		min-height: 50px;
 		margin-top: 5px;
+	}
+
+	.brew-nav-sidebar {
+		display: block;
 	}
 
 	.brew-brand {
@@ -174,15 +192,26 @@ html, body {
 
 	.brew-header {
 		font-size: 36px;
+		margin-bottom: 30px;
+		margin-top: 40px !important;
 	}
 
 	.brew-modal-header {
 		font-size: 36px;
 	}
 
+	.brew-footer {
+		margin-top: 60px;
+	}
+
 	.brew-info {
 		padding: 10px 0 15px 0;
 		font-size: larger;
+	}
+
+	.brew-system-info {
+		font-family: 'Lucida Console', Monaco, monospace;
+		font-size: 14px;
 	}
 }
 
