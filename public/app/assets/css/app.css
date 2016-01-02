@@ -170,6 +170,10 @@ html, body {
 	color: #800000;
 }
 
+.brew-bullet {
+	color: #b38f00 !important;
+}
+
 @media (min-width: 768px) {
 	.brew-app-header {
 		margin-bottom: 50px !important;

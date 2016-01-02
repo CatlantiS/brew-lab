@@ -14,7 +14,7 @@
 				notifications.warning('Coming soon...')
 			}
 		}, {
-			title: 'Enter a new recipe',
+			title: 'New recipe',
 			url: '/addRecipe'
 		}, {
 			title: 'My recipes',
