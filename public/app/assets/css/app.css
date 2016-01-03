@@ -106,6 +106,14 @@ html, body {
 	padding: 10px 0 15px 15px;
 }
 
+.brew-tab-sm {
+	display: block;
+}
+
+.brew-tab-lg {
+	display: none;
+}
+
 .brew-card {
 	padding: 20px;
 	margin: 15px 0;
@@ -208,6 +216,14 @@ html, body {
 	.brew-system-info {
 		font-family: 'Lucida Console', Monaco, monospace;
 		font-size: 14px;
+	}
+
+	.brew-tab-sm {
+		display: none;
+	}
+
+	.brew-tab-lg {
+		display: block;
 	}
 }
 
