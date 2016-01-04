@@ -82,7 +82,8 @@ html, body {
 }
 
 .brew-footer {
-	margin-top: 30px;
+	/*hack*/
+	margin-top: 80px;
 	padding: 20px;
 	width: 100%;
 	border-top: 1px solid #e7e7e7;
@@ -110,7 +111,7 @@ html, body {
 	display: block;
 }
 
-.brew-tab-lg {
+.brew-tab {
 	display: none;
 }
 
@@ -133,13 +134,18 @@ html, body {
 	background-color: #ffffc5;
 }
 
-/*hack*/
-.brew-inline-input-group {
-	margin-top: -20px;
+.brew-ingredient, .brew-volume {
+	width: 100% !important;
 }
 
 .brew-clear-button-right {
 	margin-left: 15px;
+}
+
+.brew-add-button {
+	width: 32px !important;
+	margin-top: 20px;
+	margin-bottom: 10px;
 }
 
 .brew-info {
@@ -222,8 +228,26 @@ html, body {
 		display: none;
 	}
 
-	.brew-tab-lg {
+	.brew-tab {
 		display: block;
+	}
+
+	/*hack*/
+	.brew-inline-input-group {
+		margin-top: -20px;
+	}
+
+	.brew-ingredient {
+		width: 45% !important;
+	}
+
+	.brew-volume {
+		width: 42% !important;
+	}
+
+	.brew-add-button {
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 }
 

@@ -11,7 +11,7 @@
 
                     <input type="text" name="name" class="form-control brew-input brew-input-required" id="recipeName" ng-model="ctrl.recipe.name"
                            aria-labelledby="recipeNameLabel" required aria-required="true" title="Provide a name for your recipe."
-                           placeholder="Recipe name (required)">
+                           placeholder="Recipe name">
                 </div>
 
                 <div class="form-group">
@@ -20,7 +20,7 @@
                     <div class="input-group">
                         <input type="number" step="0.25" min="0" class="form-control brew-input" id="recipeVolume" ng-model="ctrl.recipe.volume"
                                aria-labelledby="recipeVolumeLabel" aria-required="false" title="Provide a numeric recipe volume."
-                               placeholder="Recipe volume (optional)">
+                               placeholder="Recipe volume">
 
                         <div class="input-group-btn" dropdown>
                             <button id="recipeUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
@@ -39,13 +39,13 @@
                 <label id="recipeHopsLabel" for="recipeHops">Hops</label>
 
                 <div class="form-inline">
-                    <input type="text" class="form-control brew-input" id="recipeHops" ng-model="ctrl.current.hops.name" style="width: 45%;"
+                    <input type="text" class="form-control brew-input brew-ingredient" id="recipeHops" ng-model="ctrl.current.hops.name"
                            aria-labelledby="recipeHopsLabel" aria-required="false" title="Provide hops name."
-                           placeholder="Hops name" typeahead="hops for hops in ctrl.hops">
+                           placeholder="Name" typeahead="hops for hops in ctrl.hops">
 
-                    <div class="input-group brew-inline-input-group" style="width: 42%;">
+                    <div class="input-group brew-inline-input-group brew-volume">
                         <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeHopsVolume" ng-model="ctrl.current.hops.volume"
-                               aria-required="false" title="Provide numeric hops volume." placeholder="Hops volume (optional)">
+                               aria-required="false" title="Provide numeric hops volume." placeholder="Volume">
 
                         <div class="input-group-btn" dropdown>
                             <button id="recipeHopsUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
@@ -59,9 +59,9 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
+                    <button type="submit" class="btn btn-primary btn pull-right brew-add-button" role="button"
                             ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.HOPS, ctrl.current.hops)"
-                            ng-disabled="ctrl.current.hops == null">Add</button>
+                            ng-disabled="ctrl.current.hops == null">+</button>
                 </div>
 
                 <div ng-show="ctrl.ingredients.hops != null && ctrl.ingredients.hops.length > 0">
@@ -100,13 +100,13 @@
                 <label id="recipeMaltLabel" for="recipeMalt">Malt</label>
 
                 <div class="form-inline">
-                    <input type="text" class="form-control brew-input" id="recipeMalt" ng-model="ctrl.current.malt.name" style="width: 45%;"
+                    <input type="text" class="form-control brew-input brew-ingredient" id="recipeMalt" ng-model="ctrl.current.malt.name"
                            aria-labelledby="recipeMaltLabel" aria-required="false" title="Provide yeast name."
-                           placeholder="Yeast name" typeahead="malt for malt in ctrl.malts">
+                           placeholder="Name" typeahead="malt for malt in ctrl.malts">
 
-                    <div class="input-group brew-inline-input-group" style="width: 42%;">
+                    <div class="input-group brew-inline-input-group brew-volume">
                         <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeMaltVolume" ng-model="ctrl.current.malt.volume"
-                               aria-required="false" title="Provide numeric malt volume." placeholder="Malt volume (optional)">
+                               aria-required="false" title="Provide numeric malt volume." placeholder="Volume">
 
                         <div class="input-group-btn" dropdown>
                             <button id="recipeMaltUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
@@ -120,9 +120,9 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
+                    <button type="submit" class="btn btn-primary pull-right brew-add-button" role="button"
                             ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.MALT, ctrl.current.malt)"
-                            ng-disabled="ctrl.current.malt == null">Add</button>
+                            ng-disabled="ctrl.current.malt == null">+</button>
                 </div>
 
                 <div ng-show="ctrl.ingredients.malt != null && ctrl.ingredients.malt.length > 0">
@@ -161,13 +161,13 @@
                 <label id="recipeYeastLabel" for="recipeYeast">Yeast</label>
 
                 <div class="form-inline">
-                    <input type="text" class="form-control brew-input" id="recipeYeast" ng-model="ctrl.current.yeast.name" style="width: 45%;"
+                    <input type="text" class="form-control brew-input brew-ingredient" id="recipeYeast" ng-model="ctrl.current.yeast.name"
                            aria-labelledby="recipeYeastLabel" aria-required="false" title="Provide yeast name."
-                           placeholder="Yeast name" typeahead="yeast for yeast in ctrl.yeasts">
+                           placeholder="Name" typeahead="yeast for yeast in ctrl.yeasts">
 
-                    <div class="input-group brew-inline-input-group" style="width: 42%;">
+                    <div class="input-group brew-inline-input-group brew-volume">
                         <input type="number" step="0.01" min="0" class="form-control brew-input" id="recipeYeastVolume" ng-model="ctrl.current.yeast.volume"
-                               aria-required="false" title="Provide numeric yeast volume." placeholder="Yeast volume (optional)">
+                               aria-required="false" title="Provide numeric yeast volume." placeholder="Volume">
 
                         <div class="input-group-btn" dropdown>
                             <button id="recipeYeastUnits" type="button" class="btn btn-default dropdown-toggle" dropdown-toggle max-width="20%;">
@@ -181,9 +181,9 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right" role="button" style="width: 10%;"
+                    <button type="submit" class="btn btn-primary pull-right brew-add-button" role="button"
                             ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.YEAST, ctrl.current.yeast)"
-                            ng-disabled="ctrl.current.yeast == null">Add</button>
+                            ng-disabled="ctrl.current.yeast == null">+</button>
                 </div>
 
                 <div ng-show="ctrl.ingredients.yeast != null && ctrl.ingredients.yeast.length > 0">
