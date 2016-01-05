@@ -61,7 +61,7 @@
 
                     <button type="submit" class="btn btn-primary btn pull-right brew-add-button" role="button"
                             ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.HOPS, ctrl.current.hops)"
-                            ng-disabled="ctrl.current.hops == null">+</button>
+                            ng-disabled="!ctrl.isIngredientValid(ctrl.current.hops)">+</button>
                 </div>
 
                 <div ng-show="ctrl.ingredients.hops != null && ctrl.ingredients.hops.length > 0">
@@ -122,7 +122,7 @@
 
                     <button type="submit" class="btn btn-primary pull-right brew-add-button" role="button"
                             ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.MALT, ctrl.current.malt)"
-                            ng-disabled="ctrl.current.malt == null">+</button>
+                            ng-disabled="!ctrl.isIngredientValid(ctrl.current.malt)">+</button>
                 </div>
 
                 <div ng-show="ctrl.ingredients.malt != null && ctrl.ingredients.malt.length > 0">
@@ -183,7 +183,7 @@
 
                     <button type="submit" class="btn btn-primary pull-right brew-add-button" role="button"
                             ng-click="ctrl.addIngredient(ctrl.INGREDIENT_TYPE.YEAST, ctrl.current.yeast)"
-                            ng-disabled="ctrl.current.yeast == null">+</button>
+                            ng-disabled="!ctrl.isIngredientValid(ctrl.current.yeast)">+</button>
                 </div>
 
                 <div ng-show="ctrl.ingredients.yeast != null && ctrl.ingredients.yeast.length > 0">

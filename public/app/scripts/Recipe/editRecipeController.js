@@ -47,6 +47,11 @@
             self.ingredients[type].splice(index, 1);
         };
 
+        self.isIngredientValid = function(ingredient) {
+            return !(ingredient == null || ingredient.name == null || ingredient.name.trim() == '' ||
+            (ingredient.volume != null && ingredient.units == null));
+        };
+
         self.update = function(isValid) {
             if (isValid) {
                 self.recipe.ingredients = self.recipe.ingredients || [];
