@@ -184,7 +184,19 @@ html, body {
 	color: #b38f00 !important;
 }
 
+/*Not liking mixing min and max width media queries*/
+@media (max-width : 480px) {
+	.brew-view {
+		padding-left: 5px !important;
+		padding-right: 5px !important;
+	}
+}
+
 @media (min-width: 768px) {
+	.brew-view {
+		min-width: 500px;
+	}
+
 	.brew-app-header {
 		margin-bottom: 50px !important;
 	}
