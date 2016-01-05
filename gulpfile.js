@@ -32,6 +32,7 @@ gulp.task('vendor', function() {
     gulp.src([
             'public/app/assets/js/vendor/jquery.__.min.js',
             'public/app/assets/js/vendor/angular.min.js',
+            'public/app/assets/js/vendor/angular-animate.min.js',
             'public/app/assets/js/vendor/angular-resource.min.js',
             'public/app/assets/js/vendor/angular-ui-router.min.js',
             'public/app/assets/js/vendor/ui-bootstrap.min.js',

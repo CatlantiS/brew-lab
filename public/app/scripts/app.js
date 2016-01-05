@@ -1,5 +1,6 @@
 angular.module('brewApp', [
 		'ui.router',
+		'ngAnimate',
 		'ngResource',
 		'ui.bootstrap',
 		'ui.bootstrap.modal',
