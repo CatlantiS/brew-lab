@@ -1,0 +1,13 @@
+<footer class="brew-footer">
+    <div ng-controller="InfoCtrl as info">
+        <div class="brew-system-info">You are using brew lab version <span class="brew-important" ng-bind="info.app.version|version"></span>.</div>
+    </div>
+
+    <app-view role="admin" class="row">
+        <div class="col-md-12 brew-footer-nav">
+            <span><i class="fa fa-unlock-alt"></i> Admin </span>
+            <a class="brew-footer-nav-item" href="/logs"><i class="fa fa-file-text"></i> Logs</a>
+            <a class="brew-footer-nav-item" href="/user"><i class="fa fa-users"></i> Users</a>
+        </div>
+    </app-view>
+</footer>

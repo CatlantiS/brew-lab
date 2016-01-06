@@ -22,73 +22,27 @@
         <!-- This is getting loaded twice right now. -->
         <script src="app/assets/js/vendor/modernizr-1.7.min.js"></script>
     </head>
+
     <body ng-app="brewApp" ng-controller="AppCtrl as app">
         <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+
 		<header class="brew-app-header" role="banner">
-			<nav class="navbar navbar-default brew-navbar brew-drop-shadow" style="border-radius: 0;">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#brewNavbarCollapse">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-					
-						<a href="/" class="navbar-brand brew-brand">|brew lab|</a>
-					</div>
-				
-					<div id="brewNavbarCollapse" class="collapse navbar-collapse brew-navbar-list" role="navigation">
-						<ul class="nav navbar-nav brew-navbar-nav">
-							<li>
-								<a class="brew-navbar-link" href="/about">About</a>
-						    </li>
-							<li>
-								<a class="brew-navbar-link" href="/contact">Contact</a>
-							</li>
-						</ul>
-					
-						<ul class="nav navbar-nav navbar-right brew-navbar-right" ng-controller="LoginCtrl as login">
-							<li ng-if="!app.isAuthenticated">
-								<div class="brew-navbar-login" ng-include src="'/views/navLogin.html'"></div>
-							</li>
-							<li ng-if="app.isAuthenticated">
-								<div class="brew-navbar-login">
-									<button type="submit" class="brew-navbar-button btn btn-default btn-sm" role="button" ng-click="login.logOut()">
-										<i class="fa fa-sign-out"></i> Log Out
-									</button>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
+			<navbar></navbar>
 		</header>
 
 		<app-view role="guest">
 			<!--Add default view for non-logged in users.-->
 		</app-view>
+
 		<app-view role="*" class="row">
 			<div class="col-sm-6 col-sm-offset-3 brew-view">
 				<div id="ui-view" class="container-fluid brew-view" role="main" ui-view></div>
 			</div>
 		</app-view>
 
-		<footer class="brew-footer">
-			<div ng-controller="InfoCtrl as info">
-				<div class="brew-system-info">You are using brew lab version <span class="brew-important" ng-bind="info.app.version|version"></span>.</div>
-			</div>
-
-			<app-view role="admin" class="row">
-				<div class="col-md-12 brew-footer-nav">
-					<span><i class="fa fa-unlock-alt"></i> Admin </span>
-					<a class="brew-footer-nav-item" href="/logs"><i class="fa fa-file-text"></i> Logs</a>
-					<a class="brew-footer-nav-item" href="/user"><i class="fa fa-users"></i> Users</a>
-				</div>
-			</app-view>
-		</footer>
+		<nav-footer></nav-footer>
 
         <script src="app/dist/vendor.min.js"></script>
         <!-- Minify this for prod. -->

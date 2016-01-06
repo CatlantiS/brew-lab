@@ -1,0 +1,38 @@
+<nav class="navbar navbar-default brew-navbar brew-drop-shadow" style="border-radius: 0;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#brewNavbarCollapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a href="/" class="navbar-brand brew-brand">|brew lab|</a>
+        </div>
+
+        <div id="brewNavbarCollapse" class="collapse navbar-collapse brew-navbar-list" role="navigation">
+            <ul class="nav navbar-nav brew-navbar-nav">
+                <li>
+                    <a class="brew-navbar-link" href="/about">About</a>
+                </li>
+                <li>
+                    <a class="brew-navbar-link" href="/contact">Contact</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right brew-navbar-right" ng-controller="LoginCtrl as login">
+                <li ng-if="!app.isAuthenticated">
+                    <div class="brew-navbar-login" ng-include src="'/views/navLogin.html'"></div>
+                </li>
+                <li ng-if="app.isAuthenticated">
+                    <div class="brew-navbar-login">
+                        <button type="submit" class="brew-navbar-button btn btn-default btn-sm" role="button" ng-click="login.logOut()">
+                            <i class="fa fa-sign-out"></i> Log Out
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
