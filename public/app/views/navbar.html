@@ -22,18 +22,18 @@
                 </li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right brew-navbar-right" ng-controller="LoginCtrl as login">
-                <li ng-if="!app.isAuthenticated">
+            <div class="nav navbar-nav navbar-right brew-navbar-right" ng-controller="LoginCtrl as login">
+                <div ng-if="!app.isAuthenticated">
                     <div class="brew-navbar-login" ng-include src="'/views/navLogin.html'"></div>
-                </li>
-                <li ng-if="app.isAuthenticated">
+                </div>
+                <div ng-if="app.isAuthenticated">
                     <div class="brew-navbar-login">
                         <button type="submit" class="brew-navbar-button btn btn-default btn-sm" role="button" ng-click="login.logOut()">
                             <i class="fa fa-sign-out"></i> Log Out
                         </button>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

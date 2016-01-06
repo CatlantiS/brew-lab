@@ -20,7 +20,7 @@
 
                 return recipes;
             }, function() { self.isLoading = false; });
-        }
+        };
 
         self.editRecipe = function(id) {
             UserStore.getCurrentUserRecipeById(id).then(function(editRecipe) {
@@ -30,6 +30,7 @@
                         controller: 'EditRecipeCtrl as ctrl',
                         template: 'views/editRecipe',
                         static: true,
+                        class: 'brew-modal-window',
                         params: { id: id }
                     })
                     //When edit modal closes, blow away app state data.
@@ -46,6 +47,6 @@
         (function init() {
             self.getMyRecipes();
         })();
-    };
+    }
 })();
 

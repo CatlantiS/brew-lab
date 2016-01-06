@@ -8,6 +8,6 @@
         var self = this;
 
         self.isCollapsed = true;
-    };
+    }
 })();
 
