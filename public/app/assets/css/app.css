@@ -36,6 +36,7 @@ html, body {
 	margin-bottom: 0 !important;
     border-color: transparent !important;
 	background-color: #474747;
+	border-radius: 0;
 }
 
 .brew-navbar-link {

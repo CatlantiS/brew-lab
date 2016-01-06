@@ -3,6 +3,7 @@ angular.module('brewApp', [
 		'ngAnimate',
 		'ngResource',
 		'ui.bootstrap',
+		'ui.bootstrap.collapse',
 		'ui.bootstrap.modal',
 		'ui.bootstrap.typeahead',
 		'brewApp.filters',
