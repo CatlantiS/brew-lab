@@ -10,6 +10,10 @@
 
         self.INGREDIENT_TYPE = { HOPS: 'hops', MALT: 'malt', YEAST: 'yeast' };
 
+        self.isIngredientsCollapsed = true;
+
+        self.ingredientsCollapseText = 'expand';
+
         self.recipe = appState.recipe || {};
 
         self.ingredients = appState.ingredients || [];
@@ -77,6 +81,12 @@
 
             appState.remove('recipe');
             appState.remove('ingredients');
+        };
+
+        self.ingredientsCollapse = function() {
+            self.isIngredientsCollapsed = !self.isIngredientsCollapsed;
+
+            self.ingredientsCollapseText = self.isIngredientsCollapsed ? 'expand' : 'collapse';
         };
 
         $scope.$on('$destroy', function() {

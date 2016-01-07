@@ -133,6 +133,11 @@ html, body {
 	max-width: 600px;
 }
 
+.brew-sub-form {
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
 .brew-input {
 	margin-bottom: 20px;
 }

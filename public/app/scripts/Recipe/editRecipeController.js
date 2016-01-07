@@ -11,6 +11,10 @@
 
         self.INGREDIENT_TYPE = { HOPS: 'hops', MALT: 'malt', YEAST: 'yeast' };
 
+        self.isIngredientsCollapsed = true;
+
+        self.ingredientsCollapseText = 'expand';
+
         UserStore.getCurrentUserRecipeById($modalParams.id).then(function(recipe) {
             self.recipe = angular.copy(recipe);
 
@@ -81,5 +85,11 @@
         };
 
         self.cancel = $modalInstance.dismiss;
+
+        self.ingredientsCollapse = function() {
+            self.isIngredientsCollapsed = !self.isIngredientsCollapsed;
+
+            self.ingredientsCollapseText = self.isIngredientsCollapsed ? 'expand' : 'collapse';
+        };
     }
 })();
