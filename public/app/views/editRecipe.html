@@ -37,7 +37,8 @@
 
                 <div class="row brew-break-md"></div>
 
-                <label id="ingredientsLabel">Ingredients</label> <a href="#" ng-click="ctrl.ingredientsCollapse()" ng-bind="ctrl.ingredientsCollapseText"></a>
+                <label id="ingredientsLabel">Ingredients</label>
+                <button class="btn btn-sm pull-right" href="#" ng-click="ctrl.ingredientsCollapse()"><i ng-class="ctrl.isIngredientsCollapsed ? 'fa fa-chevron-down' : 'fa fa-chevron-up'"></i></button>
 
                 <hr>
 

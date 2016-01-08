@@ -13,8 +13,6 @@
 
         self.isIngredientsCollapsed = true;
 
-        self.ingredientsCollapseText = 'expand';
-
         UserStore.getCurrentUserRecipeById($modalParams.id).then(function(recipe) {
             self.recipe = angular.copy(recipe);
 

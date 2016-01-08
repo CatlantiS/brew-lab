@@ -12,8 +12,6 @@
 
         self.isIngredientsCollapsed = true;
 
-        self.ingredientsCollapseText = 'expand';
-
         self.recipe = appState.recipe || {};
 
         self.ingredients = appState.ingredients || [];
