@@ -83,8 +83,6 @@
 
         self.ingredientsCollapse = function() {
             self.isIngredientsCollapsed = !self.isIngredientsCollapsed;
-
-            self.ingredientsCollapseText = self.isIngredientsCollapsed ? 'expand' : 'collapse';
         };
 
         $scope.$on('$destroy', function() {
