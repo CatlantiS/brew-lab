@@ -7,7 +7,7 @@
     var logger = function ($http, $resource, Auth, Configuration, Store, UserStore) {
 
         var log4jslogger = log4javascript.getLogger();
-        var ajaxAppender = new log4javascript.AjaxAppender(Configuration.store.url.api + 'logs/');
+        var ajaxAppender = new log4javascript.AjaxAppender(Configuration.store.url.logging + 'logs/');
         var brewLayout = new log4javascript.JsonLayout();
 
         ajaxAppender.setLayout(brewLayout);
