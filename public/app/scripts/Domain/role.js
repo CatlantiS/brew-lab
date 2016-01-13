@@ -12,8 +12,6 @@
         //APP_ROLES is being exposed and want to make sure it can't be changed by consumers.
         Object.freeze(APP_ROLES);
 
-        (function init() { getRoles(); })();
-
         function _isUserInRole(user, typePredicate) {
             var deferred = $q.defer();
 
@@ -24,6 +22,7 @@
                 var isInRole = false;
 
                 for (var type in roles) {
+                    if (!roles.hasOwnProperty(type)) continue;
                     if (isInRole === true) break;
                     if (typePredicate != null && !typePredicate(type)) continue;
 

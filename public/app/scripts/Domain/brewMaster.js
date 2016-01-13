@@ -6,9 +6,6 @@
     function brewMaster($q, UserStore) {
         var fetch = {};
 
-        //Start fetching definitions right away.
-        (function init() { getDefinitions(); })();
-
         function getDefinitions() {
             //If fetch has already been made...
             return fetch.definitions || (fetch.definitions = UserStore.getBrewMasterDefinitions(), fetch.definitions);
