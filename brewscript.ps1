@@ -1,5 +1,5 @@
 $brewLabRoot = "C:\Users\Sam\Documents\GitHub\brew-lab"
-$brewLabServicesRoot = "C:\Users\Sam\Documents\GitHub\brew-lab-services\db"
+$brewLabServicesRoot = "C:\Users\Sam\Documents\GitHub\brew-lab-services\api"
 
 function Start-BrewLab() 
 {
