@@ -77,16 +77,14 @@
                 return (deferred.reject('User is not logged in.'), deferred.promise);
 
             base.deleteRecipe.call(self, recipeId).then(function() {
-                self.getCurrentUser().then(function(currentUser) {
-                    if (self.cache) {
-                        var removed = self.cache.recipes.remove(+recipeId); //Convert to number just in case we get handed a string.
+                if (self.cache) {
+                    var removed = self.cache.recipes.remove(+recipeId); //Convert to number just in case we get handed a string.
 
-                        //Will it cause confusion returning this only if user is cached?
-                        deferred.resolve(removed);
-                    }
-                    else
-                        deferred.resolve();
-                });
+                    //Will it cause confusion returning this only if user is cached?
+                    deferred.resolve(removed);
+                }
+                else
+                    deferred.resolve();
             });
 
             return deferred.promise;
