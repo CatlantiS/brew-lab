@@ -24,8 +24,6 @@
 
         self.editRecipe = function(id) {
             UserStore.getCurrentUserRecipeById(id).then(function(editRecipe) {
-                AppState.area('EditRecipe').recipe = editRecipe;
-
                 BrewModal.open({
                         controller: 'EditRecipeCtrl as ctrl',
                         template: 'views/editRecipe',
