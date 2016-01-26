@@ -10,7 +10,7 @@
 
         self.INGREDIENT_TYPE = { HOPS: 'hops', MALT: 'malt', YEAST: 'yeast' };
 
-        self.isIngredientsCollapsed = true;
+        self.isIngredientsCollapsed = false;
 
         self.recipe = appState.recipe || {};
 
