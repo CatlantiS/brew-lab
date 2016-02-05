@@ -19,6 +19,8 @@
         BrewMaster.getDefinitions().then(function(definitions) {
             self.units = definitions.units.volume.map(function(def) { return def.name; });
 
+            //self.styles = definitions.style.all.map(function(def) { return def.name; });
+
             if (BrewMaster.hasIngredient(definitions, 'yeast'))
                 self.yeasts = definitions.ingredient.yeast.map(function(def) { return def.name; });
         });
@@ -45,31 +47,32 @@
         };
 
         self.submit = function(isValid) {
-            if (isValid) {
-                self.recipe.ingredients = self.recipe.ingredients || [];
+            //Make notification more useful.
+            if (!isValid) { notifications.error('Submission is not valid.'); return; }
 
-                for (var key in self.INGREDIENT_TYPE) {
-                    if (!self.INGREDIENT_TYPE.hasOwnProperty(key)) continue;
+            self.recipe.ingredients = self.recipe.ingredients || [];
 
-                    var type = self.INGREDIENT_TYPE[key];
+            for (var key in self.INGREDIENT_TYPE) {
+                if (!self.INGREDIENT_TYPE.hasOwnProperty(key)) continue;
 
-                    if (self.ingredients[type] && self.ingredients[type].length > 0)
-                        for (var i = 0; i < self.ingredients[type].length; i++) {
-                            var ingredient = self.ingredients[type][i];
-                            ingredient.type = type;
+                var type = self.INGREDIENT_TYPE[key];
 
-                            self.recipe.ingredients.push(ingredient);
-                        }
-                }
+                if (self.ingredients[type] && self.ingredients[type].length > 0)
+                    for (var i = 0; i < self.ingredients[type].length; i++) {
+                        var ingredient = self.ingredients[type][i];
+                        ingredient.type = type;
 
-                //Need a spinner on this?
-                UserStore.saveRecipe(self.recipe).then(function(data) {
-                    notifications.success('Recipe ' + self.recipe.name + ' saved.');
-                    logger.info('Recipe ' + data.recipeId + ' saved.');
-
-                    self.clear();
-                });
+                        self.recipe.ingredients.push(ingredient);
+                    }
             }
+
+            //Need a spinner on this?
+            UserStore.saveRecipe(self.recipe).then(function(data) {
+                notifications.success('Recipe ' + self.recipe.name + ' saved.');
+                logger.info('Recipe ' + data.recipeId + ' saved.');
+
+                self.clear();
+            });
         };
 
         self.clear = function() {
